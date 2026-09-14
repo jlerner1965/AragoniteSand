@@ -1,12 +1,14 @@
 <!-- meta {
-  "title": "Aragonite price list — bagged and bulk, three grades | Aragonite Sand",
-  "description": "Trade price list for oolitic aragonite: three grades in 20 lb and 50 lb bags, 2,000 lb bulk bags and bulk by the ton. Per-unit pricing at four volume tiers, pack specifications and grade comparison. FOB Stockton, California."
+  "title": "Aragonite price list, bagged and bulk | Aragonite Sand",
+  "title_on_request": "Aragonite trade catalogue, bagged and bulk | Aragonite Sand",
+  "description": "Trade price list for oolitic aragonite: three grades in bags, bulk bags and bulk by the ton, with per-unit pricing at four volume tiers. FOB Stockton.",
+  "description_on_request": "Three grades of oolitic aragonite in 20 lb and 50 lb bags, bulk bags and bulk by the ton. Pack specs and grade comparison. Trade pricing on request."
 } -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 {{> head}}
-<meta name="keywords" content="aragonite price list, bulk aragonite price, calcium carbonate bulk bag, aragonite per ton, wholesale aragonite">
+<meta name="keywords" content="wholesale aragonite, oolitic aragonite supplier, calcium carbonate bulk bag, aragonite by the ton, aragonite distributor">
 <script type="application/ld+json">{{jsonld_html}}</script>
 </head>
 <body>
@@ -25,10 +27,10 @@
     <div class="hero__grid">
       <div>
         <p class="eyebrow">{{sku_count}} SKUs · three grades · {{pack_count}} formats</p>
-        <h1 class="display-1" id="pr-title">Products and price list</h1>
-        <p class="lead">List price per selling unit, FOB Stockton, California, before freight. Volume tiers apply across grades and formats on one order.</p>
+        <h1 class="display-1" id="pr-title">{{catalogue_h1}}</h1>
+        <p class="lead">{{catalogue_lead}}</p>
         <div class="actions">
-          <a class="btn btn-ink" href="#price-list">Price list</a>
+          <a class="btn btn-ink" href="#price-list">{{catalogue_cta}}</a>
           <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
         </div>
       </div>
@@ -36,8 +38,7 @@
         <div class="facts__row"><dt>Material</dt><dd>Oolitic aragonite, Bahamian</dd></div>
         <div class="facts__row"><dt>Grades</dt><dd>0.5–1.0 · 1.0–2.0 · 2.0–5.0 mm</dd></div>
         <div class="facts__row"><dt>Formats</dt><dd>20 lb · 50 lb · bulk bag · bulk</dd></div>
-        <div class="facts__row"><dt>From</dt><dd>{{from_per_lb}} per lb · {{from_per_ton}} per ton</dd></div>
-        <div class="facts__row"><dt>Minimum</dt><dd>One pallet, grades may be mixed</dd></div>
+{{products_pricing_row_html}}        <div class="facts__row"><dt>Minimum</dt><dd>One pallet, grades may be mixed</dd></div>
         <div class="facts__row"><dt>Currency</dt><dd>{{currency}}, FOB Stockton</dd></div>
       </dl>
     </div>
@@ -74,14 +75,14 @@
         </tbody>
       </table>
     </div>
-    <p class="note" style="margin-top:16px">Pallets are 48 × 40 in GMA, stretch-wrapped, {{pallet_net_lb}} lb net for bagged formats.</p>
+    <p class="note" style="margin-top:16px">Pallets are 48 × 40 in GMA, stretch-wrapped: {{pallet_net_summary}}.</p>
   </div>
 </section>
 
 <section class="section band-paper" id="price-list" aria-labelledby="pl-title">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Price list</p>
+      <p class="eyebrow">{{price_heading}}</p>
       <h2 class="display-2" id="pl-title">{{price_heading}}</h2>
       <p class="lead">{{price_lead}}</p>
     </div>
@@ -137,7 +138,7 @@
     </div>
     <div class="actions">
       <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
-      <a class="btn btn-inkline" href="index.html#quality">Lot analysis</a>
+      <a class="btn btn-inkline" href="index.html#documentation">Lot analysis</a>
     </div>
   </div>
 </section>

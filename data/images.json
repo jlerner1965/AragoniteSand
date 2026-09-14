@@ -30,6 +30,7 @@
     "product-fine-bag20": {
       "file": null,
       "figure": "assets/figures/bag20-fine.svg",
+      "figure_label": "20 lb pack illustration",
       "figure_alt": "Drawing of the 20 lb printed retail bag, fine grade, with the grain window shown at actual size",
       "ratio": "4/3",
       "min": 1600,
@@ -39,6 +40,7 @@
     "product-medium-bag20": {
       "file": null,
       "figure": "assets/figures/bag20-medium.svg",
+      "figure_label": "20 lb pack illustration",
       "figure_alt": "Drawing of the 20 lb printed retail bag, medium grade, with the grain window shown at actual size",
       "ratio": "4/3",
       "min": 1600,
@@ -48,6 +50,7 @@
     "product-coarse-bag20": {
       "file": null,
       "figure": "assets/figures/bag20-coarse.svg",
+      "figure_label": "20 lb pack illustration",
       "figure_alt": "Drawing of the 20 lb printed retail bag, coarse grade, with the grain window shown at actual size",
       "ratio": "4/3",
       "min": 1600,

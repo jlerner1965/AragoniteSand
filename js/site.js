@@ -275,6 +275,9 @@
     if (!form) return;
     var alert = form.querySelector("[data-form-alert]");
     var submit = form.querySelector('button[type="submit"]');
+    /* Remembered before the button is relabelled "Sending…", so a failed post
+       restores the label the page was built with rather than a guess. */
+    var submitLabel = submit ? submit.textContent : "Send inquiry";
     var success = document.getElementById("dealer-success");
 
     function fieldError(input, msg) {
@@ -323,17 +326,34 @@
          appears to send and does neither, which is what an empty endpoint
          attribute used to produce. */
       var endpoint = form.getAttribute("data-endpoint");
-      function done() {
+      /* The confirmation has to describe what actually happened. Posted to an
+         endpoint, the inquiry really is on its way; handed to a mail client,
+         it is a draft the visitor still has to send, and saying otherwise
+         tells someone their inquiry has arrived when it has not. The panel's
+         own copy is the mailto wording; the sent wording rides on
+         data-sent-title/body and is swapped in only on a successful post. */
+      function done(sent) {
         form.hidden = true;
-        if (success) { success.hidden = false; success.scrollIntoView({ block: "start" }); success.focus(); }
+        if (!success) return;
+        if (sent) {
+          var t = success.querySelector("[data-success-title]");
+          var b = success.querySelector("[data-success-body]");
+          var st = success.getAttribute("data-sent-title");
+          var sb = success.getAttribute("data-sent-body");
+          if (t && st) t.textContent = st;
+          if (b && sb) b.textContent = sb;
+        }
+        success.hidden = false;
+        success.scrollIntoView({ block: "start" });
+        success.focus();
       }
       if (endpoint) {
         if (submit) { submit.disabled = true; submit.textContent = "Sending…"; }
         fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) })
-          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); done(); })
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); done(true); })
           .catch(function () {
             if (alert) { alert.textContent = "The inquiry could not be sent. Email " + (form.getAttribute("data-mailto") || "us") + " directly and we will reply the same business day."; alert.hidden = false; }
-            if (submit) { submit.disabled = false; submit.textContent = "Send inquiry"; }
+            if (submit) { submit.disabled = false; submit.textContent = submitLabel; }
           });
         return;
       }
@@ -343,7 +363,7 @@
       Object.keys(data).forEach(function (k) { if (k !== "page" && k !== "source" && data[k]) lines.push(k.replace(/([A-Z])/g, " $1").replace(/^./, function (c) { return c.toUpperCase(); }) + ": " + data[k]); });
       var subject = "Dealer inquiry — " + (data.storeName || data.fullName || "aragonitesand.com");
       window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
-      done();
+      done(false);
     });
   }
 
