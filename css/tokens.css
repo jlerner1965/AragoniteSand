@@ -100,11 +100,20 @@
   --field-ring: rgba(23, 112, 126, 0.18);
 
   /* ---------- Type ---------- */
-  /* Three families. The parent's design-system file names Geist for body copy,
-     but the shipped site loads only Source Serif 4 and JetBrains Mono from
-     Google Fonts and sets body copy in the system sans stack — that is what is
-     copied here. Do not add a fourth family. */
-  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  /* ---------- Typefaces ----------
+   *
+   * DELIBERATELY NOT THE PARENT'S. aragocorminerals.com sets every heading in
+   * Source Serif 4, and while this site used it the two were hard to tell
+   * apart at a glance. The display face here is Archivo, a grotesque: it reads
+   * as the same company's trade catalogue rather than as the same website, and
+   * a squared industrial face suits a price list better than a book serif.
+   *
+   * Archivo is the face the project's own reference mockups were set in, and
+   * its width axis is what the wordmark uses. Still three families, not four:
+   * Archivo replaced Source Serif 4 rather than joining it. JetBrains Mono
+   * (labels, SKUs, figures) and the system sans stack (body) are the parent's
+   * and are unchanged, which is what keeps the two sites related. */
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono:  "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 
@@ -219,7 +228,6 @@
   --nav-border:      rgba(11, 44, 58, 0.14);
   --nav-link:        rgba(11, 44, 58, 0.82);
   --nav-link-size:   14.5px;
-  --nav-logo-height: 42px;
   --nav-breakpoint:  1080px;   /* links and CTA hide, toggle shows */
   --scroll-margin:   80px;     /* [id] scroll-margin-top under the sticky nav */
 

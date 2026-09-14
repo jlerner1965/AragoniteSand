@@ -26,7 +26,7 @@ body {
 img { display: block; max-width: 100%; }
 h1, h2, h3, h4 {
   margin: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: var(--leading-heading);
@@ -210,15 +210,49 @@ sub, sup { font-size: max(0.83em, 10px); }
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
 .ac-nav__left { display: flex; align-items: center; gap: 36px; min-width: 0; }
-.ac-nav__logo { display: flex; align-items: center; gap: 14px; flex-shrink: 0; text-decoration: none; color: var(--ink); }
-.ac-nav__logo img { height: var(--nav-logo-height); width: auto; display: block; }
-/* EXTENDED: the product-site name sits beside the parent wordmark, divided by
-   the same hairline the nav CTA uses, so the page reads as an AragoCor site. */
-.ac-nav__site {
-  padding-left: 14px; border-left: 1px solid var(--ink-20);
-  font-family: var(--font-serif); font-size: 17px; font-weight: 600; letter-spacing: -0.01em;
-  line-height: 1.2; white-space: nowrap;
+/* ---------- Brand ----------
+ *
+ * The site's own mark, not the parent's. Three grades drawn at true relative
+ * size on a screen line — the idea the whole catalogue is built on, and
+ * nothing borrowed from the AragoCor logo. The circles take currentColor so
+ * the same markup works on the bone nav and the dark footer; only the screen
+ * line is fixed, in sand. The parent's wordmark still appears, once, as an
+ * endorsement at the foot of the page.
+ */
+.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; text-decoration: none; color: var(--ink); }
+/* The viewBox is cropped to the artwork, so the mark is a wide block beside
+   the wordmark rather than a small figure floating in a square. */
+.brand__mark { width: 46px; height: 23px; flex: none; display: block; }
+.brand__text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.brand__name {
+  font-family: var(--font-display); font-size: 17.5px; font-weight: 700;
+  letter-spacing: -0.012em; line-height: 1.1; white-space: nowrap;
+  font-variation-settings: "wdth" 96;
 }
+.brand__by {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.07em;
+  line-height: 1.2; color: var(--fg-3); white-space: nowrap;
+}
+.brand--foot { color: var(--bone); }
+.brand--foot .brand__by { color: var(--bone-60); }
+.brand--foot .brand__mark { width: 52px; height: 26px; }
+/* The screen line is set in sand-deep for the light nav; on the near-black
+   footer that is too dim, so it steps up to full sand. A CSS rule beats the
+   presentation attribute on the rect, so the same markup serves both. */
+.brand--foot .brand__mark rect { fill: var(--sand); }
+@media (max-width: 420px) {
+  .brand__mark { width: 38px; height: 19px; }
+  .brand__name { font-size: 16px; }
+}
+
+/* The parent's wordmark, as an endorsement and only in the footer. */
+.endorse { display: inline-block; margin-top: 24px; text-decoration: none; }
+.endorse__label {
+  display: block; margin-bottom: 8px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--bone-60);
+}
+.endorse img { width: 150px; height: auto; opacity: 0.92; transition: opacity var(--duration) var(--ease-tide); }
+.endorse:hover img { opacity: 1; }
 .ac-nav__links { display: flex; align-items: center; gap: 22px; margin: 0; padding: 0; list-style: none; }
 .ac-nav__item { position: relative; }
 .ac-nav__link {
@@ -272,9 +306,7 @@ sub, sup { font-size: max(0.83em, 10px); }
   }
   .ac-nav__mobile a.ac-nav__mobile-cta:hover { background: var(--tide); }
 }
-@media (max-width: 480px) {
-  .ac-nav__site { display: none; }
-}
+
 
 /* ---------- Footer (parent `.ac-foot`) ---------- */
 .ac-foot { background: var(--abyss); color: var(--foot-fg); font-family: var(--font-sans); font-size: var(--foot-size); line-height: 1.65; }
@@ -370,7 +402,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .dot { display: block; border-radius: 50%; background: var(--sand); }
 .dot--2 { background: var(--grade-medium); }
 .dot--3 { background: var(--grade-coarse); }
-.grain__name { margin-top: 14px; font-family: var(--font-serif); font-size: 17px; font-weight: 600; }
+.grain__name { margin-top: 14px; font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 .grain__name a { text-decoration: none; }
 .grain__name a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .grain__mm { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-2); margin-top: 2px; }
@@ -386,7 +418,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 26px 0; }
 .stat-grid > div { padding: 8px 28px; text-align: center; border-right: 1px solid var(--ink-08); min-width: 0; }
 .stat-grid > div:last-child { border-right: 0; }
-.stat-grid .v { font-family: var(--font-serif); font-size: var(--figure); font-weight: 600; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
+.stat-grid .v { font-family: var(--font-display); font-size: var(--figure); font-weight: 600; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
 .stat-grid .k { font-size: var(--small-xs); color: var(--fg-2); margin-top: 7px; }
 @media (max-width: 960px) {
   .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 8px; padding: 28px 0; }
@@ -439,7 +471,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .spec--full { background: var(--paper); border: var(--rule); border-radius: var(--radius); overflow: hidden; font-size: var(--body-sm); }
 .spec--full th, .spec--full td { padding: 14px 20px; }
 .spec--full th { width: 42%; }
-.spec--full caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-serif); font-size: 17px; font-weight: 600; }
+.spec--full caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 .spec--full td { white-space: normal; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
@@ -473,7 +505,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .lot-panel { border: 1px solid var(--bone-14); background: var(--bone-04); border-radius: var(--radius); padding: 30px; min-height: 180px; }
 .lot-panel__empty { color: var(--bone-60); font-size: var(--body-sm); }
 .lot-panel__err { color: var(--sand); font-size: var(--body-sm); }
-.lot-id { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
+.lot-id { font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
 .lot-meta { font-size: var(--small); color: var(--bone-60); margin-top: 4px; }
 .lot-rows { margin-top: 22px; border-top: 1px solid var(--bone-14); }
 .lot-row { display: flex; justify-content: space-between; gap: 20px; padding: 11px 0; border-bottom: 1px solid var(--bone-14); font-size: var(--body-xs); }
@@ -491,7 +523,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .fields--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .result { background: var(--paper); border: var(--rule); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-1); }
-.result__big { font-family: var(--font-serif); font-size: var(--figure-lg); font-weight: 600; letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
+.result__big { font-family: var(--font-display); font-size: var(--figure-lg); font-weight: 600; letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
 .result__big small { font-size: 0.42em; font-weight: 600; color: var(--fg-2); letter-spacing: 0; }
 .result__sub { margin-top: 12px; font-size: var(--body-xs); color: var(--fg-2); }
 .result__note { margin-top: 18px; padding-top: 16px; border-top: var(--rule-soft); font-size: var(--small-xs); line-height: 1.5; color: var(--fg-3); }
@@ -556,7 +588,7 @@ select.fld { appearance: none; -webkit-appearance: none; padding-right: 40px;
 .pack > div { background: var(--bone); padding: 22px 24px; min-width: 0; }
 .band-sand .pack { background: rgba(11,44,58,0.20); border-color: rgba(11,44,58,0.20); }
 .band-sand .pack > div { background: var(--sand); }
-.pack .v { font-family: var(--font-serif); font-size: var(--figure-sm); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
+.pack .v { font-family: var(--font-display); font-size: var(--figure-sm); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
 .pack .k { font-size: var(--small); line-height: 1.4; color: var(--fg-2); margin-top: 8px; }
 .band-sand .pack .k { color: var(--ink-80); }
 .pack__note { font-size: var(--small-xs); line-height: 1.5; color: var(--fg-3); margin: 14px 0 0; }
@@ -580,7 +612,7 @@ select.fld { appearance: none; -webkit-appearance: none; padding-right: 40px;
 /* ---------- Data table (parent `table.data`) ---------- */
 .data-wrap { background: var(--paper); border: var(--rule); border-radius: var(--radius); overflow: hidden; }
 table.data { width: 100%; font-size: var(--body-xs); }
-table.data caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-serif); font-size: 17px; font-weight: 600; }
+table.data caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 table.data thead th { text-align: left; padding: 12px 20px; background: var(--ink); color: var(--bone); font-family: var(--font-mono); font-size: var(--label-sm); font-weight: 500; letter-spacing: 0.04em; }
 table.data th, table.data td { text-align: left; padding: 13px 20px; border-top: 1px solid var(--ink-08); vertical-align: top; }
 table.data tbody th { font-weight: 600; color: var(--ink); }
@@ -697,7 +729,7 @@ table.data .mono { font-family: var(--font-mono); font-size: var(--small-xs); }
 
 .product__price { padding: 18px 22px 0; }
 .price {
-  font-family: var(--font-serif); font-size: var(--price); font-weight: 600;
+  font-family: var(--font-display); font-size: var(--price); font-weight: 600;
   letter-spacing: -0.03em; line-height: 1; color: var(--price-color);
   font-variant-numeric: tabular-nums;
 }
@@ -743,7 +775,7 @@ table.data .mono { font-family: var(--font-mono); font-size: var(--small-xs); }
 
 /* ---------- Price list ---------- */
 table.price-list { width: 100%; font-size: var(--body-xs); font-variant-numeric: tabular-nums; }
-table.price-list caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-serif); font-size: 17px; font-weight: 600; }
+table.price-list caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 table.price-list thead th {
   padding: 12px 16px; background: var(--ink); color: var(--bone);
   font-family: var(--font-mono); font-size: var(--label-sm); font-weight: 500; letter-spacing: 0.03em; text-align: right;
@@ -761,7 +793,7 @@ table.price-list tbody tr.is-grade-break th, table.price-list tbody tr.is-grade-
 .tier-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--ink-12); border: 1px solid var(--ink-12); border-radius: var(--radius); overflow: hidden; }
 .tier { background: var(--paper); padding: 22px; min-width: 0; transition: background var(--duration) var(--ease-tide); }
 .tier__label { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-2); }
-.tier__off { margin-top: 10px; font-family: var(--font-serif); font-size: var(--figure-sm); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tier__off { margin-top: 10px; font-family: var(--font-display); font-size: var(--figure-sm); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
 .tier__note { margin-top: 8px; font-size: var(--small-xs); line-height: 1.5; color: var(--fg-2); }
 .tier[data-active="true"] { background: var(--tier-active); box-shadow: inset 3px 0 0 var(--surf); }
 .tier[data-active="true"] .tier__off { color: var(--surf-deep); }
@@ -784,7 +816,7 @@ table.price-list tbody tr.is-grade-break th, table.price-list tbody tr.is-grade-
   display: flex; align-items: center; justify-content: space-between; gap: 20px 28px; flex-wrap: wrap;
 }
 .quote-bar__figures { display: flex; align-items: baseline; gap: 28px; flex-wrap: wrap; min-width: 0; }
-.quote-bar__total { font-family: var(--font-serif); font-size: 30px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.quote-bar__total { font-family: var(--font-display); font-size: 30px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
 .quote-bar__total small { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--bone-60); letter-spacing: 0; }
 .quote-bar__meta { font-size: var(--small); color: var(--bone-72); font-variant-numeric: tabular-nums; }
 .quote-bar__meta b { color: var(--surf-light); font-weight: 600; }

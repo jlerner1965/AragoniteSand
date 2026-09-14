@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Aragonite Sand">
+  <title>Aragonite Sand</title>
+  <!-- Three grades drawn at true relative size, sitting on a screen line.
+       The same idea the site is built on: grain size is the product. Nothing
+       here is taken from the AragoCor mark. -->
+  <rect width="64" height="64" rx="10" fill="#0B2C3A"/>
+  <g fill="#F6F2E9">
+    <circle cx="16.5" cy="41.5" r="4"/>
+    <circle cx="30"   cy="39"   r="6.5"/>
+    <circle cx="47"   cy="35.5" r="10"/>
+  </g>
+  <rect x="9" y="45.5" width="46" height="2" rx="1" fill="#E0C68F"/>
+</svg>

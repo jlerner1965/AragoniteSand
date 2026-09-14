@@ -44,7 +44,10 @@ data/packaging.json     Bag, pallet and trade terms
 
 templates/              Page templates and the shared head/header/footer partials
 tools/build.py          Renders every page from templates/ and data/
-assets/                 Parent-company logo and favicon
+assets/mark.svg         The site's own logo mark (source of the favicons)
+assets/mark-*.png       Rendered from mark.svg: favicon, apple touch, Open Graph
+assets/favicon.ico      16/32/48 packed from the same mark
+assets/aragocor-logo.png  The parent wordmark, used once, in the footer
 ```
 
 ## Editing a page
@@ -255,6 +258,46 @@ Other additions are marked `EXTENDED:` in the token file and stay inside the
 palette: the three grade tints, the sieve bar chart, the grain-scale plate, the
 commerce tokens, and the amber placeholder chip, which reuses the parent's one
 warning colour.
+
+### Brand
+
+The site has its own identity. It is AragoCor's product and says so, but it no
+longer wears AragoCor's logo.
+
+**The mark** is three circles of increasing size on a screen line: the three
+grades at true relative scale, which is the idea the whole catalogue is built
+on. Nothing in it is taken from the AragoCor mark. It lives in
+`assets/mark.svg` and is also inlined in the header and footer so the circles
+can take `currentColor` and work on both the light nav and the near-black
+footer; only the screen line is fixed, and it steps from sand-deep to sand on
+dark grounds.
+
+**The wordmark** is "Aragonite Sand" with "by AragoCor Minerals" beneath it in
+mono. Ownership stays visible, as the brief requires, but it is an attribution
+rather than the identity.
+
+**The parent wordmark appears once**, at the foot of every page, labelled "A
+product of" and linking to aragocorminerals.com. It used to sit in the header
+of every page, which is what made the two sites hard to tell apart.
+
+**The display typeface changed** from the parent's Source Serif 4 to Archivo,
+a grotesque. This is the largest single change and the one most worth
+reverting first if the resemblance should be closer: it is one token,
+`--font-display` in `css/tokens.css`, plus the font request in
+`templates/partials/head.html`. Archivo is the face the project's own
+reference mockups were set in, its width axis is what the wordmark uses, and a
+squared industrial face suits a price list better than a book serif. It is
+still three families, not four: Archivo replaced Source Serif 4 rather than
+joining it, and JetBrains Mono and the system sans body stack are the
+parent's, unchanged. Those two, plus the shared palette structure and every
+layout component, are what keep the sites related.
+
+**Favicons** are generated from `mark.svg`, not hand-drawn twice. To change the
+mark, edit the SVG and re-render:
+
+```
+node tools/render-mark.mjs     # needs Playwright's Chromium
+```
 
 ### Density
 
