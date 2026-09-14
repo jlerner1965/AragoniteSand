@@ -28,6 +28,7 @@
     "derived at build time, never stored, so they cannot disagree."
   ],
   "price_status": "indicative",
+  "pricing_mode": "on_request",
   "currency": "USD",
   "effective_date": "TODO: date this price list takes effect",
   "price_basis": {
@@ -44,32 +45,66 @@
     "observed": [
       {
         "what": "Aragonite soil amendment and feed supplement, 50 lb bag, retail",
-        "range_usd": [29.55, 34.99],
-        "per_lb_usd": [0.59, 0.70],
-        "sources": ["fertrell.com raw aragonite", "cheshirehorse.com Fertrell aragonite 50 lb"],
+        "range_usd": [
+          29.55,
+          34.99
+        ],
+        "per_lb_usd": [
+          0.59,
+          0.7
+        ],
+        "sources": [
+          "fertrell.com raw aragonite",
+          "cheshirehorse.com Fertrell aragonite 50 lb"
+        ],
         "read_on": "2026-09-14"
       },
       {
         "what": "Dry aragonite aquarium sand, 30 lb bag, retail",
-        "range_usd": [26.30, 57.13],
-        "per_lb_usd": [0.88, 1.90],
-        "sources": ["chewy.com CaribSea Aragamax sugar-sized 30 lb", "walmart.com CaribSea Aragamax Select 30 lb"],
+        "range_usd": [
+          26.3,
+          57.13
+        ],
+        "per_lb_usd": [
+          0.88,
+          1.9
+        ],
+        "sources": [
+          "chewy.com CaribSea Aragamax sugar-sized 30 lb",
+          "walmart.com CaribSea Aragamax Select 30 lb"
+        ],
         "read_on": "2026-09-14",
         "note": "The low end is the like-for-like comparison: dry, screened, not live-bacteria seeded."
       },
       {
         "what": "Aragonite aquarium sand, 20 lb bag, retail",
-        "range_usd": [35.19, 35.19],
-        "per_lb_usd": [1.76, 1.76],
-        "sources": ["walmart.com Nature's Ocean Bio-Activ Live 20 lb"],
+        "range_usd": [
+          35.19,
+          35.19
+        ],
+        "per_lb_usd": [
+          1.76,
+          1.76
+        ],
+        "sources": [
+          "walmart.com Nature's Ocean Bio-Activ Live 20 lb"
+        ],
         "read_on": "2026-09-14",
         "note": "Live-seeded product and so priced above a dry bag. Used as a ceiling, not a target."
       },
       {
         "what": "Feed grade calcium carbonate, ground limestone, bulk",
-        "range_usd_per_ton": [70, 140],
-        "per_lb_usd": [0.035, 0.07],
-        "sources": ["feedingredientsasia.com feed grade calcium carbonate market 2026"],
+        "range_usd_per_ton": [
+          70,
+          140
+        ],
+        "per_lb_usd": [
+          0.035,
+          0.07
+        ],
+        "sources": [
+          "feedingredientsasia.com feed grade calcium carbonate market 2026"
+        ],
         "read_on": "2026-09-14",
         "note": "The commodity floor. Ground domestic limestone, not marine oolitic aragonite; it sets a lower bound, not a comparison."
       }
@@ -93,7 +128,9 @@
       "per_pallet": 60,
       "pallet_lb": 1200,
       "spec": "Printed poly, handle cut, shelf-ready",
-      "markets": ["aquarium"]
+      "markets": [
+        "aquarium"
+      ]
     },
     {
       "id": "bag50",
@@ -104,7 +141,13 @@
       "per_pallet": 40,
       "pallet_lb": 2000,
       "spec": "Plain woven poly, palletised and stretch-wrapped",
-      "markets": ["aquarium", "agriculture", "feed", "turf", "water"]
+      "markets": [
+        "aquarium",
+        "agriculture",
+        "feed",
+        "turf",
+        "water"
+      ]
     },
     {
       "id": "tote",
@@ -115,7 +158,12 @@
       "per_pallet": 1,
       "pallet_lb": 2000,
       "spec": "Woven polypropylene FIBC, four-loop, spout bottom",
-      "markets": ["agriculture", "feed", "turf", "water"]
+      "markets": [
+        "agriculture",
+        "feed",
+        "turf",
+        "water"
+      ]
     },
     {
       "id": "bulk",
@@ -126,29 +174,135 @@
       "per_pallet": null,
       "pallet_lb": null,
       "spec": "Loaded to walking-floor or end-dump trailer, 24 ton per load",
-      "markets": ["agriculture", "feed"]
+      "markets": [
+        "agriculture",
+        "feed"
+      ]
     }
   ],
   "skus": [
-    { "sku": "AR-F20", "grade": "fine",   "pack": "bag20", "list": 14.00, "suggested_shelf": 27.99, "upc": "TODO" },
-    { "sku": "AR-F50", "grade": "fine",   "pack": "bag50", "list": 20.75, "suggested_shelf": null,  "upc": "TODO" },
-    { "sku": "AR-FTT", "grade": "fine",   "pack": "tote",  "list": 490.00, "suggested_shelf": null, "upc": null },
-    { "sku": "AR-FBK", "grade": "fine",   "pack": "bulk",  "list": 345.00, "suggested_shelf": null, "upc": null },
-
-    { "sku": "AR-M20", "grade": "medium", "pack": "bag20", "list": 13.50, "suggested_shelf": 26.99, "upc": "TODO" },
-    { "sku": "AR-M50", "grade": "medium", "pack": "bag50", "list": 20.00, "suggested_shelf": null,  "upc": "TODO" },
-    { "sku": "AR-MTT", "grade": "medium", "pack": "tote",  "list": 470.00, "suggested_shelf": null, "upc": null },
-    { "sku": "AR-MBK", "grade": "medium", "pack": "bulk",  "list": 330.00, "suggested_shelf": null, "upc": null },
-
-    { "sku": "AR-C20", "grade": "coarse", "pack": "bag20", "list": 12.75, "suggested_shelf": 25.49, "upc": "TODO" },
-    { "sku": "AR-C50", "grade": "coarse", "pack": "bag50", "list": 19.00, "suggested_shelf": null,  "upc": "TODO" },
-    { "sku": "AR-CTT", "grade": "coarse", "pack": "tote",  "list": 445.00, "suggested_shelf": null, "upc": null }
+    {
+      "sku": "AR-F20",
+      "grade": "fine",
+      "pack": "bag20",
+      "list": 14.0,
+      "suggested_shelf": 27.99,
+      "upc": "TODO"
+    },
+    {
+      "sku": "AR-F50",
+      "grade": "fine",
+      "pack": "bag50",
+      "list": 20.75,
+      "suggested_shelf": null,
+      "upc": "TODO"
+    },
+    {
+      "sku": "AR-FTT",
+      "grade": "fine",
+      "pack": "tote",
+      "list": 490.0,
+      "suggested_shelf": null,
+      "upc": null
+    },
+    {
+      "sku": "AR-FBK",
+      "grade": "fine",
+      "pack": "bulk",
+      "list": 345.0,
+      "suggested_shelf": null,
+      "upc": null
+    },
+    {
+      "sku": "AR-M20",
+      "grade": "medium",
+      "pack": "bag20",
+      "list": 13.5,
+      "suggested_shelf": 26.99,
+      "upc": "TODO"
+    },
+    {
+      "sku": "AR-M50",
+      "grade": "medium",
+      "pack": "bag50",
+      "list": 20.0,
+      "suggested_shelf": null,
+      "upc": "TODO"
+    },
+    {
+      "sku": "AR-MTT",
+      "grade": "medium",
+      "pack": "tote",
+      "list": 470.0,
+      "suggested_shelf": null,
+      "upc": null
+    },
+    {
+      "sku": "AR-MBK",
+      "grade": "medium",
+      "pack": "bulk",
+      "list": 330.0,
+      "suggested_shelf": null,
+      "upc": null
+    },
+    {
+      "sku": "AR-C20",
+      "grade": "coarse",
+      "pack": "bag20",
+      "list": 12.75,
+      "suggested_shelf": 25.49,
+      "upc": "TODO"
+    },
+    {
+      "sku": "AR-C50",
+      "grade": "coarse",
+      "pack": "bag50",
+      "list": 19.0,
+      "suggested_shelf": null,
+      "upc": "TODO"
+    },
+    {
+      "sku": "AR-CTT",
+      "grade": "coarse",
+      "pack": "tote",
+      "list": 445.0,
+      "suggested_shelf": null,
+      "upc": null
+    }
   ],
   "tiers": [
-    { "id": "t1", "min_pallets": 1,  "max_pallets": 3,    "label": "1–3 pallets",   "discount": 0.00, "note": "List price. One pallet opens an account." },
-    { "id": "t2", "min_pallets": 4,  "max_pallets": 9,    "label": "4–9 pallets",   "discount": 0.06, "note": "Standing reorder quantity." },
-    { "id": "t3", "min_pallets": 10, "max_pallets": 19,   "label": "10–19 pallets", "discount": 0.11, "note": "Partial truckload." },
-    { "id": "t4", "min_pallets": 20, "max_pallets": null, "label": "20+ pallets",   "discount": 0.15, "note": "Full truckload. Delivered pricing quoted on request." }
+    {
+      "id": "t1",
+      "min_pallets": 1,
+      "max_pallets": 3,
+      "label": "1–3 pallets",
+      "discount": 0.0,
+      "note": "List price. One pallet opens an account."
+    },
+    {
+      "id": "t2",
+      "min_pallets": 4,
+      "max_pallets": 9,
+      "label": "4–9 pallets",
+      "discount": 0.06,
+      "note": "Standing reorder quantity."
+    },
+    {
+      "id": "t3",
+      "min_pallets": 10,
+      "max_pallets": 19,
+      "label": "10–19 pallets",
+      "discount": 0.11,
+      "note": "Partial truckload."
+    },
+    {
+      "id": "t4",
+      "min_pallets": 20,
+      "max_pallets": null,
+      "label": "20+ pallets",
+      "discount": 0.15,
+      "note": "Full truckload. Delivered pricing quoted on request."
+    }
   ],
   "truckload_pallets": 20,
   "distributor_note": "Distributors buying at truckload for redistribution are quoted on a separate schedule."

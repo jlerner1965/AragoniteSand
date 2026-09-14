@@ -82,29 +82,12 @@
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Price list</p>
-      <h2 class="display-2" id="pl-title">Price list</h2>
-      <p class="lead">Per selling unit at each volume tier. Tiers count total pallets on the order.</p>
+      <h2 class="display-2" id="pl-title">{{price_heading}}</h2>
+      <p class="lead">{{price_lead}}</p>
     </div>
     {{price_banner_html}}
-    <div class="data-wrap table-wrap">
-      <table class="price-list">
-        <caption>Trade price list · per selling unit · {{currency}} · FOB Stockton, California · {{price_effective}}</caption>
-        <thead>
-          <tr>
-            <th scope="col">SKU</th>
-            <th scope="col">Grade</th>
-            <th scope="col">Format</th>
-            {{tier_headers_html}}
-            <th scope="col">Per lb</th>
-            <th scope="col">Sample</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{price_rows_html}}
-        </tbody>
-      </table>
-    </div>
-    <p class="note" style="margin-top:16px;max-width:82ch">{{price_note}} Bulk is quoted by the ton on a 24 ton load. Suggested shelf prices, where shown, are a margin reference and not a condition of sale.</p>
+    {{price_table_html}}
+    <p class="note" style="margin-top:16px;max-width:82ch">{{price_note}}</p>
 
     <div class="tier-grid" style="margin-top:28px">
       {{tier_cells_html}}
@@ -112,24 +95,7 @@
   </div>
 </section>
 
-<section class="section" id="estimate" aria-labelledby="est-title" data-quote data-tiers='{{tiers_json_html}}'>
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Order estimate</p>
-      <h2 class="display-2" id="est-title">Build an estimate</h2>
-      <p class="lead">Pallet counts to indicative total, with the tier applied. Bulk is quoted separately.</p>
-    </div>
-    <div class="data-wrap table-wrap">
-      <table class="data">
-        <caption>Palletised formats</caption>
-        <thead><tr><th scope="col">Item</th><th scope="col">List</th><th scope="col">Per pallet</th><th scope="col">Pallets</th></tr></thead>
-        <tbody>
-        {{quote_units_html}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+{{estimate_section_html}}
 
 <section class="section band-sand" id="specs" aria-labelledby="spec-title">
   <div class="wrap">
@@ -171,19 +137,7 @@
 
 </main>
 
-<div class="quote-bar" id="quote-bar" hidden aria-live="polite" aria-label="Estimate summary">
-  <div class="quote-bar__inner">
-    <div class="quote-bar__figures">
-      <div class="quote-bar__total" data-quote-total>—</div>
-      <div class="quote-bar__meta" data-quote-meta></div>
-    </div>
-    <div class="quote-bar__actions">
-      <button class="quote-bar__clear" type="button" data-quote-clear>Clear</button>
-      <a class="quote-bar__alt" data-quote-local href="wholesale.html#inquiry">Send here instead</a>
-      <a class="btn btn-bone" data-quote-link {{ac_quote_attrs_html}} href="{{ac_pricing}}">Request a firm quote {{ext_icon_html}}</a>
-    </div>
-  </div>
-</div>
+{{quote_bar_html}}
 
 {{> footer}}
 </body>

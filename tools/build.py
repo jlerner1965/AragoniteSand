@@ -347,7 +347,20 @@ def literature(lit, links, audience="all"):
 # is rendered from it, and per-pallet, per-pound and per-ton figures are
 # derived rather than stored so they cannot disagree with the list price.
 
+# Set from data/products.json at the top of build(). "on_request" means no
+# figure is published anywhere: not in the tables, not in the cards, and not in
+# the data attributes the estimate builder reads, because a price in the DOM is
+# a published price whether or not anything draws it.
+PRICING_MODE = "published"
+
+
+def published():
+    return PRICING_MODE == "published"
+
+
 def money(n, cents=True):
+    if not published():
+        return "On request"
     if cents:
         return "${:,.2f}".format(n)
     return "${:,.0f}".format(n)
@@ -489,6 +502,12 @@ def price_status_banner(products):
     and a distributor can size an order against them. They are still not
     AragoCor's list, so the banner has to say so without reading as an excuse.
     """
+    if not published():
+        return (
+            '<p class="notice" role="note"><strong>Pricing on request.</strong> '
+            'Trade pricing is issued against a named account and a delivery point, '
+            'so it is not published here. Ask and it comes back the same business day.</p>'
+        )
     status = products.get("price_status")
     if status == "live":
         return ""
@@ -512,6 +531,8 @@ def price_effective(products):
     A table captioned "effective <date>" is a commitment, so only a live list
     gets one; the other two states say what the figures are instead.
     """
+    if not published():
+        return "pricing issued on request"
     status = products.get("price_status")
     if status == "live":
         return f'effective {esc(products["effective_date"])}'
@@ -614,14 +635,17 @@ def product_cards(products, grades, links, images):
             # The secondary figure is whichever unit the buyer converts to:
             # a pallet total for bagged goods, a per-pound rate for bulk. Never
             # a restatement of the price already in the row.
-            sub = (f'{money(r["pallet"], cents=False)} per pallet'
+            # How the buyer receives it, which is a fact in either mode.
+            sub = (f'{r["pack"]["per_pallet"]} per pallet'
                    if r["palletable"] and r["pack"]["per_pallet"] > 1
-                   else f'{money(r["per_lb"])} per lb')
+                   else f'{r["pack"]["lb"]:,} lb')
+            price = (f'{money(r["list"])}<span class="per"> / {esc(r["pack"]["unit"])}</span>'
+                     if published() else '<span class="t-quiet">On request</span>')
             fmt.append(
                 f'<tr>\n'
                 f'            <th scope="row"><span class="sku">{esc(r["sku"])}</span>'
                 f'<span class="fmt__name">{esc(r["pack"]["short"])}</span></th>\n'
-                f'            <td class="t-price">{money(r["list"])}<span class="per"> / {esc(r["pack"]["unit"])}</span></td>\n'
+                f'            <td class="t-price">{price}</td>\n'
                 f'            <td class="t-sub">{esc(sub)}</td>\n'
                 f'          </tr>'
             )
@@ -653,13 +677,19 @@ def product_cards(products, grades, links, images):
 
 
 def tier_cells(products):
+    """The volume schedule. With published prices each break carries its
+    discount; without them it carries only the break point and what it is for,
+    because four cards all reading "volume break" say nothing at all."""
     out = []
     for t in products["tiers"]:
-        off = "List" if not t["discount"] else f'{t["discount"] * 100:.0f}% off'
+        off = ""
+        if published():
+            label = "List" if not t["discount"] else f'{t["discount"] * 100:.0f}% off'
+            off = f'        <div class="tier__off">{esc(label)}</div>\n'
         out.append(
             f'<div class="tier" data-tier="{esc(t["id"])}" data-active="false">\n'
             f'        <div class="tier__label">{esc(t["label"])}</div>\n'
-            f'        <div class="tier__off">{esc(off)}</div>\n'
+            f'{off}'
             f'        <p class="tier__note">{esc(t["note"])}</p>\n'
             f'      </div>'
         )
@@ -668,6 +698,106 @@ def tier_cells(products):
 
 def tier_headers(products):
     return "".join(f'<th scope="col">{esc(t["label"])}</th>' for t in products["tiers"])
+
+
+QUOTE_BAR = """<div class="quote-bar" id="quote-bar" hidden aria-live="polite" aria-label="Estimate summary">
+  <div class="quote-bar__inner">
+    <div class="quote-bar__figures">
+      <div class="quote-bar__total" data-quote-total>&mdash;</div>
+      <div class="quote-bar__meta" data-quote-meta></div>
+    </div>
+    <div class="quote-bar__actions">
+      <button class="quote-bar__clear" type="button" data-quote-clear>Clear</button>
+      <a class="quote-bar__alt" data-quote-local href="wholesale.html#inquiry">Send here instead</a>
+      <a class="btn btn-bone" data-quote-link {ATTRS} href="{HREF}">Request a firm quote {ICON}</a>
+    </div>
+  </div>
+</div>"""
+
+
+def estimate_section(products, grades):
+    """The pallets-to-total builder. Only ever rendered with published prices;
+    an estimate with no prices in it is a form that cannot answer."""
+    return (
+        '<section class="section" id="estimate" aria-labelledby="est-title" data-quote '
+        f'data-tiers=\'{tiers_attr(products)}\'>\n'
+        '  <div class="wrap">\n'
+        '    <div class="sec-head">\n'
+        '      <p class="eyebrow">Order estimate</p>\n'
+        '      <h2 class="display-2" id="est-title">Build an estimate</h2>\n'
+        '      <p class="lead">Pallet counts to indicative total, with the tier applied. '
+        'Bulk is quoted separately.</p>\n'
+        '    </div>\n'
+        '    <div class="data-wrap table-wrap">\n'
+        '      <table class="data">\n'
+        '        <caption>Palletised formats</caption>\n'
+        '        <thead><tr><th scope="col">Item</th><th scope="col">List</th>'
+        '<th scope="col">Per pallet</th><th scope="col">Pallets</th></tr></thead>\n'
+        f'        <tbody>\n        {quote_units(products, grades)}\n        </tbody>\n'
+        '      </table>\n'
+        '    </div>\n'
+        '  </div>\n'
+        '</section>'
+    )
+
+
+def price_table(products, grades, links, caption, per_pallet_col=False):
+    """The trade table, in whichever mode data/products.json is in.
+
+    Published, it is a price per selling unit at each volume tier. On request,
+    the same rows carry what is true without a figure — unit weight, pallet
+    quantity — and each row offers the two things a buyer wants next: a price
+    and a sample. The columns differ between the modes, so the whole table is
+    rendered here rather than half here and half in the template.
+    """
+    rows = sku_rows(products, grades)
+    tiers = products["tiers"]
+    if published():
+        head = ("<th scope=\"col\">SKU</th><th scope=\"col\">Grade</th>"
+                "<th scope=\"col\">Format</th>"
+                + "".join(f'<th scope="col">{esc(t["label"])}</th>' for t in tiers)
+                + "<th scope=\"col\">Per lb</th><th scope=\"col\">Sample</th>")
+    else:
+        head = ("<th scope=\"col\">SKU</th><th scope=\"col\">Grade</th>"
+                "<th scope=\"col\">Format</th><th scope=\"col\">Unit</th>"
+                "<th scope=\"col\">Per pallet</th><th scope=\"col\">Price</th>"
+                "<th scope=\"col\">Sample</th>")
+    body, last = [], None
+    for r in rows:
+        brk = ' class="is-grade-break"' if last and last != r["grade"]["slug"] else ""
+        last = r["grade"]["slug"]
+        sample = ac_url(links, "contact", "sample",
+                        f'{r["grade"]["name"]} grade aragonite, {r["pack"]["name"]} '
+                        f'({r["sku"]}) — sample', f'pricelist-{r["sku"]}')
+        if published():
+            cells = "".join(
+                f'<td class="{"t-price" if i == 0 else ""}">{money(tier_price(r["list"], t))}</td>'
+                for i, t in enumerate(tiers)
+            ) + f'<td>{money(r["per_lb"])}</td>'
+        else:
+            pricing = ac_url(links, "contact", "pricing",
+                             f'{r["grade"]["name"]} grade aragonite, {r["pack"]["name"]} '
+                             f'({r["sku"]}) — trade pricing', f'pricelist-{r["sku"]}')
+            pp = (str(r["pack"]["per_pallet"])
+                  if r["palletable"] and r["pack"]["per_pallet"] > 1 else "—")
+            cells = (f'<td>{r["pack"]["lb"]:,} lb</td><td>{pp}</td>'
+                     f'<td class="t-price"><a class="ext-link" href="{esc(pricing)}">'
+                     f'Request{EXT_ICON}</a></td>')
+        body.append(
+            f'<tr{brk}>\n'
+            f'            <th scope="row"><span class="sku">{esc(r["sku"])}</span></th>\n'
+            f'            <td class="t-left"><a class="prose-link" href="{esc(r["grade"]["page"])}">'
+            f'{esc(r["grade"]["name"])}</a> · {esc(r["grade"]["grain_mm"])}</td>\n'
+            f'            <td class="t-left">{esc(r["pack"]["name"])}</td>\n'
+            f'            {cells}\n'
+            f'            <td><a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a></td>\n'
+            f'          </tr>'
+        )
+    return ('<div class="data-wrap table-wrap"><table class="price-list">\n'
+            f'        <caption>{esc(caption)}</caption>\n'
+            f'        <thead><tr>{head}</tr></thead>\n'
+            '        <tbody>\n          ' + "\n          ".join(body) +
+            '\n        </tbody>\n      </table></div>')
 
 
 def price_rows(products, grades, links):
@@ -790,9 +920,11 @@ def quote_units(products, grades):
     out = []
     for r in rows:
         unit_per_pallet = r["pack"]["per_pallet"]
+        # No figure in the DOM when pricing is on request.
+        per_bag = r["list"] if published() else ""
         out.append(
             f'<tr data-sku="{esc(r["sku"])}" data-name="{esc(r["grade"]["name"])} {esc(r["pack"]["short"])}" '
-            f'data-per-bag="{r["list"]}" data-bags-per-pallet="{unit_per_pallet}" '
+            f'data-per-bag="{per_bag}" data-bags-per-pallet="{unit_per_pallet}" '
             f'data-bag-lb="{r["pack"]["lb"]}">\n'
             f'          <th scope="row"><span class="sku">{esc(r["sku"])}</span> '
             f'{esc(r["grade"]["name"])} · {esc(r["pack"]["name"])}</th>\n'
@@ -812,6 +944,8 @@ def quote_units(products, grades):
 
 
 def tiers_attr(products):
+    if not published():
+        return "[]"
     data = [{"id": t["id"], "label": t["label"], "min_pallets": t["min_pallets"],
              "max_pallets": t["max_pallets"], "discount": t["discount"]}
             for t in products["tiers"]]
@@ -819,6 +953,8 @@ def tiers_attr(products):
 
 
 def catalogue_attr(products, grades):
+    if not published():
+        return "{}"
     rows = [r for r in sku_rows(products, grades) if r["palletable"]]
     data = {
         "skus": {r["sku"]: {"name": f'{r["grade"]["name"]} {r["pack"]["short"]}',
@@ -950,11 +1086,23 @@ def launch_gate(site, pages, products, images, company, lit, lots, packaging):
         if n:
             blockers.append(f"{name}: {n} placeholder flag(s) rendered to the page")
 
-    # 2. Figures that are not the company's own.
-    if products.get("price_status") != "live":
-        blockers.append(
-            f'data/products.json: price_status is "{products.get("price_status")}". '
-            f'A published price list must be AragoCor\'s own and dated')
+    # 2. Figures that are not the company's own. A list that is not published
+    # at all cannot be wrong, so the check only bites when one is.
+    if published():
+        if products.get("price_status") != "live":
+            blockers.append(
+                f'data/products.json: price_status is "{products.get("price_status")}". '
+                f'A published price list must be AragoCor\'s own and dated')
+    else:
+        leaks = []
+        for name, html in sorted(pages.items()):
+            body = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+            for m in set(re.findall(r"\$[0-9][0-9,.]*|[0-9]{1,2}% off", body)):
+                leaks.append(f"{name}: {m}")
+        if leaks:
+            blockers.append(
+                "pricing_mode is on_request but a figure still reaches the page: "
+                + ", ".join(sorted(leaks)[:6]))
 
     # 3. Demonstration data presented as a record.
     if lots.get("lots") or any("Demonstration records" in h or "Demo lot" in h
@@ -1004,6 +1152,9 @@ def build():
     company = load_json("company.json")
     site = load_json("site.json")
     lots = load_json("lots.json")
+
+    global PRICING_MODE
+    PRICING_MODE = products.get("pricing_mode", "published")
     grades = grades_doc["grades"]
     check_prices(products, grades)
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
@@ -1037,18 +1188,32 @@ def build():
         "currency": products["currency"],
         "effective_date": products["effective_date"],
         "price_effective": price_effective(products),
-        "price_note": products["price_note"],
         "distributor_note": products["distributor_note"],
         "price_banner_html": price_status_banner(products),
         "tiers_json_html": tiers_attr(products),
         "catalogue_json_html": catalogue_attr(products, grades),
         "product_cards_html": product_cards(products, grades, links, images),
         "tier_cells_html": tier_cells(products),
+        "price_table_html": price_table(
+            products, grades, links,
+            f'Trade catalogue · {products["currency"]} · FOB Stockton, California · '
+            f'{price_effective(products)}'),
+        "estimate_section_html": estimate_section(products, grades) if published() else "",
+        "quote_bar_html": "",
         "tier_headers_html": tier_headers(products),
         "price_rows_html": price_rows(products, grades, links),
         "spec_rows_html": spec_rows(grades),
         "tier2_label": products["tiers"][1]["label"],
-        "tier2_pct": "{:.0f}".format(products["tiers"][1]["discount"] * 100),
+        # Only meaningful with published prices; kept so a published build
+        # can still use it, blank otherwise so it cannot leak a schedule.
+        "price_heading": "Price list" if products.get("pricing_mode", "published") == "published" else "Trade catalogue",
+        "price_lead": ("Per selling unit at each volume tier. Tiers count total pallets on the order."
+                       if products.get("pricing_mode", "published") == "published"
+                       else "Every SKU with its pack and pallet quantity. Trade pricing is issued on request, against a named account and a delivery point."),
+        "price_note": (products["price_note"] if products.get("pricing_mode", "published") == "published"
+                       else "Volume breaks apply across grades and formats on one order. Bulk is quoted by the ton on a 24 ton load."),
+        "tier2_pct": ("{:.0f}".format(products["tiers"][1]["discount"] * 100)
+                      if published() else ""),
         "truckload_pallets": products["truckload_pallets"],
         # outbound to the parent, where buying actually happens
         "ac_name": links["parent_name"],
@@ -1056,16 +1221,16 @@ def build():
         "ac_home": ac_url(links, "home", content="body"),
         "ac_contact": ac_url(links, "contact", content="body"),
         "ac_sample": ac_url(links, "contact", "sample",
-                            "Aragonite aquarium sand sample, all three grades",
+                            "Aragonite sand sample, all three grades",
                             "sample"),
         "ac_pricing": ac_url(links, "contact", "pricing",
-                             "Aragonite aquarium sand, wholesale pricing by the pallet",
+                             "Aragonite sand, trade pricing",
                              "pricing"),
         "ac_distribution": ac_url(links, "contact", "distribution",
-                                  "Aragonite aquarium sand, distributor schedule",
+                                  "Aragonite sand, distributor schedule",
                                   "distribution"),
         "ac_technical": ac_url(links, "contact", "technical",
-                               "Aragonite aquarium sand technical data package",
+                               "Aragonite sand, technical data package",
                                "technical"),
         # Content links carry the utm_* trio too, so the referral shows up in
         # their analytics whether the visitor converts on arrival or wanders.
@@ -1113,6 +1278,11 @@ def build():
     _rows = sku_rows(products, grades)
     for r in _rows:
         common[f'{r["sku"].lower().replace("-", "_")}_price'] = money(r["list"])
+    if published():
+        common["quote_bar_html"] = (QUOTE_BAR
+                                    .replace("{ATTRS}", common["ac_quote_attrs_html"])
+                                    .replace("{HREF}", esc(common["ac_pricing"]))
+                                    .replace("{ICON}", EXT_ICON))
     common["from_per_lb"] = money(min(r["per_lb"] for r in _rows))
     common["from_per_ton"] = money(min(r["per_ton"] for r in _rows), cents=False)
     common["from_per_bag"] = money(min(r["list"] for r in _rows if r["pack"]["unit"] == "bag"))
