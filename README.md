@@ -201,6 +201,42 @@ state and offers to confirm it. Four of the six entries are currently
 `unconfirmed` and need a real answer from the plant before those markets are
 supplied.
 
+## The launch gate
+
+`data/site.json` carries one switch. In `pre-launch` the site behaves as a
+working draft and every build prints what is outstanding. In `live` the build
+**refuses** while anything unverified would reach a visitor, and names each
+item and the page it is on.
+
+The gate reads the rendered HTML, not the intent, so it cannot be satisfied by
+meaning well. It blocks on author notes reaching the page, placeholder flags, a
+price list that is not AragoCor's own, a lot lookup serving demonstration
+records, an inquiry form with no endpoint, and packaging renders of a pack that
+has not been printed. It warns, without blocking, on drawings standing in for
+photographs, empty photographic briefs, literature that does not exist yet and
+unconfirmed compliance items.
+
+`hidden_pages` lists templates that exist but are not built, not linked and not
+in the sitemap. Two are hidden: the dealer resources page, which offers a
+literature library in which every file is null, and the markets page, whose
+content now lives on the home page as one applications band.
+
+`canonical_origin` is written into every canonical link, every `og:url` and the
+sitemap. It must be the domain actually served; a site declaring a domain that
+does not answer stays out of the index.
+
+## Pricing modes
+
+`data/products.json` carries `pricing_mode`. Set to `on_request` — where it is
+now — no figure is published anywhere. Not in the tables, not in the cards, and
+not in the data attributes, because a price in the DOM is a published price
+whether or not anything draws it. The trade table drops its tier columns and
+carries unit weight, pallet quantity and a request link per row; the estimate
+builder is not rendered at all, since an estimate with no prices in it is a
+form that cannot answer. Set to `published` and the price list comes back, at
+which point `price_status` decides whether it is placeholder, indicative or
+live.
+
 ## Changing prices
 
 `data/products.json` is the only place a price is written. The product cards,

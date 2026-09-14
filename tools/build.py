@@ -1109,11 +1109,17 @@ def launch_gate(site, pages, products, images, company, lit, packaging):
                 + ", ".join(sorted(leaks)[:6]))
 
     # 3. Demonstration data presented as a record.
-    if any('id="lot-panel"' in h or "Demonstration records" in h or "Demo lot" in h
-           for h in pages.values()):
+    lookup = [n for n, h in sorted(pages.items())
+              if 'id="lot-panel"' in h or "Demonstration records" in h]
+    if lookup:
         blockers.append(
-            "index.html: the lot lookup is serving demonstration records. "
-            "Connect it to real signed analyses or take it off the page")
+            f"{', '.join(lookup)}: a lot lookup is serving demonstration records. "
+            f"Connect it to real signed analyses or take it off the page")
+    demo = [n for n, h in sorted(pages.items()) if "Demo lot" in h]
+    if demo:
+        blockers.append(
+            f"{', '.join(demo)}: a figure is attributed to a demonstration lot. "
+            f"Cite a real lot or drop the attribution")
 
     # 4. A form that does not go anywhere.
     for name, html in pages.items():
