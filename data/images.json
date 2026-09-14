@@ -30,6 +30,14 @@
     "are still empty briefs."
   ],
   "images": {
+    "product-family": {
+      "file": "assets/photos/family.jpg",
+      "source": "render",
+      "ratio": "3/2",
+      "min": 2400,
+      "brief": "The three 20 lb bags standing together on a white sweep, straight on, with a poured cone of each grade in front. This is the lead image on the home page.",
+      "alt": "The 20 lb bags of fine, medium and coarse grade aragonite standing together, with a poured cone of each grade in front"
+    },
     "product-fine-bag20": {
       "file": "assets/photos/bag20-fine.jpg",
       "source": "render",

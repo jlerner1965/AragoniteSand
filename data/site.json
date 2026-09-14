@@ -27,6 +27,7 @@
   "status": "pre-launch",
   "canonical_origin": "https://aragonitesand.com",
   "hidden_pages": [
-    "dealers"
+    "dealers",
+    "markets"
   ]
 }

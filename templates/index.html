@@ -15,73 +15,67 @@
 
 <main id="main">
 
-<section class="hero" aria-labelledby="home-title">
+<section class="hero hero--product" aria-labelledby="home-title">
   <div class="wrap">
-    <div class="hero__grid">
+    <div class="hero__grid hero__grid--product">
       <div>
-        <p class="eyebrow">Oolitic aragonite · bagged and bulk · Stockton, California</p>
-        <h1 class="display-1" id="home-title">Aragonite for distributors</h1>
-        <p class="lead">Three screened grades in four pack formats, from 20 lb bags to bulk by the ton. Supplied to {{market_list}} distribution. Published price list, one-pallet minimum, certificate of analysis per lot.</p>
+        <p class="eyebrow">Bahamian oolitic aragonite · screened and packed in Stockton, California</p>
+        <h1 class="display-1" id="home-title">Bahamian oolitic aragonite sand</h1>
+        <p class="lead">Screened into defined grain sizes and supplied in bagged and bulk formats to wholesale distributors, retailers and blenders.</p>
         <div class="actions">
-          <a class="btn btn-ink" href="products.html">Price list</a>
-          <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+          <a class="btn btn-ink" href="{{ac_pricing}}">Request trade pricing {{ext_icon_html}}</a>
+          <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample pack {{ext_icon_html}}</a>
         </div>
+        <p class="note" style="margin-top:22px">Sold through {{ac_name}}. Orders, pricing and samples are written there.</p>
       </div>
-      <dl class="facts" aria-label="At a glance">
-        <div class="facts__row"><dt>Material</dt><dd>Oolitic aragonite, Bahamian</dd></div>
-        <div class="facts__row"><dt>Grades</dt><dd>0.5–1.0 · 1.0–2.0 · 2.0–5.0 mm</dd></div>
-        <div class="facts__row"><dt>Formats</dt><dd>20 lb · 50 lb · bulk bag · bulk</dd></div>
-        <div class="facts__row"><dt>Markets</dt><dd>{{market_count}}, aquarium to feed</dd></div>
-        <div class="facts__row"><dt>Minimum</dt><dd>One pallet, grades may be mixed</dd></div>
-        <div class="facts__row"><dt>Ships from</dt><dd>Stockton, California</dd></div>
-      </dl>
+      {{shot_family_html}}
     </div>
   </div>
 </section>
 
 <div class="band-paper">
   <div class="wrap">
-    <div class="stat-grid" role="list" aria-label="Key figures">
-      <div role="listitem"><div class="v num">{{sku_count}}</div><div class="k">SKUs, three grades in {{pack_count}} formats</div></div>
-      <div role="listitem"><div class="v num">{{market_count}}</div><div class="k">Markets supplied</div></div>
-      <div role="listitem"><div class="v">Per lot</div><div class="k">Certificate of analysis, published</div></div>
-      <div role="listitem"><div class="v">No kiln</div><div class="k">Washed and screened, not calcined</div></div>
-    </div>
+    <h2 class="visually-hidden">At a glance</h2>
+    <dl class="factbar">
+      <div><dt>Grades</dt><dd>Three, 0.5–1.0 · 1.0–2.0 · 2.0–5.0 mm</dd></div>
+      <div><dt>Formats</dt><dd>20 lb · 50 lb · bulk bag · bulk by the ton</dd></div>
+      <div><dt>Opening order</dt><dd>One pallet, grades may be mixed</dd></div>
+      <div><dt>Ships from</dt><dd>Stockton, California</dd></div>
+      <div><dt>With every shipment</dt><dd>Certificate of analysis for the lot</dd></div>
+    </dl>
   </div>
 </div>
 
-<section class="section" id="markets" aria-labelledby="mk-title">
-  <div class="wrap">
-    <div class="sec-head sec-head--row">
-      <div>
-        <p class="eyebrow">Markets served</p>
-        <h2 class="display-2" id="mk-title">Markets</h2>
-        <p class="lead">Grade and pack format by market.</p>
-      </div>
-      <a class="tide-link" href="markets.html">All markets in detail <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-    </div>
-    <div class="market-grid">
-      {{market_cards_html}}
-    </div>
-  </div>
-</section>
+
 
 <section class="section band-paper" id="products" aria-labelledby="prod-title">
   <div class="wrap">
     <div class="sec-head sec-head--row">
       <div>
-        <p class="eyebrow">Products</p>
-        <h2 class="display-2" id="prod-title">Grades and formats</h2>
-        <p class="lead">List price per selling unit, FOB Stockton, before freight.</p>
+        <p class="eyebrow">The line</p>
+        <h2 class="display-2" id="prod-title">Three grades, four formats</h2>
+        <p class="lead">One material, screened into three cuts. The chemistry does not change between them; the particle size decides the application.</p>
       </div>
-      <a class="tide-link" href="products.html#price-list">Full price list, every tier <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="tide-link" href="products.html">The full catalogue <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
-
     {{price_banner_html}}
-
     <div class="product-grid">
       {{product_cards_html}}
     </div>
+  </div>
+</section>
+
+<section class="section" id="applications" aria-labelledby="ap-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Applications</p>
+      <h2 class="display-2" id="ap-title">Where distributors sell it</h2>
+      <p class="lead">Grade and format by application. Industrial and process applications are handled by {{ac_name}} rather than duplicated here.</p>
+    </div>
+    <div class="market-grid">
+      {{market_cards_html}}
+    </div>
+    <p class="note" style="margin-top:22px">Glass, flue-gas and other process uses: <a class="prose-link" href="{{ac_industries}}">see AragoCor's industry pages</a>.</p>
   </div>
 </section>
 

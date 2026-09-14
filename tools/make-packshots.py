@@ -643,6 +643,52 @@ def tote():
     return "".join(o)
 
 
+
+def family(grades):
+    """The three grades together, which is the one shot a buyer wants first.
+
+    Centre bag forward and full size, the other two set back and smaller, with
+    a cone of each grade along the front so the difference the grades are sold
+    on is visible in the same frame as the pack.
+    """
+    W2, H2 = 1600, 1067
+    order = ["coarse", "medium", "fine"]
+    by = {g["slug"]: g for g in grades}
+    o = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W2} {H2}" width="{W2}" '
+         f'height="{H2}" role="img" aria-labelledby="t d">'
+         f'<title id="t">Aragonite sand, the three grades</title>'
+         f'<desc id="d">Studio render of the 20 lb bags of fine, medium and coarse grade '
+         f'aragonite standing together on a white sweep, with a poured cone of each grade '
+         f'in front. A render of proposed packaging, not a photograph of produced bags.</desc>',
+         studio_defs(),
+         f'<rect width="{W2}" height="{H2}" fill="url(#sweep)"/>'
+         f'<rect width="{W2}" height="{H2}" fill="url(#vignette)"/>',
+         zoom(0.92, 800, 600)]
+
+    # Back pair first, dimmed into the sweep so the centre bag reads forward.
+    for slug, cx, k in (("coarse", 470, 0.80), ("fine", 1145, 0.80)):
+        g = by[slug]
+        art = pack_face(cx - 280, 560 - 450, 560, 900, band=560 * 0.115,
+                        headline="ARAGONITE", grade=g, net_big="20 lb",
+                        net_small="9.07 kg", lot="AC-2608-" + g["name"][0] + "01",
+                        marks=MARKS, qr_seed=SEEDS[slug])
+        o.append(f'<g transform="translate({cx * (1 - k):.1f} {560 * (1 - k):.1f}) scale({k})" '
+                 f'opacity="0.93">')
+        o.append(sack(560, 900, cx, 560, art, seed=SEEDS[slug]))
+        o.append("</g>")
+    g = by["medium"]
+    art = pack_face(800 - 280, 600 - 450, 560, 900, band=560 * 0.115,
+                    headline="ARAGONITE", grade=g, net_big="20 lb", net_small="9.07 kg",
+                    lot="AC-2608-M01", marks=MARKS, qr_seed=SEEDS["medium"])
+    o.append(sack(560, 900, 800, 600, art, seed=SEEDS["medium"]))
+
+    # A cone of each grade along the front edge, smallest grain to largest.
+    for i, slug in enumerate(("fine", "medium", "coarse")):
+        o.append(heap(430 + i * 370, 1040, 260, 116, by[slug], SEEDS[slug] + 500))
+    o.append("</g></svg>")
+    return "".join(o)
+
+
 def main():
     grades = json.loads((ROOT / "data" / "grades.json").read_text())["grades"]
     OUT.mkdir(parents=True, exist_ok=True)
@@ -654,6 +700,8 @@ def main():
     print("wrote bag50.svg")
     (OUT / "tote.svg").write_text(tote(), encoding="utf-8")
     print("wrote tote.svg")
+    (OUT / "family.svg").write_text(family(grades), encoding="utf-8")
+    print("wrote family.svg")
 
 
 if __name__ == "__main__":

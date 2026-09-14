@@ -543,7 +543,7 @@ def price_effective(products):
 
 # ---------- market cards ----------
 
-def market_cards(markets, products, grades):
+def market_cards(markets, products, grades, links):
     gs, ps = grade_by_slug(grades), by_id(products["packs"])
     out = []
     for m in markets["markets"]:
@@ -551,9 +551,12 @@ def market_cards(markets, products, grades):
         pack_names = ", ".join(ps[x]["short"] for x in m["packs"])
         tag = "" if m["status"] == "served" else (
             '<span class="tag tag--quiet">Quoted per application</span>')
+        cta = ac_url(links, "contact", "pricing",
+                     f'{m["name"]} — aragonite, pricing and availability',
+                     f'card-{m["id"]}', market=m["id"])
         out.append(
             f'<article class="market">\n'
-            f'        <h3><a href="markets.html#{esc(m["id"])}">{esc(m["name"])}</a></h3>\n'
+            f'        <h3>{esc(m["name"])}</h3>\n'
             f'        <p class="market__summary">{esc(m["summary"])}</p>\n'
             f'        <dl class="market__spec">\n'
             f'          <div><dt>Grades</dt><dd>{esc(grade_names)}</dd></div>\n'
@@ -561,6 +564,7 @@ def market_cards(markets, products, grades):
             f'          <div><dt>Buyers</dt><dd>{esc(m["buyers"])}</dd></div>\n'
             f'        </dl>\n'
             f'        {tag}\n'
+            f'        <a class="ext-link market__cta" href="{esc(cta)}">Pricing for {esc(m["name"].lower())}{EXT_ICON}</a>\n'
             f'      </article>'
         )
     return "\n      ".join(out)
@@ -1253,7 +1257,8 @@ def build():
         "literature_html": literature(lit, links, "all"),
         "literature_public_html": literature(lit, links, "public"),
         # markets, packs and company furniture
-        "market_cards_html": market_cards(markets, products, grades),
+        "market_cards_html": market_cards(markets, products, grades, links),
+        "shot_family_html": shot(images, "product-family", cls="shot--hero"),
         "shot_facility_html": shot(images, "facility-screening",
                                    "Screening deck, Stockton, California"),
         "shot_packing_html": shot(images, "facility-packing", "Bagging line"),
