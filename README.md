@@ -182,8 +182,10 @@ the three cuts this site lists, and it does not support them: it puts most of
 the mass between 200 and 30 mesh, finer than the finest grade here. Read the
 note in the file before using it.
 
-Still invented and still marked TODO in that file: the fines limit, the
-acid-insoluble limit and the per-grade sieve distributions.
+The fines limit, the acid-insoluble limit and the per-grade sieve
+distributions were invented and are gone from the site rather than
+filled in with better guesses. `natural_screen_spec` is published once, on
+the catalogue page, labelled as the unscreened grade it is.
 
 ## Compliance, and what may be claimed
 

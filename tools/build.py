@@ -121,7 +121,6 @@ def grade_cards(grades):
             f'            <tr><th scope="row">CaCO₃, typical</th><td class="num">{esc(g["caco3_pct"])}%</td></tr>\n'
             f'            <tr><th scope="row">Bulk density</th><td class="num">{esc(g["bulk_density_lb_ft3"])} lb/ft³</td></tr>\n'
             f'            <tr><th scope="row">Moisture at packaging</th><td class="num">≤ {esc(g["moisture_max_pct"])}%</td></tr>\n'
-            f'            <tr><th scope="row">Fines below 0.25 mm</th><td class="num">≤ {esc(g["fines_max_pct"])}%</td></tr>\n'
             f'          </tbody>\n'
             f'        </table>\n'
             f'        <div class="grade-card__foot"><span class="tide-link">{esc(g["name"])} grade in detail <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></div>\n'
@@ -847,12 +846,25 @@ def pack_rows(products):
     return "\n          ".join(out)
 
 
+def gradation_rows(grades_doc):
+    """AragoCor's own published screen analysis, read off the printed pack.
+
+    It is the gradation of the unscreened natural grade, not of any of the
+    three cuts, so it is shown once here and labelled, rather than restated on
+    each grade page where it would read as that grade's own analysis.
+    """
+    spec = grades_doc["natural_screen_spec"]
+    return "\n          ".join(
+        f'<tr><th scope="row" class="num">{esc(r["mesh"])}</th>'
+        f'<td class="num">{esc(r["retained_pct"])}%</td></tr>'
+        for r in spec["rows"])
+
+
 def spec_rows(grades):
     rows = [
         ("Grain size", "grain_mm"), ("Mesh, U.S. sieve", "mesh"),
         ("Bulk density", None), ("Calcium carbonate, typical", None),
-        ("Moisture at packaging", None), ("Fines below 0.25 mm", None),
-        ("Primary use", "primary_use"),
+        ("Moisture at packaging", None), ("Primary use", "primary_use"),
     ]
     out = []
     for label, key in rows:
@@ -862,10 +874,8 @@ def spec_rows(grades):
             cells = "".join(f'<td class="val num">{esc(g["bulk_density_lb_ft3"])} lb/ft³</td>' for g in grades)
         elif label.startswith("Calcium"):
             cells = "".join(f'<td class="val num">{esc(g["caco3_pct"])}%</td>' for g in grades)
-        elif label.startswith("Moisture"):
-            cells = "".join(f'<td class="val num">≤ {esc(g["moisture_max_pct"])}%</td>' for g in grades)
         else:
-            cells = "".join(f'<td class="val num">≤ {esc(g["fines_max_pct"])}%</td>' for g in grades)
+            cells = "".join(f'<td class="val num">≤ {esc(g["moisture_max_pct"])}%</td>' for g in grades)
         out.append(f'<tr><th scope="row">{esc(label)}</th>{cells}</tr>')
     return "\n          ".join(out)
 
@@ -1122,9 +1132,19 @@ def launch_gate(site, pages, products, images, company, lit, packaging):
             f"Cite a real lot or drop the attribution")
 
     # 4. A form that does not go anywhere.
-    for name, html in pages.items():
-        if 'data-endpoint=""' in html:
-            blockers.append(f"{name}: the inquiry form has no endpoint configured")
+    for name, html in sorted(pages.items()):
+        for m in re.finditer(r"<form\b[^>]*>", html):
+            tag = m.group(0)
+            if "data-endpoint" in tag and 'data-endpoint=""' not in tag:
+                continue                      # posts to a configured endpoint
+            if "data-mailto=" in tag:
+                warnings.append(
+                    f"{name}: the inquiry form composes an email rather than posting to an "
+                    f"endpoint. Nothing is captured server-side; set data-endpoint to change that")
+                continue
+            blockers.append(
+                f"{name}: an inquiry form neither posts to an endpoint nor falls back to "
+                f"email, so anything typed into it is lost")
 
     # 5. Packaging that has not been produced.
     renders = [k for k, v in images["images"].items() if v.get("source") == "render"]
@@ -1181,6 +1201,10 @@ def build():
         "pallet_net_lb": f"{pack['pallet_net_lb']:,}",
         "pallet_footprint": pack["pallet_footprint"],
         "dealer_email": pack["dealer_contact_email"],
+        # The form's no-JavaScript fallback. Posting to "#" reloaded the page
+        # and lost everything typed; a mailto action at least hands the visitor
+        # their own words back.
+        "dealer_mailto_action": "mailto:" + pack["dealer_contact_email"],
         "dealer_phone": pack["dealer_contact_phone"],
         "dealer_phone_href": "+" + re.sub(r"\D", "", pack["dealer_contact_phone"]),
         "opening_minimum": pack["opening_order"]["minimum"],
@@ -1189,10 +1213,6 @@ def build():
         "opening_lead_time": pack["opening_order"]["lead_time"],
         "opening_ships_from": pack["opening_order"]["ships_from"],
         "opening_freight": pack["opening_order"]["freight"],
-        "case_pack_retail": pack["case_pack"]["retail"],
-        "case_pack_layers": pack["case_pack"]["layers"],
-        "pallet_height_in": pack["pallet_height_in"],
-        "pallet_gross_lb": pack["pallet_gross_lb"],
         # commerce
         "currency": products["currency"],
         "effective_date": products["effective_date"],
@@ -1202,6 +1222,7 @@ def build():
         "tiers_json_html": tiers_attr(products),
         "catalogue_json_html": catalogue_attr(products, grades),
         "product_cards_html": product_cards(products, grades, links, images),
+        "gradation_rows_html": gradation_rows(grades_doc),
         "tier_cells_html": tier_cells(products),
         "price_table_html": price_table(
             products, grades, links,
@@ -1309,7 +1330,6 @@ def build():
         ctx["name_lower"] = g["name"].lower()
         ctx["tone"] = tones.get(g["slug"], "1")
         ctx["grain_samples"] = ",".join(str(x) for x in g["grain_samples_mm"])
-        ctx["sieve_html"] = sieve_rows(g["sieve"])
         ctx["uses_html"] = uses_blocks(g["uses"])
         ctx["others_html"] = other_cards(grades, g["slug"])
         ctx["jsonld_html"] = jsonld_product(

@@ -1,33 +1,27 @@
 {
   "_readme": [
-    "Packaging, pallet and trade terms. tools/build-grade-pages.py reads this",
-    "for the packaging strip on each grade page. The same figures appear on",
-    "index.html and wholesale.html by hand, each marked with a",
-    "<!-- TODO(packaging) --> comment so they can be found and changed together.",
+    "Pack and pallet configuration.",
     "",
-    "EVERY FIGURE HERE IS A PLACEHOLDER except the two bag weights, which the",
-    "brief specifies. The pallet configuration (60 bags / 1,200 lb) is a guess",
-    "from the brief and must be confirmed against the actual pallet build."
+    "Only figures that are known are here. Pallet net weight is bags per pallet",
+    "times bag weight, so it is arithmetic. Pallet height, pallet gross weight",
+    "and case pack were guesses and have been removed rather than guessed again:",
+    "an unmeasured figure on a trade page is read as a measured one. Add them",
+    "back when someone has weighed and measured a built pallet, and add their",
+    "rows back to templates/wholesale.html with them."
   ],
   "retail_bag_lb": 20,
   "trade_bag_lb": 50,
   "retail_bags_per_pallet": 60,
   "trade_bags_per_pallet": 40,
   "pallet_net_lb": 1200,
-  "case_pack": {
-    "retail": "TODO: bags per case, or state that 20 lb bags ship loose on the pallet",
-    "layers": "TODO: layers per pallet and bags per layer"
-  },
   "pallet_footprint": "48 × 40 in GMA pallet",
-  "pallet_height_in": "TODO",
-  "pallet_gross_lb": "TODO",
   "opening_order": {
     "minimum": "One pallet",
     "mixed_pallet": "Any combination of the three grades in retail bags on one pallet, in full layers per grade",
-    "terms": "TODO: payment terms for opening orders (e.g. prepaid or card on first order, net 30 on approval after)",
-    "lead_time": "TODO: lead time from order to ship, in business days",
+    "terms": "Set with the account when it is opened, by AragoCor Minerals.",
+    "lead_time": "Confirmed when the order is written.",
     "ships_from": "Stockton, California",
-    "freight": "TODO: freight terms (e.g. FOB Stockton, LTL quoted per order)"
+    "freight": "Quoted per order, from Stockton, California."
   },
   "dealer_contact_email": "info@aragocorminerals.com",
   "dealer_contact_phone": "+1 (209) 487-0110"

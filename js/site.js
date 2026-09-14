@@ -317,6 +317,11 @@
       data.source = "aragonitesand.com dealer inquiry";
       data.page = window.location.href;
 
+      /* An endpoint is optional and absent by default. With one set the
+         inquiry is posted; without one it is composed into the visitor's mail
+         client, addressed and filled in. What is not acceptable is a form that
+         appears to send and does neither, which is what an empty endpoint
+         attribute used to produce. */
       var endpoint = form.getAttribute("data-endpoint");
       function done() {
         form.hidden = true;

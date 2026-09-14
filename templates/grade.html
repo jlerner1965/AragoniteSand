@@ -79,21 +79,19 @@
     <div class="sec-head">
       <p class="eyebrow">Specification</p>
       <h2 class="display-3" id="spec-title">Specification</h2>
-      <p class="lead">The published analysis for your lot governs. Every bag carries a code that opens it. <span class="placeholder-flag" data-placeholder>Placeholder values, see README</span></p>
+      <p class="lead">Typical values. The certificate of analysis issued for your lot governs, and is matched to the code printed on the pack.</p>
     </div>
     <div class="split">
       <div class="table-wrap">
         <table class="spec spec--full">
           <caption>Typical specification, {{name_lower}} grade</caption>
           <tbody>
-            <tr><th scope="row">Mineral phase</th><td>Aragonite, confirmed by XRD on every lot</td></tr>
+            <tr><th scope="row">Mineral phase</th><td>Aragonite</td></tr>
             <tr><th scope="row">Calcium carbonate, CaCO₃</th><td class="num">{{caco3_pct}}% typical</td></tr>
             <tr><th scope="row">Grain size range</th><td class="num">{{grain_mm}}</td></tr>
             <tr><th scope="row">Mesh equivalent, U.S. sieve</th><td class="num">{{mesh}}</td></tr>
             <tr><th scope="row">Bulk density</th><td class="num">{{bulk_density_lb_ft3}} lb/ft³</td></tr>
             <tr><th scope="row">Moisture at packaging</th><td class="num">≤ {{moisture_max_pct}}%</td></tr>
-            <tr><th scope="row">Fines below 0.25 mm</th><td class="num">≤ {{fines_max_pct}}%</td></tr>
-            <tr><th scope="row">Acid-insoluble residue</th><td class="num">≤ {{acid_insoluble_max_pct}}%</td></tr>
             <tr><th scope="row">Origin</th><td>Bahamian carbonate bank, through Aragosan Minerals Limited</td></tr>
             <tr><th scope="row">Processing</th><td>Washed, dried, screened, bagged in Stockton, CA</td></tr>
             <tr><th scope="row">Packaging</th><td class="num">{{retail_bag_lb}} lb retail bag · {{trade_bag_lb}} lb trade bag</td></tr>
@@ -109,11 +107,11 @@
         <div class="ruler" data-ruler="{{ruler_max_mm}}" aria-hidden="true"></div>
         <figcaption class="plate__foot">Scale diagram at 15 pixels per millimetre.</figcaption>
       </figure>
-      <div class="sieve">
-        <h3>Sieve distribution</h3>
-        <p class="sieve__note">Percent retained, representative lot {{representative_lot}}. <span class="placeholder-flag" data-placeholder>Demo lot</span></p>
-        {{sieve_html}}
-        <p class="sieve__foot">{{sieve_note}}</p>
+      <div class="note-card">
+        <h3>Gradation</h3>
+        <p>A screen analysis is issued with the certificate for the lot supplied. The published
+        gradation for the unscreened natural grade is on the <a class="prose-link"
+        href="products.html#gradation">catalogue page</a>.</p>
       </div>
     </div>
   </div>

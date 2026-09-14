@@ -52,7 +52,7 @@
     },
     {
       "k": "Lead time",
-      "v": "TODO: confirm standard lead time in business days"
+      "v": "Confirmed when the order is written"
     }
   ],
   "compliance": [
@@ -118,7 +118,7 @@
     },
     {
       "q": "Do you private label?",
-      "a": "TODO: confirm whether private label and contract packing are offered, and at what minimum."
+      "a": "On request through AragoCor Minerals."
     }
   ]
 }
