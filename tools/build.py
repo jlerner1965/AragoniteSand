@@ -154,6 +154,55 @@ def calc_grade_options(grades):
     return "\n            ".join(out)
 
 
+# ------------------------------------------------------- links to the parent
+
+def ac_url(links, path_key="contact", interest=None, note=None, content=None, industry=True):
+    """A deep link into aragocorminerals.com.
+
+    Buying happens there, so every sample, pricing and quote action on this
+    site ends up at this URL. The query string is not decoration: the parent's
+    lead form reads `interest` to pick the journey, `industry` to preselect the
+    select, and `document` as free text it writes into the details field, so
+    the visitor arrives at a form that already knows what they want. The utm_*
+    trio is captured onto the lead record, which is what makes traffic sent
+    from here measurable at the other end.
+    """
+    from urllib.parse import quote as urlq
+
+    url = links["base"] + links["paths"][path_key]
+    q = []
+    if interest:
+        q.append("interest=" + urlq(links["interest"][interest]))
+    if interest and industry:
+        q.append("industry=" + urlq(links["industry"]))
+    if note:
+        q.append("document=" + urlq(note))
+    utm = links["utm"]
+    q.append("utm_source=" + urlq(utm["source"]))
+    q.append("utm_medium=" + urlq(utm["medium"]))
+    q.append("utm_campaign=" + urlq(utm["campaign"]))
+    if content:
+        q.append("utm_content=" + urlq(content))
+    return url + ("?" + "&".join(q) if q else "")
+
+
+EXT_ICON = (
+    '<svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
+    '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" '
+    'stroke-linecap="round" stroke-linejoin="round"/></svg>'
+)
+
+
+def ac_note(links):
+    """The sentence that says where a link goes, used under outbound buttons."""
+    return (
+        'Samples, pricing and orders are handled by '
+        f'<a class="prose-link" href="{esc(ac_url(links, "home", content="inline"))}">'
+        f'{esc(links["parent_name"])}</a>, the company that makes this sand.'
+    )
+
+
 # ---------------------------------------------------------------- commerce
 
 def money(n, cents=True):
@@ -186,7 +235,7 @@ def grade_by_slug(grades):
     return {g["slug"]: g for g in grades}
 
 
-def product_cards(products, grades):
+def product_cards(products, grades, links):
     by_slug = grade_by_slug(grades)
     tiers = products["tiers"]
     best = tiers[-1]
@@ -199,6 +248,10 @@ def product_cards(products, grades):
         # Three, not five: the card is narrower than the hero plate and a
         # 5 mm grain draws 75px across, so five coarse dots clip on a phone.
         samples = ",".join(str(x) for x in g["grain_samples_mm"][:3])
+        sample = ac_url(links, "contact", "sample",
+                        f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
+                        f'({s["sku"]}), sample',
+                        f'card-{s["sku"]}')
         tone = {"fine": "1", "medium": "2", "coarse": "3"}.get(s["grade"], "1")
         # Every card carries this block, so the six line up in a grid. A retail
         # bag shows the margin a shelf price would earn; a trade bag shows what
@@ -253,6 +306,7 @@ def product_cards(products, grades):
             f'            <button type="button" data-qty-up aria-label="One pallet more of {esc(s["sku"])}">+</button>\n'
             f'          </div>\n'
             f'          <span class="qty__label">pallets</span>\n'
+            f'          <a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a>\n'
             f'        </div>\n'
             f'      </article>'
         )
@@ -279,7 +333,7 @@ def tier_headers(products):
     )
 
 
-def price_rows(products, grades):
+def price_rows(products, grades, links):
     by_slug = grade_by_slug(grades)
     tiers = products["tiers"]
     out = []
@@ -292,6 +346,9 @@ def price_rows(products, grades):
             f'<td class="{"t-price" if i == 0 else ""}">{money(tier_price(s["list_per_bag"], t))}</td>'
             for i, t in enumerate(tiers)
         )
+        note = (f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
+                f'({s["sku"]}), sample')
+        sample = ac_url(links, "contact", "sample", note, f'pricelist-{s["sku"]}')
         out.append(
             f'<tr{brk}>\n'
             f'            <th scope="row"><span class="sku">{esc(s["sku"])}</span></th>\n'
@@ -300,6 +357,7 @@ def price_rows(products, grades):
             f'            {cells}\n'
             f'            <td>{money(s["list_per_bag"] * s["bags_per_pallet"], cents=False)}</td>\n'
             f'            <td>{money(s["list_per_bag"] / s["bag_lb"])}</td>\n'
+            f'            <td><a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a></td>\n'
             f'          </tr>'
         )
     return "\n          ".join(out)
@@ -362,7 +420,7 @@ def catalogue_attr(products, grades):
     return json.dumps(data, ensure_ascii=False).replace("'", "&#39;")
 
 
-def sku_block(products, grades, slug):
+def sku_block(products, grades, slug, links):
     """The two bag sizes of one grade, priced, for that grade's own page."""
     by_slug = grade_by_slug(grades)
     g = by_slug[slug]
@@ -371,6 +429,12 @@ def sku_block(products, grades, slug):
         if s["grade"] != slug:
             continue
         pallet = s["list_per_bag"] * s["bags_per_pallet"]
+        sample = ac_url(links, "contact", "sample",
+                        f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
+                        f'({s["sku"]}), sample', f'grade-{slug}-{s["sku"]}-sample')
+        pricing = ac_url(links, "contact", "pricing",
+                         f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
+                         f'({s["sku"]}), pricing by the pallet', f'grade-{slug}-{s["sku"]}-pricing')
         shelf = ""
         if s.get("suggested_shelf"):
             pct = (s["suggested_shelf"] - s["list_per_bag"]) / s["suggested_shelf"] * 100
@@ -394,7 +458,8 @@ def sku_block(products, grades, slug):
             f'          </div>\n'
             f'        </div>\n'
             f'        <div class="product__foot">\n'
-            f'          <a class="btn btn-ink btn-sm" href="wholesale.html?q={esc(s["sku"])}:1#inquiry">Quote one pallet</a>\n'
+            f'          <a class="btn btn-ink btn-sm" href="{esc(pricing)}">Request pricing{EXT_ICON}</a>\n'
+            f'          <a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a>\n'
             f'        </div>\n'
             f'      </article>'
         )
@@ -455,6 +520,7 @@ def build():
     grades_doc = load_json("grades.json")
     pack = load_json("packaging.json")
     products = load_json("products.json")
+    links = load_json("links.json")
     grades = grades_doc["grades"]
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
 
@@ -486,14 +552,47 @@ def build():
         "price_banner_html": price_status_banner(products),
         "tiers_json_html": tiers_attr(products),
         "catalogue_json_html": catalogue_attr(products, grades),
-        "product_cards_html": product_cards(products, grades),
+        "product_cards_html": product_cards(products, grades, links),
         "tier_cells_html": tier_cells(products),
         "tier_headers_html": tier_headers(products),
-        "price_rows_html": price_rows(products, grades),
+        "price_rows_html": price_rows(products, grades, links),
         "spec_rows_html": spec_rows(grades),
         "tier2_label": products["tiers"][1]["label"],
         "tier2_pct": "{:.0f}".format(products["tiers"][1]["discount"] * 100),
         "truckload_pallets": products["truckload_pallets"],
+        # outbound to the parent, where buying actually happens
+        "ac_name": links["parent_name"],
+        "ac_host": links["parent_host"],
+        "ac_home": ac_url(links, "home", content="body"),
+        "ac_contact": ac_url(links, "contact", content="body"),
+        "ac_sample": ac_url(links, "contact", "sample",
+                            "Aragonite aquarium sand sample, all three grades",
+                            "sample"),
+        "ac_pricing": ac_url(links, "contact", "pricing",
+                             "Aragonite aquarium sand, wholesale pricing by the pallet",
+                             "pricing"),
+        "ac_distribution": ac_url(links, "contact", "distribution",
+                                  "Aragonite aquarium sand, distributor schedule",
+                                  "distribution"),
+        "ac_technical": ac_url(links, "contact", "technical",
+                               "Aragonite aquarium sand technical data package",
+                               "technical"),
+        # Content links carry the utm_* trio too, so the referral shows up in
+        # their analytics whether the visitor converts on arrival or wanders.
+        "ac_tds": ac_url(links, "technical_data_sheet", content="tds"),
+        "ac_products": ac_url(links, "products", content="products"),
+        "ac_industries": ac_url(links, "industries", content="industries"),
+        "ac_resources": ac_url(links, "resources", content="resources"),
+        "ac_about": ac_url(links, "about", content="about"),
+        "ac_quote_base": links["base"] + links["paths"]["contact"],
+        "ac_quote_attrs_html": (
+            'data-ac-contact="' + esc(links["base"] + links["paths"]["contact"]) + '" '
+            'data-ac-interest="' + esc(links["interest"]["pricing"]) + '" '
+            'data-ac-industry="' + esc(links["industry"]) + '" '
+            'data-ac-utm="' + esc("{source}|{medium}|{campaign}".format(**links["utm"])) + '"'
+        ),
+        "ext_icon_html": EXT_ICON,
+        "ac_note_html": ac_note(links),
     }
     for s_ in products["skus"]:
         common[f'{s_["sku"].lower().replace("-", "_")}_price'] = money(s_["list_per_bag"])
@@ -516,7 +615,15 @@ def build():
         ctx["uses_html"] = uses_blocks(g["uses"])
         ctx["others_html"] = other_cards(grades, g["slug"])
         ctx["jsonld_html"] = jsonld_product(g, pack)
-        ctx["sku_block_html"] = sku_block(products, grades, g["slug"])
+        ctx["sku_block_html"] = sku_block(products, grades, g["slug"], links)
+        ctx["ac_grade_sample"] = ac_url(
+            links, "contact", "sample",
+            f'{g["name"]} grade aragonite aquarium sand, {g["grain_mm"]}, sample',
+            f'sample-{g["slug"]}')
+        ctx["ac_grade_pricing"] = ac_url(
+            links, "contact", "pricing",
+            f'{g["name"]} grade aragonite aquarium sand, {g["grain_mm"]}, pricing by the pallet',
+            f'pricing-{g["slug"]}')
         ctx["grade_from_price"] = money(min(
             x["list_per_bag"] for x in products["skus"]
             if x["grade"] == g["slug"] and x["bag_lb"] == pack["retail_bag_lb"]))

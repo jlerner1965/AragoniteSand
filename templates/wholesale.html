@@ -24,9 +24,10 @@
     <h1 class="display-1" id="ws-title">One pallet opens an account.</h1>
     <p class="lead">We sell direct to independent aquarium retailers and through regional distribution. Prices are published on the <a class="prose-link" href="products.html">products page</a>. This page is the rest of it: what a pallet is, what it costs to move, and how an account opens.</p>
     <div class="actions">
-      <a class="btn btn-ink" href="#inquiry">Request pricing</a>
+      <a class="btn btn-ink" href="{{ac_pricing}}">Request pricing from {{ac_name}} {{ext_icon_html}}</a>
       <a class="btn btn-inkline" href="products.html">Price list</a>
     </div>
+    <p class="note" style="margin-top:18px">{{ac_note_html}}</p>
   </div>
 </section>
 
@@ -171,8 +172,16 @@
       <div>
         <p class="eyebrow">Dealer inquiry</p>
         <h2 class="display-3" id="inquiry-title" style="margin-top:14px">Request pricing</h2>
-        <p class="copy-2" style="margin-top:16px">A firm quote with freight to your dock, the pallet sheet, product photography for your site, and a sample bag of each grade on request. We reply within one business day. If you built a quote on the products page it is carried in below and you do not have to retype it.</p>
-        <p class="copy-2">Prefer to call? <a class="prose-link" href="tel:{{dealer_phone_href}}">{{dealer_phone}}</a>, or email <a class="prose-link" href="mailto:{{dealer_email}}">{{dealer_email}}</a>.</p>
+        <p class="copy-2" style="margin-top:16px">A firm quote with freight to your dock, the pallet sheet, product photography for your site, and a sample bag of each grade on request. Orders are written by {{ac_name}}, so the quickest route is their form at {{ac_host}} — it reaches the same desk with the aquarium fields already set.</p>
+        <div class="actions" style="margin-top:22px">
+          <a class="btn btn-ink" href="{{ac_pricing}}">Request pricing at {{ac_host}} {{ext_icon_html}}</a>
+        </div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:14px">
+          <a class="ext-link" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+          <a class="ext-link" href="{{ac_distribution}}">Distributor schedule {{ext_icon_html}}</a>
+          <a class="ext-link" href="{{ac_tds}}">Technical data sheets {{ext_icon_html}}</a>
+        </div>
+        <p class="copy-2" style="margin-top:22px">Prefer to call? <a class="prose-link" href="tel:{{dealer_phone_href}}">{{dealer_phone}}</a>, or email <a class="prose-link" href="mailto:{{dealer_email}}">{{dealer_email}}</a>. The form on the right reaches the same people and carries a quote built on the products page.</p>
       </div>
       <div>
         <!-- TODO(form): set data-endpoint to a POST endpoint that accepts JSON (the parent site

@@ -156,8 +156,14 @@ sub, sup { font-size: max(0.83em, 10px); }
 .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
 .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 @media (max-width: 600px) {
-  .btn { width: 100%; }
-  .btn-sm { width: auto; }
+  /* Full width, and the label is allowed to wrap inside it. `nowrap` is right
+     for an auto-width button in a row; on a 280px full-width one it is what
+     pushes a long call to action past the screen edge. */
+  .btn {
+    width: 100%; white-space: normal; text-align: center;
+    height: auto; min-height: var(--btn-height); padding: 14px 20px; line-height: 1.3;
+  }
+  .btn-sm { width: auto; min-height: var(--btn-sm-height); }
 }
 
 /* ---------- Header (parent `.ac-nav`) ---------- */
@@ -245,8 +251,9 @@ sub, sup { font-size: max(0.83em, 10px); }
 .ac-foot { background: var(--abyss); color: var(--foot-fg); font-family: var(--font-sans); font-size: var(--foot-size); line-height: 1.65; }
 .ac-foot__inner {
   max-width: var(--container); margin: 0 auto; padding: 64px var(--gutter) 40px;
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px;
 }
+@media (max-width: 1180px) { .ac-foot__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .ac-foot a { color: var(--foot-link); text-decoration: none; }
 .ac-foot a:hover, .ac-foot a:focus-visible { color: var(--bone); }
 .ac-foot img { display: block; }
@@ -780,3 +787,54 @@ body.has-quote { padding-bottom: 108px; }
 /* ---------- Bag-size explainer on the grade pages ---------- */
 .buy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 @media (max-width: 720px) { .buy-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Outbound links to the parent ----------
+   Buying happens at aragocorminerals.com. Anything that leaves for it is
+   marked, because a buyer should know they are crossing to another site
+   before they click rather than after. */
+.ext-link {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px;
+  color: var(--surf); font-size: var(--small); font-weight: 600; text-decoration: none;
+  transition: color var(--duration) var(--ease-tide);
+}
+.ext-link:hover, .ext-link:focus-visible { color: var(--surf-deep); text-decoration: underline; text-underline-offset: 3px; }
+.band-ink .ext-link, .band-abyss .ext-link { color: var(--surf-light); }
+.band-ink .ext-link:hover, .band-abyss .ext-link:hover { color: var(--bone); }
+.band-sand .ext-link { color: var(--ink); }
+/* The icon sits after the link text. Where its container already spaces its
+   children with a flex gap (.ext-link, .btn) that gap is the spacing; anywhere
+   else — footer lists, prose, contact rows — it needs its own margin. */
+.ext-icon { flex: none; opacity: 0.8; margin-left: 5px; vertical-align: -1px; }
+.ext-link > .ext-icon, .btn > .ext-icon { margin-left: 0; }
+.ac-foot__list a { gap: 0; }
+.btn .ext-icon { opacity: 0.75; }
+table.price-list td .ext-link { min-height: 0; }
+
+/* The band that says where ordering happens. One per page at most, and it
+   carries the parent's name rather than a bare link, because "AragoCor
+   Minerals" is the thing a dealer is being asked to transact with. */
+.parent-cta {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center;
+  padding: 28px 32px; border: 1px solid var(--sku-border); border-left: 4px solid var(--surf);
+  border-radius: var(--radius); background: var(--sku-bg);
+}
+.parent-cta__label { font-family: var(--font-mono); font-size: var(--label); color: var(--surf-deep); }
+.parent-cta h2, .parent-cta h3 { margin-top: 10px; font-size: 23px; letter-spacing: -0.015em; }
+.parent-cta p { margin-top: 10px; font-size: var(--body-xs); line-height: var(--leading-copy); color: var(--fg-2); max-width: 62ch; }
+.parent-cta__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.band-ink .parent-cta, .band-abyss .parent-cta {
+  background: var(--bone-08); border-color: var(--bone-40); border-left-color: var(--surf-light);
+}
+.band-ink .parent-cta__label, .band-abyss .parent-cta__label { color: var(--surf-light); }
+.band-ink .parent-cta p, .band-abyss .parent-cta p { color: var(--bone-78); }
+.band-sand .parent-cta { background: rgba(255,255,255,0.42); border-color: var(--ink-20); border-left-color: var(--ink); }
+.band-sand .parent-cta__label { color: var(--ink); }
+.band-sand .parent-cta p { color: var(--ink-80); }
+@media (max-width: 900px) {
+  .parent-cta { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; }
+  .parent-cta__actions .btn { width: 100%; }
+}
+
+/* The quote bar's secondary route, next to Clear. */
+.quote-bar__alt { color: var(--bone-72); font-size: var(--small); text-decoration: underline; text-underline-offset: 3px; min-height: 44px; display: inline-flex; align-items: center; padding: 0 4px; }
+.quote-bar__alt:hover { color: var(--bone); }

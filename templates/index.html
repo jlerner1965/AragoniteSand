@@ -24,8 +24,9 @@
         <p class="lead">Three screened grades in 20 lb retail and 50 lb trade bags, sold direct to aquarium retailers and distributors. Prices are published below, not held back for a phone call. Every bag carries a lot code that opens the lab analysis for that run.</p>
         <div class="actions">
           <a class="btn btn-ink" href="#products">See the price list</a>
-          <a class="btn btn-inkline" href="wholesale.html#inquiry">Request pricing</a>
+          <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
         </div>
+        <p class="note" style="margin-top:18px">{{ac_note_html}}</p>
       </div>
       <figure class="plate" aria-label="The three grades drawn at true relative size against a millimetre rule">
         <div class="plate__head">
@@ -71,6 +72,20 @@
     </div>
 
     <p class="note" style="margin-top:28px;max-width:80ch">{{price_note}}</p>
+
+    <div style="margin-top:36px">
+      <div class="parent-cta">
+      <div>
+        <div class="parent-cta__label">Ordering</div>
+        <h3>Samples, pricing and orders run through {{ac_name}}</h3>
+        <p>This site is the catalogue and the lab record. {{ac_name}} makes the sand, holds the stock and writes the invoice, so a sample request or a firm quote goes straight to their desk at {{ac_host}}.</p>
+      </div>
+      <div class="parent-cta__actions">
+        <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+        <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -196,9 +211,10 @@
     <h2 class="display-2" id="cta-title" style="max-width:760px;margin-left:auto;margin-right:auto">One pallet opens an account.</h2>
     <p>Send us a pallet count and you get a firm quote with freight to your dock the same business day. Sample bags of all three grades come with the dealer packet.</p>
     <div class="actions">
-      <a class="btn btn-bone" href="wholesale.html#inquiry">Request pricing</a>
-      <a class="btn btn-boneline" href="products.html">Full price list</a>
+      <a class="btn btn-bone" href="{{ac_pricing}}">Request pricing from {{ac_name}} {{ext_icon_html}}</a>
+      <a class="btn btn-boneline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
     </div>
+    <p class="note" style="margin-top:20px">Or read the <a class="prose-link" href="wholesale.html">ordering terms</a> first.</p>
   </div>
 </section>
 
@@ -212,7 +228,8 @@
     </div>
     <div class="quote-bar__actions">
       <button class="quote-bar__clear" type="button" data-quote-clear>Clear</button>
-      <a class="btn btn-bone" data-quote-link href="wholesale.html#inquiry">Send this for a firm quote</a>
+      <a class="quote-bar__alt" data-quote-local href="wholesale.html#inquiry">Send here instead</a>
+      <a class="btn btn-bone" data-quote-link {{ac_quote_attrs_html}} href="{{ac_pricing}}">Send to {{ac_name}} for a firm quote {{ext_icon_html}}</a>
     </div>
   </div>
 </div>

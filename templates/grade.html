@@ -28,8 +28,9 @@
         <p class="price" style="margin-top:24px">{{grade_from_price}} <small>per bag, {{retail_bag_lb}} lb at one pallet</small> <span class="placeholder-flag" data-placeholder>Placeholder price</span></p>
         <div class="actions">
           <a class="btn btn-ink" href="#buy">Pricing for this grade</a>
-          <a class="btn btn-inkline" href="index.html#lot">Look up a lot analysis</a>
+          <a class="btn btn-inkline" href="{{ac_grade_sample}}">Request a {{name_lower}} sample {{ext_icon_html}}</a>
         </div>
+        <p class="note" style="margin-top:18px">{{ac_note_html}}</p>
       </div>
       <figure class="plate" aria-label="{{name}} grade grain size drawn at true scale against a millimetre rule">
         <div class="plate__head">
@@ -69,10 +70,18 @@
       <div><div class="v">Mixed OK</div><div class="k">Any grades on one pallet</div></div>
     </div>
 
-    <div class="actions">
-      <a class="btn btn-ink" href="wholesale.html#inquiry">Request pricing</a>
-      <a class="btn btn-inkline" href="wholesale.html#pallet">Pallet configuration and freight</a>
+    <div style="margin-top:36px" class="parent-cta">
+      <div>
+        <div class="parent-cta__label">Ordering</div>
+        <h3>Order the {{name_lower}} grade from {{ac_name}}</h3>
+        <p>A sample of this grade, a firm quote with freight to your dock, or the distributor schedule. All three go to {{ac_host}}, where the stock and the sales desk are.</p>
+      </div>
+      <div class="parent-cta__actions">
+        <a class="btn btn-ink" href="{{ac_grade_pricing}}">Request pricing {{ext_icon_html}}</a>
+        <a class="btn btn-inkline" href="{{ac_grade_sample}}">Request a sample {{ext_icon_html}}</a>
+      </div>
     </div>
+    <p class="note" style="margin-top:18px">Pallet build, opening terms and freight are set out on the <a class="prose-link" href="wholesale.html#pallet">ordering page</a>.</p>
   </div>
 </section>
 

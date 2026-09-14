@@ -27,8 +27,9 @@
     <p class="lead">Everything we make, what it costs and what a pallet weighs. Build a pallet count below and the volume break is applied as you go, across grades. Send it to us and you get a firm quote with freight the same business day.</p>
     <div class="actions">
       <a class="btn btn-ink" href="#price-list">Full price list</a>
-      <a class="btn btn-inkline" href="#tiers">Volume breaks</a>
+      <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
     </div>
+    <p class="note" style="margin-top:18px">{{ac_note_html}}</p>
   </div>
 </section>
 
@@ -58,6 +59,20 @@
     </div>
 
     <p class="note" style="margin-top:28px;max-width:80ch">{{price_note}} {{distributor_note}}</p>
+
+    <div style="margin-top:36px">
+      <div class="parent-cta">
+      <div>
+        <div class="parent-cta__label">Ordering</div>
+        <h3>Samples, pricing and orders run through {{ac_name}}</h3>
+        <p>This site is the catalogue and the lab record. {{ac_name}} makes the sand, holds the stock and writes the invoice, so a sample request or a firm quote goes straight to their desk at {{ac_host}}.</p>
+      </div>
+      <div class="parent-cta__actions">
+        <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+        <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -80,7 +95,7 @@
     <div class="sec-head">
       <p class="eyebrow">Price list</p>
       <h2 class="display-2" id="pl-title">Every SKU, every tier</h2>
-      <p class="lead">Per-bag price at each volume break. Pallet prices are this figure multiplied by the bags on the pallet, so the two can never disagree.</p>
+      <p class="lead">Per-bag price at each volume break. Pallet prices are this figure multiplied by the bags on the pallet, so the two can never disagree. Every row links to a sample request at {{ac_host}}.</p>
     </div>
     {{price_banner_html}}
     <div class="data-wrap table-wrap">
@@ -93,6 +108,7 @@
             {{tier_headers_html}}
             <th scope="col">Per pallet</th>
             <th scope="col">Per lb</th>
+            <th scope="col">Sample</th>
           </tr>
         </thead>
         <tbody>
@@ -123,7 +139,7 @@
       </table>
     </div>
     <div class="actions">
-      <a class="btn btn-ink" href="wholesale.html#inquiry">Request pricing and a sample</a>
+      <a class="btn btn-ink" href="{{ac_sample}}">Request a sample of all three {{ext_icon_html}}</a>
       <a class="btn btn-inkline" href="index.html#lot">Look up a lot analysis</a>
     </div>
   </div>
@@ -152,6 +168,20 @@
         <p>Reef, mixed marine and cichlid customers are served from three grades of the same material. Mix them on one pallet, learn what your floor actually turns, and reorder to that.</p>
       </div>
     </div>
+
+    <div style="margin-top:44px">
+      <div class="parent-cta">
+      <div>
+        <div class="parent-cta__label">Ordering</div>
+        <h3>Samples, pricing and orders run through {{ac_name}}</h3>
+        <p>This site is the catalogue and the lab record. {{ac_name}} makes the sand, holds the stock and writes the invoice, so a sample request or a firm quote goes straight to their desk at {{ac_host}}.</p>
+      </div>
+      <div class="parent-cta__actions">
+        <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+        <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -165,7 +195,8 @@
     </div>
     <div class="quote-bar__actions">
       <button class="quote-bar__clear" type="button" data-quote-clear>Clear</button>
-      <a class="btn btn-bone" data-quote-link href="wholesale.html#inquiry">Send this for a firm quote</a>
+      <a class="quote-bar__alt" data-quote-local href="wholesale.html#inquiry">Send here instead</a>
+      <a class="btn btn-bone" data-quote-link {{ac_quote_attrs_html}} href="{{ac_pricing}}">Send to {{ac_name}} for a firm quote {{ext_icon_html}}</a>
     </div>
   </div>
 </div>

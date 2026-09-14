@@ -7,6 +7,11 @@ the pallet to aquarium retailers and distributors, with published pricing.
 Plain static HTML, CSS and JavaScript. No framework, no build step for hosting,
 no dependencies. Upload the repository root to any static host and it runs.
 
+**Buying happens at aragocorminerals.com.** This site is the catalogue, the
+price list and the lab record; every sample request, pricing request and quote
+hands off to the parent site, which has the real lead form, the CRM behind it
+and the sales desk. See *Driving traffic to AragoCor* below.
+
 ## Layout
 
 ```
@@ -29,6 +34,7 @@ js/site.js              Nav, grain illustration, lot lookup, depth calculator,
                         inquiry form, quote builder, quote handoff
 
 data/products.json      The six SKUs, prices and volume tiers
+data/links.json         Outbound links to aragocorminerals.com
 data/grades.json        The three grades: sizes, densities, copy, sieve data
 data/lots.json          Lot register read by the lot lookup at runtime
 data/packaging.json     Bag, pallet and trade terms
@@ -94,6 +100,60 @@ rather than fetched, so the arithmetic works with no network and from a
 `file://` page. An unknown SKU or a malformed count is ignored rather than
 rendered.
 
+## Driving traffic to AragoCor
+
+Every buying action on this site ends at `aragocorminerals.com/contact`. The
+links are not bare URLs: they are deep links that arrive with the parent's own
+lead form already filled in. The parameters were read out of the parent's
+source (`lib/lead-form.js`, `lib/catalog.js`, `lib/attribution.js`), so they
+land on real behaviour rather than being decorative:
+
+| Parameter | What it does on arrival |
+|---|---|
+| `interest` | Preselects the journey: `sample`, `bulk-pricing`, `distribution`, `technical-evaluation` |
+| `industry` | Preselects the industry. This site always sends `Aquarium & aquaculture` |
+| `document` | Free text; the form writes it into the details field as `Requesting: …`, which is how a grade, a SKU or a whole quote travels across |
+| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` | Captured by the parent's attribution script and stored on the lead, so traffic sent from here is attributable in their CRM |
+
+`utm_content` names the exact placement — `home-hero-sample`, `card-AR-F20`,
+`pricelist-AR-C50`, `quote-builder`, `sample-fine` — so the report says which
+control earned the lead, not just which site.
+
+Where the links are: the header CTA, the home hero, an ordering band on the
+home and products pages, every product card, every row of the price list, both
+SKU blocks on each grade page, the grade-page ordering band, the top of the
+inquiry section, the about page, the 404, and a dedicated footer column. Links
+that leave the site carry a small outward-arrow icon.
+
+`data/links.json` holds the base URL, the paths, the interest values, the
+industry name and the UTM defaults. If the parent renames a path or an
+interest value, change it there once; `tools/build.py` renders every link from
+that file and `js/site.js` reads the same values out of the markup.
+
+### The quote handoff
+
+The quote builder's primary button sends the whole basket to the parent:
+
+```
+https://www.aragocorminerals.com/contact
+  ?interest=bulk-pricing
+  &industry=Aquarium%20%26%20aquaculture
+  &document=Aragonite aquarium sand quote built on aragonitesand.com:
+            Fine 20 lb (AR-F20) x 2 pallets, … — 260 bags, 7,600 lb,
+            estimated $4,408.60 before freight (includes the 6% volume break)
+  &utm_source=aragonitesand.com&utm_medium=referral
+  &utm_campaign=aquarium-substrate&utm_content=quote-builder
+```
+
+so the buyer arrives at a form that already knows what they priced. A quieter
+"Send here instead" link beside it keeps the local form path
+(`wholesale.html?q=…`) working for anyone who would rather not leave.
+
+The local dealer form on the ordering page still works and is now the
+secondary route. It has no endpoint configured, so it falls back to a
+pre-filled email. If you would rather have one funnel, delete that form and
+the page will still convert through the AragoCor buttons above it.
+
 ## Adding a real lot
 
 Add an entry to `data/lots.json` under `lots`, keyed by the code exactly as it
@@ -122,7 +182,7 @@ called out in a `_todo` or `_readme` block; in the templates there is a
 | Pallet configuration (60 bags / 1,200 lb, trade 40 bags) | `data/packaging.json` | a guess from the brief |
 | Case pack, layers, pallet height, gross weight | `data/packaging.json` | TODO |
 | Payment terms, lead time, freight terms | `data/packaging.json` `opening_order` | TODO |
-| Dealer inquiry endpoint | `templates/wholesale.html` form `data-endpoint` | empty; form falls back to a pre-filled email |
+| Dealer inquiry endpoint | `templates/wholesale.html` form `data-endpoint` | empty; form falls back to a pre-filled email. The AragoCor route above needs no endpoint |
 | Grain-scale visuals | every hero, and the product cards | drawn geometry at 15 px/mm, replace with photography at scale |
 | Stockton facility photograph | `about.html` | empty frame |
 | **Every price, per bag and per pallet** | `data/products.json` `skus` | invented; `price_status` is `placeholder` |

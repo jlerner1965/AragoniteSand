@@ -527,8 +527,40 @@
         var q = Math.max(0, parseInt(l.input.value, 10) || 0);
         if (q > 0) parts.push(l.sku + ":" + q);
       });
+      /* Two destinations for the same basket. The primary one is the parent's
+         lead form, because that is where stock, pricing and the sales desk
+         are; the quote rides across in the `document` parameter, which their
+         form writes into the details field, and the utm_* trio attributes the
+         lead back to this site. The secondary keeps the local form working for
+         anyone who would rather not leave. */
+      var summary = lines.filter(function (l) {
+        return (parseInt(l.input.value, 10) || 0) > 0;
+      }).map(function (l) {
+        var q = parseInt(l.input.value, 10) || 0;
+        return l.name + " (" + l.sku + ") x " + q + " pallet" + (q === 1 ? "" : "s");
+      }).join(", ");
+      summary = "Aragonite aquarium sand quote built on aragonitesand.com: " + summary +
+        " — " + bags + " bags, " + Math.round(lb).toLocaleString("en-US") + " lb, estimated " +
+        money(net) + " before freight" +
+        (discount > 0 ? " (includes the " + Math.round(discount * 100) + "% volume break)" : "");
+
       var link = bar.querySelector("[data-quote-link]");
-      if (link) link.href = "wholesale.html?q=" + encodeURIComponent(parts.join(",")) + "#inquiry";
+      if (link) {
+        var contact = link.getAttribute("data-ac-contact");
+        if (contact) {
+          var utm = (link.getAttribute("data-ac-utm") || "||").split("|");
+          link.href = contact +
+            "?interest=" + encodeURIComponent(link.getAttribute("data-ac-interest") || "bulk-pricing") +
+            "&industry=" + encodeURIComponent(link.getAttribute("data-ac-industry") || "") +
+            "&document=" + encodeURIComponent(summary) +
+            "&utm_source=" + encodeURIComponent(utm[0]) +
+            "&utm_medium=" + encodeURIComponent(utm[1]) +
+            "&utm_campaign=" + encodeURIComponent(utm[2]) +
+            "&utm_content=" + encodeURIComponent("quote-builder");
+        }
+      }
+      var local = bar.querySelector("[data-quote-local]");
+      if (local) local.href = "wholesale.html?q=" + encodeURIComponent(parts.join(",")) + "#inquiry";
 
       /* Last, once the figures are in it: the bar is one row on a desktop and
          three on a phone, and it is the text just written that decides which. */
