@@ -1,0 +1,137 @@
+<!-- meta {
+  "title": "Dealer resources: spec sheets, photography and point-of-sale material | AragoCor Aragonite",
+  "description": "Everything a stocking aquarium retailer needs to sell AragoCor aragonite substrate: specification sheets, safety data, line sheet, product photography, shelf talkers and the lot-code counter card. Requested from AragoCor Minerals."
+} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body>
+{{> header}}
+
+<main id="main">
+
+<section class="hero" aria-labelledby="dl-title">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li aria-current="page">Dealer resources</li>
+      </ol>
+    </nav>
+    <div class="hero__grid">
+      <div>
+        <p class="eyebrow">For stocking retailers and distributors</p>
+        <h1 class="display-1" id="dl-title">Dealer resources</h1>
+        <p class="lead">Specification sheets, safety data, the line sheet, product photography and point-of-sale material. Everything you need to put this on a shelf, list it online and answer the questions your floor staff get asked.</p>
+        <div class="actions">
+          <a class="btn btn-ink" href="#literature">Literature library</a>
+          <a class="btn btn-inkline" href="{{ac_distribution}}">Become a dealer {{ext_icon_html}}</a>
+        </div>
+      </div>
+      <dl class="facts" aria-label="Trade summary">
+        <div class="facts__row"><dt>Opening order</dt><dd>{{opening_minimum}}</dd></div>
+        <div class="facts__row"><dt>Mixed pallets</dt><dd>Any grades</dd></div>
+        <div class="facts__row"><dt>SKUs</dt><dd>6 · three grades × two bags</dd></div>
+        <div class="facts__row"><dt>Bag sizes</dt><dd>{{retail_bag_lb}} lb · {{trade_bag_lb}} lb</dd></div>
+        <div class="facts__row"><dt>Ships from</dt><dd>Stockton, California</dd></div>
+        <div class="facts__row"><dt>First volume break</dt><dd>{{tier2_label}}, {{tier2_pct}}% off</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<div class="band-paper">
+  <div class="wrap">
+    <div class="stat-grid" role="list" aria-label="What dealers get">
+      <div role="listitem"><div class="v">Spec sheets</div><div class="k">Technical and safety documents</div></div>
+      <div role="listitem"><div class="v">Photography</div><div class="k">Bag and in-tank shots for your listings</div></div>
+      <div role="listitem"><div class="v">Shelf talkers</div><div class="k">Which grade for which customer</div></div>
+      <div role="listitem"><div class="v">Lot lookup</div><div class="k">A proof your competitors cannot show</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="sell" aria-labelledby="sell-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Selling it</p>
+      <h2 class="display-2" id="sell-title">How the category sells at the counter</h2>
+      <p class="lead">Three grades of one material. The whole conversation is grain size, and it takes about a minute.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature__n num">01</div>
+        <h3>Ask what lives in the tank</h3>
+        <p>Sand-sifting gobies, wrasses and a smooth reef flat mean fine. A mixed reef with real flow means medium. African cichlids, hard water and diggers mean coarse. That single question sorts nearly every customer.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__n num">02</div>
+        <h3>Then ask about flow</h3>
+        <p>If the powerheads sweep the bottom, fine sand will drift and bare the glass. Move them up a grade. This is the returns conversation you would otherwise have next month.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__n num">03</div>
+        <h3>Show them the lot code</h3>
+        <p>The code on the back panel opens the lab analysis for that run on this site, including the fines figure that decides whether their water clouds. No other bag on your shelf can do that.</p>
+      </div>
+    </div>
+    <div style="margin-top:32px">
+      <a class="tide-link" href="index.html#calc">Bag calculator for the counter <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section band-paper" id="literature" aria-labelledby="lit-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Literature library</p>
+      <h2 class="display-2" id="lit-title">Documents and merchandising material</h2>
+      <p class="lead">Technical, commercial and point-of-sale. Anything not yet posted is sent on request, usually the same business day. <span class="placeholder-flag" data-placeholder>No files produced yet, see README</span></p>
+    </div>
+    {{literature_html}}
+  </div>
+</section>
+
+<section class="section" id="shelf" aria-labelledby="shelf-title">
+  <div class="wrap">
+    <div class="split split--wide">
+      <div>
+        <p class="eyebrow">On the shelf</p>
+        <h2 class="display-3" id="shelf-title" style="margin-top:10px">What a facing looks like</h2>
+        <p class="copy-2" style="margin-top:14px">Three grades side by side in {{retail_bag_lb}} lb bags reads as a category rather than a product. Most stores run the medium grade deepest and keep one facing each of fine and coarse.</p>
+      </div>
+      <dl class="facts">
+        <div class="facts__row"><dt>Retail bag</dt><dd>{{retail_bag_lb}} lb · shelf-ready printed poly</dd></div>
+        <div class="facts__row"><dt>Trade bag</dt><dd>{{trade_bag_lb}} lb · plain woven poly</dd></div>
+        <div class="facts__row"><dt>Bags per pallet</dt><dd>{{retail_bags_per_pallet}} retail · {{trade_bags_per_pallet}} trade</dd></div>
+        <div class="facts__row"><dt>Printed on the bag</dt><dd>Grade, grain size, net weight, lot code</dd></div>
+        <div class="facts__row"><dt>Suggested facings</dt><dd>One per grade, medium deepest</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="section band-abyss" aria-labelledby="dcta-title">
+  <div class="wrap">
+    <div class="parent-cta">
+      <div>
+        <div class="parent-cta__label">Become a dealer</div>
+        <h2 id="dcta-title" style="font-size:23px;margin-top:10px">Accounts are opened by {{ac_name}}</h2>
+        <p>One pallet opens an account and the grades can be mixed on it. Ask for the dealer packet and a sample bag of each grade goes out with it.</p>
+      </div>
+      <div class="parent-cta__actions">
+        <a class="btn btn-bone" href="{{ac_distribution}}">Dealer enquiry {{ext_icon_html}}</a>
+        <a class="btn btn-boneline" href="{{ac_sample}}">Request samples {{ext_icon_html}}</a>
+      </div>
+    </div>
+    <p class="note" style="margin-top:20px">Pallet build, opening terms and freight are set out on the <a class="prose-link" href="wholesale.html">ordering page</a>, and the full price list is on the <a class="prose-link" href="products.html">products page</a>.</p>
+  </div>
+</section>
+
+</main>
+
+{{> footer}}
+</body>
+</html>

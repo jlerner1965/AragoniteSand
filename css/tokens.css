@@ -112,29 +112,35 @@
      Headings are 600. The home hero on the parent uses serif 700, which the
      font request does not include; 600 is used everywhere here. */
 
-  /* Display scale — the shared editorial hero rule from site-chrome.css:
-     42px at 390px viewport, 60px at 1440px, clamped both ends. */
-  --display-1:         clamp(36px, calc(35.3px + 1.71vw), 60px);
-  --display-1-measure: 20ch;
-  --display-1-leading: 1.06;   /* parent floor is 1.1 for inline 1.0x values; 1.04–1.08 in use */
+  /* Display scale.
+   *
+   * The parent's editorial hero rule tops out at 60px, which is a magazine
+   * size: it fills a laptop screen with four words and pushes the first
+   * product below the fold. This is a trade catalogue read by buyers who came
+   * for a number, so the scale is pulled down a step across the board and the
+   * measure widened, which puts roughly a third more on the first screen.
+   * Everything below is proportionally the parent's, just quieter. */
+  --display-1:         clamp(29px, calc(27.6px + 1.33vw), 46px);
+  --display-1-measure: 26ch;
+  --display-1-leading: 1.1;
 
   /* Section headings, as set inline across the parent's pages */
-  --display-2: clamp(24px, 3.67vw, 44px);   /* h2, primary sections */
-  --display-3: clamp(24px, 3.33vw, 40px);   /* h2, secondary sections */
-  --display-4: clamp(26px, 2.9vw, 38px);    /* products-grades.css section title */
-  --h3:        24px;                        /* principle / card headings */
-  --h3-small:  21px;                        /* process-step headings */
-  --h4:        18px;
+  --display-2: clamp(22px, 2.55vw, 32px);   /* h2, primary sections */
+  --display-3: clamp(20px, 2.2vw, 27px);    /* h2, secondary sections */
+  --display-4: clamp(20px, 2.2vw, 27px);    /* products-grades.css section title */
+  --h3:        19px;                        /* principle / card headings */
+  --h3-small:  17px;                        /* process-step headings */
+  --h4:        16px;
 
   /* Figures (stat strips, proof cells) */
-  --figure-lg: clamp(26px, 4.33vw, 52px);
-  --figure:    clamp(24px, 2.83vw, 34px);
-  --figure-sm: clamp(24px, 2.4vw, 32px);
+  --figure-lg: clamp(26px, 3.2vw, 38px);
+  --figure:    clamp(21px, 2.1vw, 26px);
+  --figure-sm: clamp(19px, 1.8vw, 23px);
 
   /* Body copy */
-  --lead:       19px;   /* hero lead */
-  --lead-sm:    18px;
-  --lead-band:  17px;   /* dark CTA band copy */
+  --lead:       17px;   /* hero lead */
+  --lead-sm:    16px;
+  --lead-band:  16px;   /* dark CTA band copy */
   --body:       16px;
   --body-sm:    15.5px;
   --body-xs:    14.5px;
@@ -162,15 +168,18 @@
   --gutter:         40px;   /* desktop */
   --gutter-phone:   20px;   /* ≤600px: parent collapses 40px to 20px */
   --measure:        68ch;   /* parent styles.css p max-width */
-  --measure-lead:   680px;  /* hero lead max-width */
+  --measure-lead:   640px;  /* hero lead max-width */
 
   /* Section rhythm — the vertical paddings the parent actually uses */
-  --section:        96px;   /* standard section */
-  --section-hero:   88px;   /* editorial hero top */
-  --section-band:   72px;   /* paper band with process grid */
-  --section-tight:  56px;
-  --section-phone:  56px;   /* every 64–96px block collapses to 56px on ≤600px */
-  --section-tablet: 72px;   /* and to 72px between 601–960px */
+  /* Tightened with the type, and for the same reason: a trade site is judged
+     on how much of the specification a buyer can see at once. The parent's
+     96/88/72 becomes 64/44/52. */
+  --section:        64px;   /* standard section */
+  --section-hero:   44px;   /* hero top */
+  --section-band:   52px;   /* paper band */
+  --section-tight:  40px;
+  --section-phone:  44px;   /* ≤600px */
+  --section-tablet: 52px;   /* 601–960px */
 
   /* Radii: 4px controls and buttons, 8px cards and panels, pill chips */
   --radius-sm:   4px;
@@ -195,14 +204,24 @@
   --duration:  220ms;
 
   /* ---------- Chrome (site-chrome.css `--ac-*`) ---------- */
-  --nav-height:      74px;
+  /* ---------- Utility bar (EXTENDED) ----------
+     A thin ink strip above the nav carrying the phone number, the email and
+     the trade line. The parent has no equivalent, but it is the single most
+     recognisable piece of furniture on a trade supplier's site: a buyer
+     looking for a number should not have to scroll for it. */
+  --util-height:     38px;
+  --util-bg:         var(--abyss);
+  --util-fg:         rgba(246, 242, 233, 0.72);
+  --util-size:       12.5px;
+
+  --nav-height:      64px;
   --nav-bg:          rgba(246, 242, 233, 0.97);
   --nav-border:      rgba(11, 44, 58, 0.14);
   --nav-link:        rgba(11, 44, 58, 0.82);
   --nav-link-size:   14.5px;
   --nav-logo-height: 42px;
   --nav-breakpoint:  1080px;   /* links and CTA hide, toggle shows */
-  --scroll-margin:   88px;     /* [id] scroll-margin-top under the sticky nav */
+  --scroll-margin:   80px;     /* [id] scroll-margin-top under the sticky nav */
 
   --foot-fg:        rgba(246, 242, 233, 0.75);
   --foot-link:      rgba(246, 242, 233, 0.78);
@@ -210,9 +229,9 @@
   --foot-bottom:    12.5px;
 
   /* ---------- Buttons (`.btn-ar` family) ---------- */
-  --btn-height:   52px;
-  --btn-padding:  0 28px;
-  --btn-size:     16px;
+  --btn-height:   46px;
+  --btn-padding:  0 22px;
+  --btn-size:     15px;
   --btn-weight:   500;
   --btn-radius:   4px;
   --btn-sm-height: 44px;   /* nav CTA, brochure chips */
@@ -266,8 +285,8 @@
      for any of this. These sit on `surf` so a price, a SKU and a quote control
      are one visual family, distinct from the specification tables they sit
      beside. */
-  --price:        clamp(28px, 3.2vw, 40px);   /* the headline price on a product card */
-  --price-sm:     22px;                       /* price inside a table row */
+  --price:        clamp(26px, 2.6vw, 33px);   /* the headline price on a product card */
+  --price-sm:     19px;                       /* price inside a table row */
   --price-color:  var(--ink);
   --price-unit:   var(--fg-2);
   --sku:          var(--surf);                /* SKU codes, set in mono */

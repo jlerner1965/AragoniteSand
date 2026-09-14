@@ -1,0 +1,152 @@
+{
+  "_readme": [
+    "The literature library: spec sheets, safety data, price list, photography",
+    "and point-of-sale material. Every trade buyer asks for these before they",
+    "stock anything, so they are listed whether or not the file exists yet.",
+    "",
+    "An item with `file` set renders as a download. An item with `file: null`",
+    "renders as 'Available on request' and links to AragoCor's contact form with",
+    "the document named in the query string, so the request reaches a person",
+    "instead of a 404. Drop a PDF into assets/literature/ and set `file` to its",
+    "path; nothing else changes.",
+    "",
+    "NOTHING IN assets/literature/ EXISTS YET. Every `file` below is null on",
+    "purpose. That is the honest state: the documents have not been produced.",
+    "",
+    "  group     which section the row appears under",
+    "  kind      shown as the small label on the row",
+    "  format    PDF, ZIP, XLSX — shown in the meta line",
+    "  pages     optional, shown in the meta line",
+    "  audience  'trade' rows are hidden from the public product page",
+    "  note      one line under the title"
+  ],
+  "groups": [
+    {
+      "id": "technical",
+      "title": "Technical documents",
+      "intro": "What a buyer's technical questions get answered with. Lot analyses are published live on this site and do not need a download."
+    },
+    {
+      "id": "commercial",
+      "title": "Commercial documents",
+      "intro": "Price list, line sheet and the forms that open an account."
+    },
+    {
+      "id": "merchandising",
+      "title": "Merchandising and photography",
+      "intro": "What a stocking retailer needs to sell it off the shelf and list it online."
+    }
+  ],
+  "items": [
+    {
+      "group": "technical",
+      "kind": "Specification",
+      "title": "Product specification sheet, all three grades",
+      "note": "Grain size, mesh, bulk density, typical chemistry and packaging on one page.",
+      "format": "PDF",
+      "pages": 2,
+      "audience": "public",
+      "file": null
+    },
+    {
+      "group": "technical",
+      "kind": "Safety",
+      "title": "Safety data sheet",
+      "note": "Natural calcium carbonate. Required by most retailers before a first order.",
+      "format": "PDF",
+      "pages": 4,
+      "audience": "public",
+      "file": null
+    },
+    {
+      "group": "technical",
+      "kind": "Analysis",
+      "title": "Certificate of analysis, by lot",
+      "note": "Published live against the lot code on every bag. A signed PDF ships with each order.",
+      "format": "Web",
+      "pages": null,
+      "audience": "public",
+      "file": "index.html#lot"
+    },
+    {
+      "group": "technical",
+      "kind": "Sourcing",
+      "title": "Source and origin documentation",
+      "note": "Bahamian carbonate bank, through Aragosan Minerals Limited.",
+      "format": "PDF",
+      "pages": null,
+      "audience": "public",
+      "file": null
+    },
+    {
+      "group": "commercial",
+      "kind": "Pricing",
+      "title": "Wholesale price list",
+      "note": "The same figures as the price list on this site, as a dated PDF for your buying file.",
+      "format": "PDF",
+      "pages": 1,
+      "audience": "trade",
+      "file": null
+    },
+    {
+      "group": "commercial",
+      "kind": "Line sheet",
+      "title": "Line sheet, six SKUs",
+      "note": "SKU, UPC, case and pallet quantities, cost and suggested shelf price.",
+      "format": "PDF",
+      "pages": 1,
+      "audience": "trade",
+      "file": null
+    },
+    {
+      "group": "commercial",
+      "kind": "Account",
+      "title": "New account and credit application",
+      "note": "Needed only if you want terms. A first order can go out prepaid without it.",
+      "format": "PDF",
+      "pages": 2,
+      "audience": "trade",
+      "file": null
+    },
+    {
+      "group": "merchandising",
+      "kind": "Photography",
+      "title": "Product photography pack",
+      "note": "Bag shots on white and in-tank photography for your own site and listings.",
+      "format": "ZIP",
+      "pages": null,
+      "audience": "trade",
+      "file": null
+    },
+    {
+      "group": "merchandising",
+      "kind": "Point of sale",
+      "title": "Shelf talkers, three grades",
+      "note": "Which grade for which customer, printed at shelf size. The question your floor staff get asked most.",
+      "format": "PDF",
+      "pages": 3,
+      "audience": "trade",
+      "file": null
+    },
+    {
+      "group": "merchandising",
+      "kind": "Point of sale",
+      "title": "Counter card, how to read a lot code",
+      "note": "The thing that makes a customer trust the bag. Points at the lookup on this site.",
+      "format": "PDF",
+      "pages": 1,
+      "audience": "trade",
+      "file": null
+    },
+    {
+      "group": "merchandising",
+      "kind": "Listing copy",
+      "title": "Web listing copy and specifications",
+      "note": "Descriptions and spec tables for each SKU, ready to paste into your storefront.",
+      "format": "XLSX",
+      "pages": null,
+      "audience": "trade",
+      "file": null
+    }
+  ]
+}

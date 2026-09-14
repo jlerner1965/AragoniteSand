@@ -25,6 +25,8 @@ grade-medium.html       hero with price, the grade's two SKUs priced, spec table
 grade-coarse.html       sieve, fit and misfit, depth calculator, other grades
 wholesale.html          Ordering: price summary, pallet configuration, case pack,
                         opening terms, freight, dealer inquiry form
+dealers.html            Dealer resources: how the category sells at the counter,
+                        the literature library, shelf and facing guidance
 about.html              Ownership, Stockton operation, sourcing, testing practice
 404.html
 
@@ -35,6 +37,7 @@ js/site.js              Nav, grain illustration, lot lookup, depth calculator,
 
 data/products.json      The six SKUs, prices and volume tiers
 data/links.json         Outbound links to aragocorminerals.com
+data/literature.json    Spec sheets, safety data, price list, photography, POS
 data/grades.json        The three grades: sizes, densities, copy, sieve data
 data/lots.json          Lot register read by the lot lookup at runtime
 data/packaging.json     Bag, pallet and trade terms
@@ -154,6 +157,25 @@ secondary route. It has no endpoint configured, so it falls back to a
 pre-filled email. If you would rather have one funnel, delete that form and
 the page will still convert through the AragoCor buttons above it.
 
+## The literature library
+
+`data/literature.json` lists every document a trade buyer asks for: spec
+sheet, safety data sheet, certificate of analysis, source documentation, price
+list, line sheet, credit application, product photography, shelf talkers,
+counter card and web listing copy. It renders on `dealers.html` in full and on
+`products.html` filtered to the public technical rows.
+
+**No file in it exists yet**, and every entry has `file: null`. A null row is
+not hidden and not a dead link: it renders as "available on request" and links
+to AragoCor's contact form with the document named in the query string, so the
+request reaches a person. Produce a PDF, drop it in `assets/literature/`, set
+`file` to its path, rebuild, and that row becomes a download. Nothing else
+changes.
+
+Rows marked `"audience": "trade"` (price list, line sheet, credit application,
+photography, point-of-sale) appear only on the dealer page. `"public"` rows
+appear on both.
+
 ## Adding a real lot
 
 Add an entry to `data/lots.json` under `lots`, keyed by the code exactly as it
@@ -185,6 +207,7 @@ called out in a `_todo` or `_readme` block; in the templates there is a
 | Dealer inquiry endpoint | `templates/wholesale.html` form `data-endpoint` | empty; form falls back to a pre-filled email. The AragoCor route above needs no endpoint |
 | Grain-scale visuals | every hero, and the product cards | drawn geometry at 15 px/mm, replace with photography at scale |
 | Stockton facility photograph | `about.html` | empty frame |
+| Every document in the literature library | `data/literature.json` | none produced; all `file: null` |
 | **Every price, per bag and per pallet** | `data/products.json` `skus` | invented; `price_status` is `placeholder` |
 | Volume tier discounts (6 / 11 / 15%) | `data/products.json` `tiers` | invented |
 | Suggested shelf prices | `data/products.json` `suggested_shelf` | invented |
@@ -232,6 +255,21 @@ Other additions are marked `EXTENDED:` in the token file and stay inside the
 palette: the three grade tints, the sieve bar chart, the grain-scale plate, the
 commerce tokens, and the amber placeholder chip, which reuses the parent's one
 warning colour.
+
+### Density
+
+The scale was pulled down a step from the parent's in September 2026, on the
+brief that the site should read as a trade catalogue rather than an editorial
+piece. The parent's hero tops out at 60px, which fills a laptop screen with
+four words; here it tops out at 46px, section padding went from 96px to 64px,
+and the heading, figure and lead sizes came down with them. That puts roughly a
+third more on the first screen, which is what a buyer who came for a number
+wants. The proportions are still the parent's — everything moved together.
+
+A thin utility bar above the nav carries the phone number, the email and the
+trade line. The parent has no equivalent; it is the most recognisable piece of
+furniture on a trade supplier's site and a buyer should not have to scroll for
+a phone number.
 
 One deliberate deviation from the parent: its labels are tracked uppercase mono.
 The brief rules sentence case throughout, and the brief wins on content rules,

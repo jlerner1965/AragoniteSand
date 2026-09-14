@@ -110,9 +110,9 @@ sub, sup { font-size: max(0.83em, 10px); }
 .band-ink .copy-2, .band-abyss .copy-2 { color: var(--bone-78); }
 .note { font-size: var(--small-xs); line-height: 1.5; color: var(--fg-3); }
 .band-ink .note, .band-abyss .note { color: var(--bone-60); }
-.sec-head { margin-bottom: 40px; }
-.sec-head .eyebrow + h2 { margin-top: 14px; }
-.sec-head h2 + .lead { margin-top: 16px; font-size: var(--lead-sm); }
+.sec-head { margin-bottom: 28px; }
+.sec-head .eyebrow + h2 { margin-top: 10px; }
+.sec-head h2 + .lead { margin-top: 12px; font-size: var(--lead-sm); }
 .sec-head--row {
   display: flex; align-items: flex-end; justify-content: space-between;
   gap: 16px 24px; flex-wrap: wrap;
@@ -154,7 +154,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .btn-boneline:hover { background: var(--bone-08); border-color: var(--bone); }
 .btn-sm { height: var(--btn-sm-height); padding: 0 20px; font-size: 14.5px; }
 .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
-.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 @media (max-width: 600px) {
   /* Full width, and the label is allowed to wrap inside it. `nowrap` is right
      for an auto-width button in a row; on a 280px full-width one it is what
@@ -167,6 +167,35 @@ sub, sup { font-size: max(0.83em, 10px); }
 }
 
 /* ---------- Header (parent `.ac-nav`) ---------- */
+/* ---------- Utility bar ----------
+   Phone, email and the trade line, above the nav on every page. On a phone the
+   number alone survives: it is the one thing a buyer standing in a store wants,
+   and the rest is a second row of noise at that width. */
+.ac-util {
+  background: var(--util-bg); color: var(--util-fg);
+  font-family: var(--font-sans); font-size: var(--util-size); line-height: 1;
+  border-bottom: 1px solid rgba(246, 242, 233, 0.10);
+}
+.ac-util__inner {
+  max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter);
+  min-height: var(--util-height);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px 28px;
+}
+.ac-util__group { display: flex; align-items: center; gap: 22px; min-width: 0; }
+.ac-util a { color: var(--util-fg); text-decoration: none; display: inline-flex; align-items: center; gap: 7px; min-height: var(--util-height); white-space: nowrap; }
+.ac-util a:hover, .ac-util a:focus-visible { color: var(--bone); }
+.ac-util svg { flex: none; opacity: 0.75; }
+.ac-util__note { color: rgba(246, 242, 233, 0.50); white-space: nowrap; }
+.ac-util__strong { color: var(--bone); font-weight: 600; }
+@media (max-width: 1080px) { .ac-util__inner { padding: 0 20px; } }
+@media (max-width: 860px) {
+  /* Specific enough to beat `.ac-util a { display: inline-flex }`, which is
+     (0,1,1) and would otherwise win over a lone class and leave the bar
+     overflowing the screen with everything still in it. */
+  .ac-util .ac-util__hide { display: none !important; }
+  .ac-util__inner { justify-content: center; gap: 18px; }
+}
+
 .ac-nav {
   position: sticky; top: 0; z-index: 50;
   background: var(--nav-bg);
@@ -250,7 +279,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 /* ---------- Footer (parent `.ac-foot`) ---------- */
 .ac-foot { background: var(--abyss); color: var(--foot-fg); font-family: var(--font-sans); font-size: var(--foot-size); line-height: 1.65; }
 .ac-foot__inner {
-  max-width: var(--container); margin: 0 auto; padding: 64px var(--gutter) 40px;
+  max-width: var(--container); margin: 0 auto; padding: 48px var(--gutter) 32px;
   display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px;
 }
 @media (max-width: 1180px) { .ac-foot__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -302,12 +331,12 @@ sub, sup { font-size: max(0.83em, 10px); }
 }
 
 /* ---------- Editorial hero (parent about/products hero) ---------- */
-.hero { padding: var(--section-hero) 0 56px; }
-.hero__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
-.hero .eyebrow + h1 { margin-top: 16px; }
-.hero h1 + .lead { margin-top: 24px; }
-.hero .actions { margin-top: 32px; }
-.crumb { font-size: var(--small); color: var(--fg-3); margin-bottom: 32px; }
+.hero { padding: var(--section-hero) 0 40px; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 44px; align-items: center; }
+.hero .eyebrow + h1 { margin-top: 10px; }
+.hero h1 + .lead { margin-top: 16px; }
+.hero .actions { margin-top: 22px; }
+.crumb { font-size: var(--small-xs); color: var(--fg-3); margin-bottom: 20px; }
 .crumb ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .crumb a { color: var(--fg-2); text-decoration: none; }
 .crumb a:hover { color: var(--ink); }
@@ -323,7 +352,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 /* ---------- Grain plate (EXTENDED) ---------- */
 .plate {
   background: var(--paper); border: var(--rule); border-radius: var(--radius);
-  padding: 28px 28px 24px; box-shadow: var(--shadow-1);
+  padding: 20px 22px 18px; box-shadow: var(--shadow-1);
 }
 .plate__head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; margin-bottom: 22px; }
 .plate__head .eyebrow { color: var(--fg-2); }
@@ -354,21 +383,21 @@ sub, sup { font-size: max(0.83em, 10px); }
 .plate__foot { margin-top: 18px; font-size: var(--fine); line-height: 1.5; color: var(--fg-3); }
 
 /* ---------- Stat strip (parent `.ac-stat-grid`) ---------- */
-.stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 40px 0; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 26px 0; }
 .stat-grid > div { padding: 8px 28px; text-align: center; border-right: 1px solid var(--ink-08); min-width: 0; }
 .stat-grid > div:last-child { border-right: 0; }
 .stat-grid .v { font-family: var(--font-serif); font-size: var(--figure); font-weight: 600; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
-.stat-grid .k { font-size: var(--small); color: var(--fg-2); margin-top: 10px; }
+.stat-grid .k { font-size: var(--small-xs); color: var(--fg-2); margin-top: 7px; }
 @media (max-width: 960px) {
   .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 8px; padding: 28px 0; }
   .stat-grid > div { border-right: 0; padding: 8px 10px; }
 }
 
 /* ---------- Feature blocks (parent border-top principle cards) ---------- */
-.feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-.feature { border-top: var(--rule-feature); padding-top: 26px; min-width: 0; }
-.feature__n { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-3); margin-bottom: 18px; }
-.feature h3 { font-size: var(--h3); margin-bottom: 12px; line-height: var(--leading-h3); }
+.feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 28px; }
+.feature { border-top: var(--rule-feature); padding-top: 18px; min-width: 0; }
+.feature__n { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-3); margin-bottom: 12px; }
+.feature h3 { font-size: var(--h3); margin-bottom: 8px; line-height: var(--leading-h3); }
 .feature p { font-size: var(--body-xs); line-height: var(--leading-copy); color: var(--fg-2); }
 .band-ink .feature { border-top-color: var(--bone-40); }
 .band-ink .feature__n { color: var(--bone-60); }
@@ -570,7 +599,7 @@ table.data .mono { font-family: var(--font-mono); font-size: var(--small-xs); }
 @media (max-width: 600px) { .terms > div { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
 
 /* ---------- Ink CTA band (parent closing band) ---------- */
-.cta { text-align: center; padding: var(--section-hero) 0; }
+.cta { text-align: center; padding: 56px 0; }
 .cta h2 { max-width: 720px; margin: 0 auto 20px; letter-spacing: -0.02em; line-height: 1.06; text-wrap: balance; }
 .cta p { max-width: 540px; margin: 0 auto 32px; font-size: var(--lead-band); color: var(--bone-80); }
 .cta .actions { justify-content: center; margin-top: 0; }
@@ -838,3 +867,55 @@ table.price-list td .ext-link { min-height: 0; }
 /* The quote bar's secondary route, next to Clear. */
 .quote-bar__alt { color: var(--bone-72); font-size: var(--small); text-decoration: underline; text-underline-offset: 3px; min-height: 44px; display: inline-flex; align-items: center; padding: 0 4px; }
 .quote-bar__alt:hover { color: var(--bone); }
+
+/* ---------- Literature library ----------
+   Spec sheets, safety data, price list, photography. A trade buyer looks for
+   this before they look at anything else, so the rows are dense and scannable
+   rather than card-shaped. A row whose file does not exist yet is not hidden
+   and not a dead link: it says so and offers to have it sent. */
+.lit-group + .lit-group { margin-top: 32px; }
+.lit-group__head { margin-bottom: 14px; }
+.lit-group__head h3 { font-size: var(--h4); }
+.lit-group__head p { margin-top: 5px; font-size: var(--small); line-height: 1.5; color: var(--fg-2); max-width: 72ch; }
+.lit-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink-12); }
+.lit-row {
+  display: grid; grid-template-columns: 110px minmax(0, 1fr) auto;
+  align-items: center; gap: 8px 20px;
+  padding: 13px 0; border-bottom: 1px solid var(--ink-08);
+}
+.lit-row__kind { font-family: var(--font-mono); font-size: var(--label-sm); letter-spacing: 0.04em; color: var(--fg-3); }
+.lit-row__title { font-size: var(--body-xs); font-weight: 600; color: var(--ink); line-height: 1.35; }
+.lit-row__note { margin-top: 3px; font-size: var(--small-xs); line-height: 1.45; color: var(--fg-2); }
+.lit-row__meta { font-family: var(--font-mono); font-size: var(--label-sm); color: var(--fg-3); margin-top: 4px; }
+.lit-row__action { justify-self: end; white-space: nowrap; }
+.lit-row__action .ext-link, .lit-row__action .lit-dl { min-height: 36px; }
+.lit-dl {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 36px;
+  color: var(--surf); font-size: var(--small); font-weight: 600; text-decoration: none;
+}
+.lit-dl:hover { color: var(--surf-deep); text-decoration: underline; text-underline-offset: 3px; }
+.lit-row--pending .lit-row__title { color: var(--fg-2); }
+.band-ink .lit-list, .band-abyss .lit-list { border-top-color: var(--bone-40); }
+.band-ink .lit-row, .band-abyss .lit-row { border-bottom-color: var(--bone-14); }
+.band-ink .lit-row__title, .band-abyss .lit-row__title { color: var(--bone); }
+.band-ink .lit-row__note, .band-ink .lit-row__meta,
+.band-abyss .lit-row__note, .band-abyss .lit-row__meta { color: var(--bone-72); }
+@media (max-width: 720px) {
+  .lit-row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 16px 0; }
+  .lit-row__action { justify-self: start; }
+}
+
+/* ---------- At-a-glance panel ----------
+   The facts a trade buyer checks first, beside the hero rather than under it. */
+.facts {
+  background: var(--paper); border: var(--rule); border-radius: var(--radius);
+  padding: 4px 20px; box-shadow: var(--shadow-1);
+}
+.facts__row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
+  padding: 11px 0; border-bottom: 1px solid var(--ink-08); font-size: var(--small);
+}
+.facts__row:last-child { border-bottom: 0; }
+.facts__row dt, .facts__k { color: var(--fg-2); }
+.facts__row dd, .facts__v { margin: 0; font-weight: 600; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+.facts__v .sku { margin-left: 6px; }

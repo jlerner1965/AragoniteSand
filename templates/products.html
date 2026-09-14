@@ -22,14 +22,28 @@
         <li aria-current="page">Products and pricing</li>
       </ol>
     </nav>
-    <p class="eyebrow">Six SKUs · three grades · two bag sizes</p>
-    <h1 class="display-1" id="pr-title">The price list.</h1>
-    <p class="lead">Everything we make, what it costs and what a pallet weighs. Build a pallet count below and the volume break is applied as you go, across grades. Send it to us and you get a firm quote with freight the same business day.</p>
-    <div class="actions">
-      <a class="btn btn-ink" href="#price-list">Full price list</a>
-      <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+    <div class="hero__grid">
+      <div>
+        <p class="eyebrow">Six SKUs · three grades · two bag sizes</p>
+        <h1 class="display-1" id="pr-title">Products and price list</h1>
+        <p class="lead">Everything we make, what it costs and what a pallet weighs. Build a pallet count below and the volume break is applied as you go, across grades. Send it over and you get a firm quote with freight the same business day.</p>
+        <div class="actions">
+          <a class="btn btn-ink" href="#price-list">Full price list</a>
+          <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+        </div>
+        <p class="note" style="margin-top:16px">{{ac_note_html}}</p>
+      </div>
+      <dl class="facts" aria-label="At a glance">
+        <div class="facts__row"><dt>Material</dt><dd>Aragonite, Bahamian oolitic</dd></div>
+        <div class="facts__row"><dt>Grades</dt><dd>0.5–1.0 · 1.0–2.0 · 2.0–5.0 mm</dd></div>
+        <div class="facts__row"><dt>Bag sizes</dt><dd>{{retail_bag_lb}} lb retail · {{trade_bag_lb}} lb trade</dd></div>
+        <div class="facts__row"><dt>Unit of sale</dt><dd>Pallet, grades may be mixed</dd></div>
+        <div class="facts__row"><dt>From</dt><dd>{{from_per_bag}} per bag</dd></div>
+        <div class="facts__row"><dt>Volume breaks</dt><dd>From {{tier2_label}}</dd></div>
+        <div class="facts__row"><dt>Ships</dt><dd>FOB Stockton, CA</dd></div>
+        <div class="facts__row"><dt>Every lot</dt><dd>XRD, chemistry and sieve published</dd></div>
+      </dl>
     </div>
-    <p class="note" style="margin-top:18px">{{ac_note_html}}</p>
   </div>
 </section>
 
@@ -142,6 +156,20 @@
       <a class="btn btn-ink" href="{{ac_sample}}">Request a sample of all three {{ext_icon_html}}</a>
       <a class="btn btn-inkline" href="index.html#lot">Look up a lot analysis</a>
     </div>
+  </div>
+</section>
+
+<section class="section" id="literature" aria-labelledby="plit-title">
+  <div class="wrap">
+    <div class="sec-head sec-head--row">
+      <div>
+        <p class="eyebrow">Documents</p>
+        <h2 class="display-2" id="plit-title">Specification and safety data</h2>
+        <p class="lead">What a buyer's technical review needs. Anything not yet posted is sent on request. <span class="placeholder-flag" data-placeholder>No files produced yet</span></p>
+      </div>
+      <a class="tide-link" href="dealers.html#literature">Full dealer library <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+    {{literature_public_html}}
   </div>
 </section>
 

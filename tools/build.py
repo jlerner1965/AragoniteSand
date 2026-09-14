@@ -203,6 +203,66 @@ def ac_note(links):
     )
 
 
+# --------------------------------------------------------------- literature
+
+def literature(lit, links, audience="all"):
+    """The document library, grouped.
+
+    A row whose `file` is null is not hidden and not a dead link. It says the
+    document is available on request and points at AragoCor's contact form with
+    the document named, which is both the honest state and the behaviour a
+    trade buyer expects: someone sends it to them.
+    """
+    out = []
+    for group in lit["groups"]:
+        rows = [i for i in lit["items"]
+                if i["group"] == group["id"]
+                and (audience == "all" or i["audience"] == "public")]
+        if not rows:
+            continue
+        cells = []
+        for i in rows:
+            meta = " · ".join(x for x in [
+                i["format"],
+                (f'{i["pages"]} page' + ("s" if i["pages"] != 1 else "")) if i.get("pages") else None,
+            ] if x)
+            if i["file"]:
+                action = (f'<a class="lit-dl" href="{esc(i["file"])}">'
+                          f'{"Open" if i["format"] == "Web" else "Download"}'
+                          f'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                          f'stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" '
+                          f'stroke-linecap="round" stroke-linejoin="round"/></svg></a>')
+                cls = ""
+            else:
+                url = ac_url(links, "contact", "technical",
+                             f'{i["title"]} — aragonite aquarium sand',
+                             f'lit-{i["title"][:40].lower().replace(" ", "-")}')
+                action = f'<a class="ext-link" href="{esc(url)}">Request it{EXT_ICON}</a>'
+                cls = " lit-row--pending"
+            cells.append(
+                f'<li class="lit-row{cls}">\n'
+                f'          <div class="lit-row__kind">{esc(i["kind"])}</div>\n'
+                f'          <div>\n'
+                f'            <div class="lit-row__title">{esc(i["title"])}</div>\n'
+                f'            <div class="lit-row__note">{esc(i["note"])}</div>\n'
+                f'            <div class="lit-row__meta">{esc(meta)}'
+                f'{"" if i["file"] else " · available on request"}</div>\n'
+                f'          </div>\n'
+                f'          <div class="lit-row__action">{action}</div>\n'
+                f'        </li>'
+            )
+        out.append(
+            f'<div class="lit-group">\n'
+            f'        <div class="lit-group__head">\n'
+            f'          <h3>{esc(group["title"])}</h3>\n'
+            f'          <p>{esc(group["intro"])}</p>\n'
+            f'        </div>\n'
+            f'        <ul class="lit-list">\n          ' + "\n          ".join(cells) + '\n        </ul>\n'
+            f'      </div>'
+        )
+    return "\n      ".join(out)
+
+
 # ---------------------------------------------------------------- commerce
 
 def money(n, cents=True):
@@ -521,6 +581,7 @@ def build():
     pack = load_json("packaging.json")
     products = load_json("products.json")
     links = load_json("links.json")
+    lit = load_json("literature.json")
     grades = grades_doc["grades"]
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
 
@@ -593,6 +654,8 @@ def build():
         ),
         "ext_icon_html": EXT_ICON,
         "ac_note_html": ac_note(links),
+        "literature_html": literature(lit, links, "all"),
+        "literature_public_html": literature(lit, links, "public"),
     }
     for s_ in products["skus"]:
         common[f'{s_["sku"].lower().replace("-", "_")}_price'] = money(s_["list_per_bag"])
@@ -633,7 +696,7 @@ def build():
 
     # Other pages carry their own title/description in a leading JSON front
     # matter comment so the data stays with the page.
-    for name in ("index", "products", "wholesale", "about", "404"):
+    for name in ("index", "products", "wholesale", "dealers", "about", "404"):
         src = (TEMPLATES / f"{name}.html").read_text(encoding="utf-8")
         m = re.match(r"\s*<!--\s*meta\s*(\{.*?\})\s*-->\s*", src, re.S)
         if not m:
