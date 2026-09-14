@@ -27,6 +27,10 @@ TEMPLATES = ROOT / "templates"
 PARTIALS = TEMPLATES / "partials"
 DATA = ROOT / "data"
 
+class LaunchBlocked(RuntimeError):
+    """Raised when status is 'live' and something unverified would reach a visitor."""
+
+
 TOKEN = re.compile(r"\{\{\s*(>?)\s*([A-Za-z0-9_.-]+)\s*\}\}")
 
 
@@ -220,7 +224,7 @@ def shot(images, key, caption=None, cls=""):
 
 # ------------------------------------------------------- links to the parent
 
-def ac_url(links, path_key="contact", interest=None, note=None, content=None, industry=True):
+def ac_url(links, path_key="contact", interest=None, note=None, content=None, market=None):
     """A deep link into aragocorminerals.com.
 
     Buying happens there, so every sample, pricing and quote action on this
@@ -230,6 +234,14 @@ def ac_url(links, path_key="contact", interest=None, note=None, content=None, in
     the visitor arrives at a form that already knows what they want. The utm_*
     trio is captured onto the lead record, which is what makes traffic sent
     from here measurable at the other end.
+
+    `market` is the market on this site the action came from, and it is the
+    only thing that sets `industry`. Every link used to send one hard-coded
+    industry, left over from when this site sold to aquarium only, so an
+    agriculture or feed buyer arrived at the parent's form filed under
+    aquarium. An industry is now sent only when the market is known AND its
+    option string has been confirmed against the live form: a wrong industry is
+    worse than none, because nobody downstream can tell it was wrong.
     """
     from urllib.parse import quote as urlq
 
@@ -237,8 +249,9 @@ def ac_url(links, path_key="contact", interest=None, note=None, content=None, in
     q = []
     if interest:
         q.append("interest=" + urlq(links["interest"][interest]))
-    if interest and industry:
-        q.append("industry=" + urlq(links["industry"]))
+    ind = links["industry"].get(market) if market else None
+    if interest and ind and ind.get("confirmed"):
+        q.append("industry=" + urlq(ind["value"]))
     if note:
         q.append("document=" + urlq(note))
     utm = links["utm"]
@@ -548,10 +561,10 @@ def market_sections(markets, products, grades, links, images):
         )
         enquire = ac_url(links, "contact", "pricing",
                          f'{m["name"]} — aragonite, pricing and availability',
-                         f'market-{m["id"]}')
+                         f'market-{m["id"]}', market=m["id"])
         sample = ac_url(links, "contact", "sample",
                         f'{m["name"]} — aragonite sample',
-                        f'market-{m["id"]}-sample')
+                        f'market-{m["id"]}-sample', market=m["id"])
         out.append(
             f'<section class="section{" band-paper" if len(out) % 2 else ""}" id="{esc(m["id"])}" '
             f'aria-labelledby="{esc(m["id"])}-title">\n'
@@ -909,6 +922,77 @@ def jsonld_product(g, pack):
     return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
 
 
+def launch_gate(site, pages, products, images, company, lit, lots, packaging):
+    """What still stands between this site and being publishable.
+
+    Everything unverified on this site renders with a flag on it, which is the
+    right behaviour for a draft and the wrong behaviour for a live trade site:
+    a distributor reading "Payment terms: TODO" does not see a note to the
+    author, they see a company that does not know its own terms. Worse, a
+    placeholder nobody removes reads exactly like a fact.
+
+    So the check runs on the rendered HTML, not on intentions. In `pre-launch`
+    it prints the list on every build. In `live` it refuses to build while the
+    list is non-empty, and names each item and where it is.
+
+    Returns (blockers, warnings). Blockers are things that are untrue,
+    unconfigured or internal. Warnings are things that are honest but
+    unfinished, which a site may legitimately launch with.
+    """
+    blockers, warnings = [], []
+
+    # 1. Author's notes reaching the visitor.
+    for name, html in sorted(pages.items()):
+        body = re.sub(r"<!--.*?-->", "", html, flags=re.S)   # comments are not shipped text
+        for m in set(re.findall(r"TODO[^<\n]{0,70}", body)):
+            blockers.append(f'{name}: visible author note "{m.strip()}"')
+        n = len(re.findall(r'data-placeholder', body))
+        if n:
+            blockers.append(f"{name}: {n} placeholder flag(s) rendered to the page")
+
+    # 2. Figures that are not the company's own.
+    if products.get("price_status") != "live":
+        blockers.append(
+            f'data/products.json: price_status is "{products.get("price_status")}". '
+            f'A published price list must be AragoCor\'s own and dated')
+
+    # 3. Demonstration data presented as a record.
+    if lots.get("lots") or any("Demonstration records" in h or "Demo lot" in h
+                               for h in pages.values()):
+        blockers.append(
+            "index.html: the lot lookup is serving demonstration records. "
+            "Connect it to real signed analyses or take it off the page")
+
+    # 4. A form that does not go anywhere.
+    for name, html in pages.items():
+        if 'data-endpoint=""' in html:
+            blockers.append(f"{name}: the inquiry form has no endpoint configured")
+
+    # 5. Packaging that has not been produced.
+    renders = [k for k, v in images["images"].items() if v.get("source") == "render"]
+    if renders:
+        blockers.append(
+            f"data/images.json: {len(renders)} slot(s) show a render of packaging that "
+            f"has not been printed ({', '.join(sorted(renders)[:3])}…)")
+
+    # ---- warnings: honest, but unfinished -------------------------------
+    figs = [k for k, v in images["images"].items() if v.get("figure") and not v.get("file")]
+    empty = [k for k, v in images["images"].items() if not v.get("file") and not v.get("figure")]
+    if figs:
+        warnings.append(f"{len(figs)} image slot(s) carry a drawing instead of a photograph")
+    if empty:
+        warnings.append(f"{len(empty)} image slot(s) are still an empty brief: "
+                        f"{', '.join(sorted(empty))}")
+    missing_lit = [i["title"] for i in lit["items"] if not i.get("file")]
+    if missing_lit:
+        warnings.append(f"{len(missing_lit)} literature item(s) do not exist yet and render "
+                        f"as available on request")
+    unconf = [c["name"] for c in company["compliance"] if c["status"] != "held"]
+    if unconf:
+        warnings.append(f"{len(unconf)} compliance item(s) unconfirmed: {', '.join(unconf)}")
+    return blockers, warnings
+
+
 def build():
     grades_doc = load_json("grades.json")
     pack = load_json("packaging.json")
@@ -918,11 +1002,18 @@ def build():
     markets = load_json("markets.json")
     images = load_json("images.json")
     company = load_json("company.json")
+    site = load_json("site.json")
+    lots = load_json("lots.json")
     grades = grades_doc["grades"]
     check_prices(products, grades)
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
 
     common = {
+        # One place decides the published origin. It is written into every
+        # canonical link, every og:url and the sitemap, so a site served from a
+        # different domain than it declares - which keeps it out of the index -
+        # is a one-line fix rather than a search and replace.
+        "origin": site["canonical_origin"].rstrip("/"),
         "retail_bag_lb": pack["retail_bag_lb"],
         "trade_bag_lb": pack["trade_bag_lb"],
         "retail_bags_per_pallet": pack["retail_bags_per_pallet"],
@@ -987,7 +1078,10 @@ def build():
         "ac_quote_attrs_html": (
             'data-ac-contact="' + esc(links["base"] + links["paths"]["contact"]) + '" '
             'data-ac-interest="' + esc(links["interest"]["pricing"]) + '" '
-            'data-ac-industry="' + esc(links["industry"]) + '" '
+            # No industry: an estimate is a basket across grades and markets,
+            # so there is no one industry it belongs to. Sending a guess would
+            # file the lead under the wrong desk.
+
             'data-ac-utm="' + esc("{source}|{medium}|{campaign}".format(**links["utm"])) + '"'
         ),
         "ext_icon_html": EXT_ICON,
@@ -1024,6 +1118,7 @@ def build():
     common["from_per_bag"] = money(min(r["list"] for r in _rows if r["pack"]["unit"] == "bag"))
 
     written = []
+    rendered = {}
 
     # Grade pages: one template, three instances.
     tpl = (TEMPLATES / "grade.html").read_text(encoding="utf-8")
@@ -1057,7 +1152,9 @@ def build():
         _mine = [r for r in sku_rows(products, grades) if r["grade"]["slug"] == g["slug"]]
         ctx["grade_from_price"] = money(min(r["per_lb"] for r in _mine))
         out = ROOT / g["page"]
-        out.write_text(render(tpl, ctx), encoding="utf-8")
+        html = render(tpl, ctx)
+        out.write_text(html, encoding="utf-8")
+        rendered[out.name] = html
         written.append(out.name)
 
     # Other pages carry their own title/description in a leading JSON front
@@ -1081,16 +1178,44 @@ def build():
             for k in ("grain_mm", "mesh", "bulk_density_lb_ft3", "caco3_pct", "primary_use", "page", "name"):
                 ctx[f"{g['slug']}_{k}"] = g[k]
         out = ROOT / f"{name}.html"
-        out.write_text(render(body, ctx), encoding="utf-8")
+        html = render(body, ctx)
+        out.write_text(html, encoding="utf-8")
+        rendered[out.name] = html
         written.append(out.name)
 
-    return written
+    blockers, warnings = launch_gate(site, rendered, products, images, company, lit,
+                                     lots, pack)
+    if site["status"] == "live" and blockers:
+        raise LaunchBlocked(blockers)
+    return written, blockers, warnings, site["status"]
 
 
 if __name__ == "__main__":
     try:
-        for name in build():
+        names, blockers, warnings, status = build()
+        for name in names:
             print("wrote", name)
+    except LaunchBlocked as e:
+        print("\nBUILD REFUSED. status is 'live' and this would reach a visitor:\n",
+              file=sys.stderr)
+        for b in e.args[0]:
+            print("  x " + b, file=sys.stderr)
+        print("\nResolve these, or set status back to 'pre-launch' in data/site.json.",
+              file=sys.stderr)
+        sys.exit(1)
     except (KeyError, RuntimeError) as e:
         print("build failed:", e, file=sys.stderr)
         sys.exit(1)
+
+    print(f"\nstatus: {status}")
+    if blockers:
+        print(f"{len(blockers)} launch blocker(s) — the build will refuse these when "
+              f"status is 'live':")
+        for b in blockers:
+            print("  x " + b)
+    if warnings:
+        print(f"{len(warnings)} open item(s), not blocking:")
+        for w in warnings:
+            print("  - " + w)
+    if not blockers:
+        print("no launch blockers. data/site.json may be set to 'live'.")

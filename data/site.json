@@ -1,0 +1,23 @@
+{
+  "_readme": [
+    "Site-wide state. `status` is the one switch that decides whether this site",
+    "may be published.",
+    "",
+    "  pre-launch  the site is a working draft. Unverified figures render with",
+    "              their flags on, banners say what is provisional, and every",
+    "              build prints the outstanding list so it cannot be forgotten.",
+    "  live        the site claims to be real. tools/build.py refuses to build",
+    "              at all while anything unverified would reach a visitor.",
+    "",
+    "The gate exists because the failure mode is silence: a placeholder that",
+    "nobody removes looks exactly like a fact to a distributor reading it. The",
+    "build will not let that ship. To launch, clear the list the gate prints,",
+    "then set status to 'live'.",
+    "",
+    "`canonical_origin` is written into every page's canonical link. It must be",
+    "the domain actually served. Pointing it at a domain that does not answer",
+    "keeps the site out of the index."
+  ],
+  "status": "pre-launch",
+  "canonical_origin": "https://aragonitesand.com"
+}

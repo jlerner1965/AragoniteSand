@@ -1,27 +1,13 @@
 {
   "_readme": [
-    "Outbound links to the parent site. Buying happens at aragocorminerals.com:",
-    "it has the real lead form, the CRM behind it and the sales team. This site",
-    "is the catalogue and the proof; every buying action hands off to there.",
+    "Deep links into aragocorminerals.com. Buying happens there, so every sample,",
+    "pricing and quote action on this site ends at one of these URLs.",
     "",
-    "Nothing here is invented. The paths, the `interest` values, the industry",
-    "name and the `document` parameter were all read out of the parent's own",
-    "source (jlerner1965/aragocor-site: lib/lead-form.js, lib/catalog.js,",
-    "lib/attribution.js), so the deep links land on a form that is already",
-    "filled in rather than on a blank one.",
-    "",
-    "What each parameter does on arrival, per lib/lead-form.js:",
-    "  interest   preselects the journey, which decides the fields shown",
-    "  industry   preselects the industry select; must match a catalog value",
-    "  document   free text; the form writes it into details as",
-    "             'Requesting: <text>', which is how the grade, the SKU or a",
-    "             whole quote travels across",
-    "  utm_*      captured by lib/attribution.js and stored on the lead, so",
-    "             traffic sent from here is attributable in their CRM",
-    "",
-    "If the parent site ever renames a path or an interest value, change it",
-    "here once: tools/build.py renders every link from this file and js/site.js",
-    "reads the same values out of the markup."
+    "`industry` maps a market on this site to the option string AragoCor's lead",
+    "form expects. Only values marked confirmed are ever sent: a wrong industry is",
+    "worse than none, because it files the lead under the wrong desk and nobody",
+    "can tell it was wrong. Confirm a string against the live form, then flip its",
+    "flag. CTAs that are not market-specific send no industry at all."
   ],
   "base": "https://www.aragocorminerals.com",
   "paths": {
@@ -43,11 +29,32 @@
     "technical": "technical-evaluation",
     "general": "general"
   },
-  "industry": "Aquarium & aquaculture",
+  "industry": {
+    "aquarium": {
+      "value": "Aquarium & aquaculture",
+      "confirmed": true
+    },
+    "agriculture": {
+      "value": "Agriculture",
+      "confirmed": false
+    },
+    "feed": {
+      "value": "Animal feed",
+      "confirmed": false
+    },
+    "turf": {
+      "value": "Turf & landscape",
+      "confirmed": false
+    },
+    "water": {
+      "value": "Water treatment",
+      "confirmed": false
+    }
+  },
   "utm": {
     "source": "aragonitesand.com",
     "medium": "referral",
-    "campaign": "aquarium-substrate"
+    "campaign": "trade"
   },
   "labels": {
     "sample": "Request a sample",

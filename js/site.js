@@ -549,9 +549,13 @@
         var contact = link.getAttribute("data-ac-contact");
         if (contact) {
           var utm = (link.getAttribute("data-ac-utm") || "||").split("|");
+          /* An industry is sent only when one is set on the link. An empty
+             industry= is not harmless: it can clear a preselected value at
+             the other end. */
+          var ind = link.getAttribute("data-ac-industry");
           link.href = contact +
             "?interest=" + encodeURIComponent(link.getAttribute("data-ac-interest") || "bulk-pricing") +
-            "&industry=" + encodeURIComponent(link.getAttribute("data-ac-industry") || "") +
+            (ind ? "&industry=" + encodeURIComponent(ind) : "") +
             "&document=" + encodeURIComponent(summary) +
             "&utm_source=" + encodeURIComponent(utm[0]) +
             "&utm_medium=" + encodeURIComponent(utm[1]) +
