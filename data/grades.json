@@ -1,22 +1,25 @@
 {
   "_readme": [
-    "Source of truth for the three grades. tools/build-grade-pages.py renders",
-    "grade-fine.html, grade-medium.html and grade-coarse.html from this file and",
-    "templates/grade.html. js/site.js also loads it at runtime for the depth",
-    "calculator's per-grade bulk density and the grain-scale illustration.",
+    "Source of truth for the three grades. tools/build.py renders the grade pages",
+    "from this file and templates/grade.html. js/site.js also loads it at runtime",
+    "for the depth calculator's per-grade bulk density and the grain-scale",
+    "illustration.",
     "",
-    "Grain size, mesh, bulk density and primary use come from the brief and are",
-    "the values to build against. Everything marked TODO is invented placeholder",
-    "data and must be replaced before launch; see README.md."
+    "`typical_analysis` and `natural_screen_spec` are AragoCor's own published",
+    "figures, read off the printed 50 lb bag and 2 tonne sack. They are the only",
+    "chemistry on this site that is not invented. The chemistry does not change",
+    "between screen cuts, so one analysis covers all three grades.",
+    "",
+    "Grain size, mesh, bulk density and primary use come from the brief.",
+    "Everything still marked TODO is invented placeholder data and must be",
+    "replaced before launch; see README.md."
   ],
   "_todo": {
-    "caco3_pct": "TODO: replace with the typical CaCO3 value from the lab.",
-    "moisture_max_pct": "TODO: replace with the packaging moisture limit actually held.",
-    "fines_max_pct": "TODO: replace with the fines limit below 0.25 mm actually screened to.",
-    "acid_insoluble_max_pct": "TODO: replace with the acid-insoluble residue limit from the lab.",
-    "sieve": "TODO: replace with a real representative lot's sieve distribution.",
+    "fines_max_pct": "TODO: still invented. Not published on the bag, and the published gradation is for the natural grade, not for a screened cut.",
+    "acid_insoluble_max_pct": "TODO: still invented. Not published on the bag.",
+    "sieve": "TODO: still invented per grade. natural_screen_spec below is the real published gradation, but it is for the unscreened natural grade.",
     "representative_lot": "TODO: point at a real lot code in data/lots.json.",
-    "grain_samples_mm": "Illustration only: dot diameters for the drawn grain-scale visual. Replace the visual with sample photography at scale."
+    "grain_samples_mm": "Illustration only: dot diameters for the drawn grain-scale visual."
   },
   "bag_lb": 20,
   "trade_bag_lb": 50,
@@ -37,8 +40,8 @@
       "primary_use": "Reef, sand beds",
       "card_use": "Aquarium sand beds, soil amendment, feed and mineral blending, rootzone amendment.",
       "other_blurb": "0.5–1.0 mm. The finest grade. Highest surface area, lowest drift resistance.",
-      "caco3_pct": "96.4",
-      "moisture_max_pct": "0.4",
+      "caco3_pct": "94.0–98.5",
+      "moisture_max_pct": 10,
       "fines_max_pct": "2",
       "acid_insoluble_max_pct": "1.5",
       "representative_lot": "AC-2608-F01",
@@ -114,8 +117,8 @@
       "primary_use": "General marine, mixed reef",
       "card_use": "General marine and mixed reef substrate, soil and rootzone amendment, water treatment contact media.",
       "other_blurb": "1.0–2.0 mm. The middle grade. Holds position under higher flow than fine.",
-      "caco3_pct": "96.7",
-      "moisture_max_pct": "0.4",
+      "caco3_pct": "94.0–98.5",
+      "moisture_max_pct": 10,
       "fines_max_pct": "1",
       "acid_insoluble_max_pct": "1.5",
       "representative_lot": "AC-2609-M01",
@@ -190,8 +193,8 @@
       "primary_use": "Cichlid, hard water, high flow",
       "card_use": "Cichlid and hard-water aquarium substrate, high-flow marine, water treatment contact media.",
       "other_blurb": "2.0–5.0 mm. The coarsest grade. Highest flow resistance, lowest surface area.",
-      "caco3_pct": "96.1",
-      "moisture_max_pct": "0.5",
+      "caco3_pct": "94.0–98.5",
+      "moisture_max_pct": 10,
       "fines_max_pct": "0.5",
       "acid_insoluble_max_pct": "2.0",
       "representative_lot": "AC-2607-C01",
@@ -248,5 +251,94 @@
       "ruler_max_mm": 6,
       "keywords": "coarse aragonite 2.0-5.0 mm, aragonite gravel, aragonite contact media, high flow substrate"
     }
-  ]
+  ],
+  "typical_analysis": {
+    "_source": "AragoCor Minerals' printed packaging, 50 lb bag and 2 tonne sack. Stated there as a typical analysis of a dried unwashed sample.",
+    "basis": "Dried unwashed sample",
+    "rows": [
+      {
+        "name": "CaCO₃",
+        "min": 94.0,
+        "max": 98.5
+      },
+      {
+        "name": "MgCO₃",
+        "min": 0.5,
+        "max": 1.5
+      },
+      {
+        "name": "SiO₂",
+        "min": 0.02,
+        "max": 0.08
+      },
+      {
+        "name": "Fe₂O₃",
+        "min": 0.008,
+        "max": 0.025
+      },
+      {
+        "name": "Al₂O₃",
+        "min": 0.02,
+        "max": 0.15
+      },
+      {
+        "name": "SO₃",
+        "min": 0.1,
+        "max": 0.2
+      },
+      {
+        "name": "NaCl",
+        "min": 0.06,
+        "max": 0.25
+      },
+      {
+        "name": "SrO",
+        "min": 0.3,
+        "max": 1.25
+      },
+      {
+        "name": "LOI",
+        "min": 43.5,
+        "max": 45.0
+      }
+    ],
+    "moisture_pct": "5–10"
+  },
+  "natural_screen_spec": {
+    "_source": "AragoCor Minerals' printed packaging. Stated there as the screen size specification of the natural / commercial grade, which is the unscreened product, not any of the three cuts this site lists.",
+    "rows": [
+      {
+        "mesh": 4,
+        "retained_pct": "0–1"
+      },
+      {
+        "mesh": 8,
+        "retained_pct": "1–4"
+      },
+      {
+        "mesh": 16,
+        "retained_pct": "3–11"
+      },
+      {
+        "mesh": 30,
+        "retained_pct": "10–26"
+      },
+      {
+        "mesh": 50,
+        "retained_pct": "40–67"
+      },
+      {
+        "mesh": 100,
+        "retained_pct": "80–98"
+      },
+      {
+        "mesh": 140,
+        "retained_pct": "93–99"
+      },
+      {
+        "mesh": 200,
+        "retained_pct": "99–100"
+      }
+    ]
+  }
 }

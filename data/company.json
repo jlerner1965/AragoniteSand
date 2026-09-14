@@ -14,19 +14,46 @@
   ],
   "legal_name": "AragoCor Minerals LLC",
   "facility": "Stockton, California",
-  "address": ["2453 Grand Canal Blvd. Ste 200", "Stockton, CA 95207"],
+  "address": [
+    "2453 Grand Canal Blvd. Ste 200",
+    "Stockton, CA 95207"
+  ],
   "phone": "+1 (209) 487-0110",
   "email": "info@aragocorminerals.com",
   "hours": "Monday to Friday, 7:00 to 16:00 Pacific",
   "facts": [
-    { "k": "Material", "v": "Oolitic aragonite, Bahamian marine origin" },
-    { "k": "Source", "v": "Aragosan Minerals Limited, The Bahamas" },
-    { "k": "Processing", "v": "Washed, dried and screened in Stockton, California" },
-    { "k": "Calcination", "v": "None. The material is not kilned" },
-    { "k": "Formats", "v": "20 lb and 50 lb bags, 2,000 lb bulk bags, bulk by the ton" },
-    { "k": "Markets", "v": "Aquarium, agriculture, animal feed, turf, water treatment" },
-    { "k": "Ships from", "v": "Stockton, California. LTL, truckload and container" },
-    { "k": "Lead time", "v": "TODO: confirm standard lead time in business days" }
+    {
+      "k": "Material",
+      "v": "Oolitic aragonite, Bahamian marine origin"
+    },
+    {
+      "k": "Source",
+      "v": "Aragosan Minerals Limited, The Bahamas"
+    },
+    {
+      "k": "Processing",
+      "v": "Washed, dried and screened in Stockton, California"
+    },
+    {
+      "k": "Calcination",
+      "v": "None. The material is not kilned"
+    },
+    {
+      "k": "Formats",
+      "v": "20 lb and 50 lb bags, 2,000 lb bulk bags, bulk by the ton"
+    },
+    {
+      "k": "Markets",
+      "v": "Aquarium, agriculture, animal feed, turf, water treatment"
+    },
+    {
+      "k": "Ships from",
+      "v": "Stockton, California. LTL, truckload and container"
+    },
+    {
+      "k": "Lead time",
+      "v": "TODO: confirm standard lead time in business days"
+    }
   ],
   "compliance": [
     {
@@ -42,7 +69,7 @@
     {
       "name": "OMRI listing, organic production",
       "status": "unconfirmed",
-      "detail": "TODO: confirm whether these grades are covered by an existing listing. Do not publish an organic-production claim until they are."
+      "detail": "AragoCor's printed packaging carries an organic-input badge worded 'products available OMRI Listed'. That is a claim about the range, not about a given grade, so it is not published here as one. TODO: confirm the listing that covers these grades."
     },
     {
       "name": "Feed-grade qualification",

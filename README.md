@@ -111,7 +111,19 @@ page captions it *Packaging render*, because the pack it shows has not been
 produced. Put a real photograph in `assets/photos/`, set `file` to its path,
 drop the `source` line, rebuild, and the caption goes with it.
 
-**The pack renders.** `tools/make-packshots.py` writes the SVG sources into
+**The pack renders.** The artwork follows AragoCor's own packaging language,
+taken from photographs of the real 50 lb bag and 2 tonne sack: a white woven
+sack with printed blue side bands and stitching, an organic-input badge at the
+top left, the product name set large over a rule, a row of round icons, an
+ocean wave filling the foot, the net weight in a dark badge, a code block in
+the corner and the domain along the bottom. It is **not** a copy of that
+artwork. The type is this site's, the wave is drawn here, the code block points
+at this site's lot lookup, and the four icons carry specification — oolitic
+aragonite, washed and screened, not calcined, analysed by lot — where the real
+pack carries benefit claims. The pH claim on the real bag is deliberately not
+reproduced: this site does not make one.
+
+`tools/make-packshots.py` writes the SVG sources into
 `assets/photos/src/` and `node tools/render-packshots.mjs` rasterises them to
 JPEG beside them. Chromium does the rasterising because the shots are built out
 of SVG filters — turbulence for the matte grain on the film, gaussian blurs for
@@ -122,7 +134,9 @@ left, which is what the briefs ask for, and everything else follows from it.
 
 The packaging in those renders is a **proposal**, not approved artwork. The
 print positions, the grade block and the lot-code block are what this site says
-the pack carries. Nobody has printed it. The grain window on the retail bag is
+the pack carries. Nobody has printed it. The code block is a placeholder
+pattern with the right structure, not an encoded URL — there is nothing yet for
+it to encode. The grain window on the retail bag is
 drawn enlarged and says so on the pack: at the scale a whole-bag shot sees it, a
 1 mm grain is about a pixel.
 
@@ -149,6 +163,27 @@ set.
 The grain-scale diagrams drawn in the browser are a separate thing and stay:
 they are drawn to true scale against a millimetre rule and sit in the
 specification section as technical content, beside the sieve distribution.
+
+## The published analysis
+
+`data/grades.json` carries two blocks, `typical_analysis` and
+`natural_screen_spec`, read off AragoCor's own printed packaging. They are the
+only chemistry on this site that is not invented, and they replaced invented
+figures that were wrong in at least one way that mattered: moisture had been
+guessed at 0.4%, where the bag states 5–10%.
+
+The analysis is stated on the bag for a dried unwashed sample and covers the
+material, not a screen cut; chemistry does not change between cuts, so one
+analysis serves all three grades and all three now read 94.0–98.5% CaCO₃.
+
+`natural_screen_spec` is the gradation the bag publishes for the **natural or
+commercial grade** — the unscreened product. It is not the gradation of any of
+the three cuts this site lists, and it does not support them: it puts most of
+the mass between 200 and 30 mesh, finer than the finest grade here. Read the
+note in the file before using it.
+
+Still invented and still marked TODO in that file: the fines limit, the
+acid-insoluble limit and the per-grade sieve distributions.
 
 ## Compliance, and what may be claimed
 
