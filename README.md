@@ -138,10 +138,30 @@ and the quote builder are all rendered from it, and per-pallet and per-pound
 figures are derived rather than stored, so they cannot drift out of step with
 the per-bag price.
 
-While `price_status` is `"placeholder"`, every page carrying a price shows an
-amber banner saying the figures are invented. To go live: put the real numbers
-in, set `effective_date`, set `price_status` to `"live"`, and run the build.
-The banners disappear; nothing else changes.
+`price_status` has three states:
+
+| State | What the figures are | What the pages say |
+| --- | --- | --- |
+| `placeholder` | invented, for layout | a banner: pre-launch, not quotable |
+| `indicative` | worked from published market prices for aragonite, recorded with their sources under `price_basis` | a banner: indicative, not AragoCor's list, not quotable |
+| `live` | AragoCor's own list | no banner; the tables carry an effective date |
+
+The file currently sits at `indicative`. The bagged figures are half of
+observed dry-aquarium retail for the 20 lb bag and two thirds of observed
+agricultural retail for the 50 lb bag; the bulk-bag and by-the-ton figures are
+derived from the bagged per-pound rate by the packaging cost that drops out,
+because no supplier of oolitic aragonite publishes bulk pricing — the whole
+trade quotes by the load. Those two are the softest numbers in the file.
+
+To go live: put the real numbers in, set `effective_date`, set `price_status`
+to `"live"`, delete the `price_basis` block, and run the build. The banners
+disappear; nothing else changes.
+
+`tools/build.py` refuses to build a price list that contradicts itself: a
+duplicate SKU, a missing price, a suggested shelf price at or below the trade
+price, a larger pack costing more per pound than a smaller one in the same
+grade, or volume tiers that leave a gap. It also refuses `live` while any
+TODO remains, so an unfinished list cannot be published by flipping one flag.
 
 Volume tiers are a list under `tiers`. Add, remove or reprice them freely; the
 price-list columns, the tier cards and the quote builder's arithmetic all
@@ -272,9 +292,10 @@ called out in a `_todo` or `_readme` block; in the templates there is a
 | Grain-scale visuals | every hero, and the product cards | drawn geometry at 15 px/mm, replace with photography at scale |
 | Stockton facility photograph | `about.html` | empty frame |
 | Every document in the literature library | `data/literature.json` | none produced; all `file: null` |
-| **Every price, per bag and per pallet** | `data/products.json` `skus` | invented; `price_status` is `placeholder` |
+| **Every price, per bag and per pallet** | `data/products.json` `skus` | market-referenced, not AragoCor's list; `price_status` is `indicative` and the sources are under `price_basis` |
+| Bulk-bag and by-the-ton prices | `data/products.json` `skus` | derived from the bagged per-pound rate; no supplier publishes bulk pricing to check against |
 | Volume tier discounts (6 / 11 / 15%) | `data/products.json` `tiers` | invented |
-| Suggested shelf prices | `data/products.json` `suggested_shelf` | invented |
+| Suggested shelf prices | `data/products.json` `suggested_shelf` | keystone on the observed retail bag |
 | Price-list effective date | `data/products.json` `effective_date` | TODO |
 | UPCs for all six bags | `data/products.json` `upc` | TODO |
 

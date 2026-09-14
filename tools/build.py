@@ -354,9 +354,14 @@ def check_prices(products, grades):
     flipping one flag.
     """
     status = products.get("price_status")
-    if status not in ("placeholder", "live"):
+    if status not in ("placeholder", "indicative", "live"):
         raise RuntimeError(
-            f"products.json: price_status is {status!r}, expected 'placeholder' or 'live'")
+            f"products.json: price_status is {status!r}, expected 'placeholder', "
+            f"'indicative' or 'live'")
+    if status == "indicative" and not products.get("price_basis", {}).get("observed"):
+        raise RuntimeError(
+            "products.json: price_status is 'indicative' but price_basis.observed is "
+            "empty. An indicative figure without a recorded source is an invented one")
 
     packs = by_id(products["packs"])
     slugs = {g["slug"] for g in grades}
@@ -439,14 +444,42 @@ def check_prices(products, grades):
 
 
 def price_status_banner(products):
-    """Shown once per page carrying prices, while the figures are invented."""
-    if products.get("price_status") == "live":
+    """Shown once per page carrying prices, until the list is AragoCor's own.
+
+    An indicative list is the harder case to word. The numbers are real, in
+    that they are worked from published market prices rather than invented,
+    and a distributor can size an order against them. They are still not
+    AragoCor's list, so the banner has to say so without reading as an excuse.
+    """
+    status = products.get("price_status")
+    if status == "live":
         return ""
+    if status == "indicative":
+        return (
+            '<p class="notice" role="note"><strong>Indicative pricing.</strong> '
+            'The figures below are worked from published market prices for '
+            'aragonite, not from an AragoCor price list, and are not quotable. '
+            'Current pricing is issued on request.</p>'
+        )
     return (
         '<p class="notice" role="note"><strong>Pre-launch price list.</strong> '
         'The figures below are placeholders for layout and are not quotable. '
         'Current pricing is issued on request.</p>'
     )
+
+
+def price_effective(products):
+    """The tail of the price-list table caption.
+
+    A table captioned "effective <date>" is a commitment, so only a live list
+    gets one; the other two states say what the figures are instead.
+    """
+    status = products.get("price_status")
+    if status == "live":
+        return f'effective {esc(products["effective_date"])}'
+    if status == "indicative":
+        return "indicative, not quotable"
+    return "placeholder figures, not quotable"
 
 
 # ---------- market cards ----------
@@ -887,6 +920,7 @@ def build():
         # commerce
         "currency": products["currency"],
         "effective_date": products["effective_date"],
+        "price_effective": price_effective(products),
         "price_note": products["price_note"],
         "distributor_note": products["distributor_note"],
         "price_banner_html": price_status_banner(products),

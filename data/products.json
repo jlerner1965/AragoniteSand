@@ -6,17 +6,82 @@
     "`skus` is the list of combinations actually offered, and it is the list the",
     "price table, the product cards and the quote builder are all built from.",
     "",
-    "EVERY PRICE IS A PLACEHOLDER while `price_status` is 'placeholder'. Put the",
-    "real numbers in, set `effective_date`, set `price_status` to 'live', and",
-    "run the build. Nothing else changes.",
+    "`price_status` has three states and the build behaves differently in each:",
+    "",
+    "  placeholder  the figures are invented. Every page carrying a price shows",
+    "               a pre-launch banner and nothing is quotable.",
+    "  indicative   the figures are set from published market references, not",
+    "               from an AragoCor price list. They are real numbers derived",
+    "               from real observations, recorded under `price_basis` below,",
+    "               but they are AragoCor's to confirm, so the pages still say",
+    "               plainly that they are not quotable.",
+    "  live         the figures are AragoCor's own list. The banner disappears",
+    "               and the tables carry an effective date. The build refuses",
+    "               this state while any TODO remains.",
+    "",
+    "To go live: replace `list` on each SKU with the real number, set",
+    "`effective_date`, set `price_status` to 'live', and run the build. The",
+    "`price_basis` block can then be deleted. Nothing else changes.",
     "",
     "Price is always per selling unit: per bag for bagged formats, per bulk bag",
     "for totes, per ton for bulk. Per-pallet, per-pound and per-ton figures are",
     "derived at build time, never stored, so they cannot disagree."
   ],
-  "price_status": "placeholder",
+  "price_status": "indicative",
   "currency": "USD",
   "effective_date": "TODO: date this price list takes effect",
+  "price_basis": {
+    "_readme": [
+      "Where the numbers under `skus` come from. Delete this block when a real",
+      "AragoCor price list replaces them.",
+      "",
+      "No supplier of oolitic aragonite publishes bulk or tote pricing; the whole",
+      "trade quotes by the load. So only the bagged figures below rest on observed",
+      "prices. The tote and bulk figures are derived from the bagged per-pound rate",
+      "by the packaging cost that drops out, and are the softest numbers here."
+    ],
+    "method": "Observed retail prices, less a channel margin, checked so that the larger pack never costs more per pound than the smaller one.",
+    "observed": [
+      {
+        "what": "Aragonite soil amendment and feed supplement, 50 lb bag, retail",
+        "range_usd": [29.55, 34.99],
+        "per_lb_usd": [0.59, 0.70],
+        "sources": ["fertrell.com raw aragonite", "cheshirehorse.com Fertrell aragonite 50 lb"],
+        "read_on": "2026-09-14"
+      },
+      {
+        "what": "Dry aragonite aquarium sand, 30 lb bag, retail",
+        "range_usd": [26.30, 57.13],
+        "per_lb_usd": [0.88, 1.90],
+        "sources": ["chewy.com CaribSea Aragamax sugar-sized 30 lb", "walmart.com CaribSea Aragamax Select 30 lb"],
+        "read_on": "2026-09-14",
+        "note": "The low end is the like-for-like comparison: dry, screened, not live-bacteria seeded."
+      },
+      {
+        "what": "Aragonite aquarium sand, 20 lb bag, retail",
+        "range_usd": [35.19, 35.19],
+        "per_lb_usd": [1.76, 1.76],
+        "sources": ["walmart.com Nature's Ocean Bio-Activ Live 20 lb"],
+        "read_on": "2026-09-14",
+        "note": "Live-seeded product and so priced above a dry bag. Used as a ceiling, not a target."
+      },
+      {
+        "what": "Feed grade calcium carbonate, ground limestone, bulk",
+        "range_usd_per_ton": [70, 140],
+        "per_lb_usd": [0.035, 0.07],
+        "sources": ["feedingredientsasia.com feed grade calcium carbonate market 2026"],
+        "read_on": "2026-09-14",
+        "note": "The commodity floor. Ground domestic limestone, not marine oolitic aragonite; it sets a lower bound, not a comparison."
+      }
+    ],
+    "margins_applied": {
+      "bag20": "Half of observed dry-aquarium retail. Keystone is the working assumption in the pet channel.",
+      "bag50": "Two thirds of observed agricultural retail, the usual dealer margin on a bagged input.",
+      "tote": "About 59% of the 50 lb per-pound rate. Bagging labour, film and the bag itself drop out at 2,000 lb.",
+      "bulk": "About 70% of the tote per-pound rate. The FIBC itself drops out. Derived, not observed."
+    },
+    "grade_spread": "Medium is the reference. Fine carries about 4% for screening yield, coarse sits about 5% below."
+  },
   "price_note": "Prices are FOB Stockton, California and exclude freight. Volume tiers apply across grades and formats on one order.",
   "packs": [
     {
@@ -66,18 +131,18 @@
   ],
   "skus": [
     { "sku": "AR-F20", "grade": "fine",   "pack": "bag20", "list": 14.00, "suggested_shelf": 27.99, "upc": "TODO" },
-    { "sku": "AR-F50", "grade": "fine",   "pack": "bag50", "list": 30.00, "suggested_shelf": null,  "upc": "TODO" },
-    { "sku": "AR-FTT", "grade": "fine",   "pack": "tote",  "list": 640.00, "suggested_shelf": null, "upc": null },
-    { "sku": "AR-FBK", "grade": "fine",   "pack": "bulk",  "list": 470.00, "suggested_shelf": null, "upc": null },
+    { "sku": "AR-F50", "grade": "fine",   "pack": "bag50", "list": 20.75, "suggested_shelf": null,  "upc": "TODO" },
+    { "sku": "AR-FTT", "grade": "fine",   "pack": "tote",  "list": 490.00, "suggested_shelf": null, "upc": null },
+    { "sku": "AR-FBK", "grade": "fine",   "pack": "bulk",  "list": 345.00, "suggested_shelf": null, "upc": null },
 
     { "sku": "AR-M20", "grade": "medium", "pack": "bag20", "list": 13.50, "suggested_shelf": 26.99, "upc": "TODO" },
-    { "sku": "AR-M50", "grade": "medium", "pack": "bag50", "list": 29.00, "suggested_shelf": null,  "upc": "TODO" },
-    { "sku": "AR-MTT", "grade": "medium", "pack": "tote",  "list": 610.00, "suggested_shelf": null, "upc": null },
-    { "sku": "AR-MBK", "grade": "medium", "pack": "bulk",  "list": 445.00, "suggested_shelf": null, "upc": null },
+    { "sku": "AR-M50", "grade": "medium", "pack": "bag50", "list": 20.00, "suggested_shelf": null,  "upc": "TODO" },
+    { "sku": "AR-MTT", "grade": "medium", "pack": "tote",  "list": 470.00, "suggested_shelf": null, "upc": null },
+    { "sku": "AR-MBK", "grade": "medium", "pack": "bulk",  "list": 330.00, "suggested_shelf": null, "upc": null },
 
-    { "sku": "AR-C20", "grade": "coarse", "pack": "bag20", "list": 12.75, "suggested_shelf": 24.99, "upc": "TODO" },
-    { "sku": "AR-C50", "grade": "coarse", "pack": "bag50", "list": 27.50, "suggested_shelf": null,  "upc": "TODO" },
-    { "sku": "AR-CTT", "grade": "coarse", "pack": "tote",  "list": 580.00, "suggested_shelf": null, "upc": null }
+    { "sku": "AR-C20", "grade": "coarse", "pack": "bag20", "list": 12.75, "suggested_shelf": 25.49, "upc": "TODO" },
+    { "sku": "AR-C50", "grade": "coarse", "pack": "bag50", "list": 19.00, "suggested_shelf": null,  "upc": "TODO" },
+    { "sku": "AR-CTT", "grade": "coarse", "pack": "tote",  "list": 445.00, "suggested_shelf": null, "upc": null }
   ],
   "tiers": [
     { "id": "t1", "min_pallets": 1,  "max_pallets": 3,    "label": "1–3 pallets",   "discount": 0.00, "note": "List price. One pallet opens an account." },
