@@ -1,0 +1,97 @@
+{
+  "_readme": [
+    "Company facts, compliance status and the distributor FAQ.",
+    "",
+    "COMPLIANCE IS THE PART TO GET RIGHT. Nothing in `compliance` may be",
+    "published as a claim until `status` is 'held'. Anything at 'unconfirmed'",
+    "renders as 'on request, not yet published' rather than as a certification,",
+    "because stating an OMRI listing, a feed-grade qualification or an NSF",
+    "certification that is not held is a regulatory problem, not a copy problem.",
+    "",
+    "  held        documented and current; renders as a credential",
+    "  unconfirmed not verified for these grades; renders as 'ask us'",
+    "  n/a         does not apply to this product line"
+  ],
+  "legal_name": "AragoCor Minerals LLC",
+  "facility": "Stockton, California",
+  "address": ["2453 Grand Canal Blvd. Ste 200", "Stockton, CA 95207"],
+  "phone": "+1 (209) 487-0110",
+  "email": "info@aragocorminerals.com",
+  "hours": "Monday to Friday, 7:00 to 16:00 Pacific",
+  "facts": [
+    { "k": "Material", "v": "Oolitic aragonite, Bahamian marine origin" },
+    { "k": "Source", "v": "Aragosan Minerals Limited, The Bahamas" },
+    { "k": "Processing", "v": "Washed, dried and screened in Stockton, California" },
+    { "k": "Calcination", "v": "None. The material is not kilned" },
+    { "k": "Formats", "v": "20 lb and 50 lb bags, 2,000 lb bulk bags, bulk by the ton" },
+    { "k": "Markets", "v": "Aquarium, agriculture, animal feed, turf, water treatment" },
+    { "k": "Ships from", "v": "Stockton, California. LTL, truckload and container" },
+    { "k": "Lead time", "v": "TODO: confirm standard lead time in business days" }
+  ],
+  "compliance": [
+    {
+      "name": "Certificate of analysis",
+      "status": "held",
+      "detail": "Issued per production lot. Mineralogy, calcium carbonate, moisture, acid-insoluble residue, bulk density and sieve analysis. Published against the lot code and shipped with every order."
+    },
+    {
+      "name": "Safety data sheet",
+      "status": "unconfirmed",
+      "detail": "TODO: issue an SDS for the product line. Required by most distributors before a first order."
+    },
+    {
+      "name": "OMRI listing, organic production",
+      "status": "unconfirmed",
+      "detail": "TODO: confirm whether these grades are covered by an existing listing. Do not publish an organic-production claim until they are."
+    },
+    {
+      "name": "Feed-grade qualification",
+      "status": "unconfirmed",
+      "detail": "TODO: confirm feed-grade status, heavy-metal testing scope and state feed registrations before supplying feed mills."
+    },
+    {
+      "name": "NSF/ANSI 61, drinking water",
+      "status": "unconfirmed",
+      "detail": "TODO: confirm certification before supplying potable-water treatment."
+    },
+    {
+      "name": "Source documentation",
+      "status": "held",
+      "detail": "Origin and chain of custody from the Bahamian source through Aragosan Minerals Limited. Available to customers."
+    }
+  ],
+  "faq": [
+    {
+      "q": "What is the minimum order?",
+      "a": "One pallet. Grades and pack formats can be mixed on it. Bulk moves by the truckload, quoted separately."
+    },
+    {
+      "q": "Do you sell direct to end users?",
+      "a": "No. This is a trade price list. Retail and farm customers are referred to a stocking distributor."
+    },
+    {
+      "q": "Can I mix grades and pack sizes on one pallet?",
+      "a": "Yes, in full layers per grade. Volume tiers count every pallet on the order regardless of what is on it."
+    },
+    {
+      "q": "How is freight handled?",
+      "a": "Prices are FOB Stockton. Freight is quoted per order, LTL for single pallets and truckload above. Delivered pricing is available on truckload volumes."
+    },
+    {
+      "q": "What analysis comes with a shipment?",
+      "a": "A certificate of analysis for the production lot shipped. The same analysis is published on this site against the lot code printed on the bag."
+    },
+    {
+      "q": "Is this the same material as the industrial grades?",
+      "a": "Yes. One aragonite, screened to different particle sizes and packed for different markets. The industrial line is sold through aragocorminerals.com."
+    },
+    {
+      "q": "Does aragonite raise pH?",
+      "a": "It supplies calcium and carbonate and buffers alkalinity. It does not hold water or soil at a fixed pH, and we do not claim that it does."
+    },
+    {
+      "q": "Do you private label?",
+      "a": "TODO: confirm whether private label and contract packing are offered, and at what minimum."
+    }
+  ]
+}

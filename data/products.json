@@ -1,102 +1,90 @@
 {
   "_readme": [
-    "The product catalogue and the price list. This is the commercial heart of",
-    "the site: six SKUs (three grades x two bag sizes) sold by the pallet to",
-    "distributors and retailers. tools/build.py renders the product cards, the",
-    "price table and the volume tiers from this file; js/site.js reads it at",
-    "runtime for the quote builder.",
+    "The catalogue and the price list.",
     "",
-    "EVERY PRICE IN THIS FILE IS A PLACEHOLDER. `price_status` is 'placeholder',",
-    "which makes the pages render a visible amber banner over every price. Put",
-    "the real numbers in, set `price_status` to 'live' and set `effective_date`,",
-    "and the banners disappear on the next build. Nothing else has to change.",
+    "Three grades, four pack formats. Not every grade ships in every format:",
+    "`skus` is the list of combinations actually offered, and it is the list the",
+    "price table, the product cards and the quote builder are all built from.",
     "",
-    "Price model: `list_per_bag` is the price of one bag when buying a single",
-    "pallet. `tiers` discount that by pallet count. Pallet price is derived",
-    "(bags_per_pallet x per-bag price), never stored, so the two can never",
-    "disagree. `suggested_shelf` is a margin reference for the buyer, not a",
-    "price we sell at and not a condition of sale."
+    "EVERY PRICE IS A PLACEHOLDER while `price_status` is 'placeholder'. Put the",
+    "real numbers in, set `effective_date`, set `price_status` to 'live', and",
+    "run the build. Nothing else changes.",
+    "",
+    "Price is always per selling unit: per bag for bagged formats, per bulk bag",
+    "for totes, per ton for bulk. Per-pallet, per-pound and per-ton figures are",
+    "derived at build time, never stored, so they cannot disagree."
   ],
   "price_status": "placeholder",
   "currency": "USD",
   "effective_date": "TODO: date this price list takes effect",
-  "price_note": "Prices are per bag, FOB Stockton, California, and exclude freight. Quoted in US dollars. Volume tiers below apply across mixed grades on the same order.",
-  "unit_of_sale": "pallet",
-  "min_order": 1,
-  "skus": [
+  "price_note": "Prices are FOB Stockton, California and exclude freight. Volume tiers apply across grades and formats on one order.",
+  "packs": [
     {
-      "sku": "AR-F20",
-      "grade": "fine",
-      "bag_lb": 20,
-      "bag_type": "Retail bag",
-      "bag_note": "Printed poly, handle cut, shelf-ready",
-      "bags_per_pallet": 60,
-      "list_per_bag": 14.00,
-      "suggested_shelf": 27.99,
-      "upc": "TODO: UPC for the 20 lb fine bag"
+      "id": "bag20",
+      "name": "20 lb bag",
+      "short": "20 lb",
+      "unit": "bag",
+      "lb": 20,
+      "per_pallet": 60,
+      "pallet_lb": 1200,
+      "spec": "Printed poly, handle cut, shelf-ready",
+      "markets": ["aquarium"]
     },
     {
-      "sku": "AR-F50",
-      "grade": "fine",
-      "bag_lb": 50,
-      "bag_type": "Trade bag",
-      "bag_note": "Plain woven poly, for volume and back-of-house",
-      "bags_per_pallet": 40,
-      "list_per_bag": 30.00,
-      "suggested_shelf": null,
-      "upc": "TODO: UPC for the 50 lb fine bag"
+      "id": "bag50",
+      "name": "50 lb bag",
+      "short": "50 lb",
+      "unit": "bag",
+      "lb": 50,
+      "per_pallet": 40,
+      "pallet_lb": 2000,
+      "spec": "Plain woven poly, palletised and stretch-wrapped",
+      "markets": ["aquarium", "agriculture", "feed", "turf", "water"]
     },
     {
-      "sku": "AR-M20",
-      "grade": "medium",
-      "bag_lb": 20,
-      "bag_type": "Retail bag",
-      "bag_note": "Printed poly, handle cut, shelf-ready",
-      "bags_per_pallet": 60,
-      "list_per_bag": 13.50,
-      "suggested_shelf": 26.99,
-      "upc": "TODO: UPC for the 20 lb medium bag"
+      "id": "tote",
+      "name": "2,000 lb bulk bag",
+      "short": "Bulk bag",
+      "unit": "bulk bag",
+      "lb": 2000,
+      "per_pallet": 1,
+      "pallet_lb": 2000,
+      "spec": "Woven polypropylene FIBC, four-loop, spout bottom",
+      "markets": ["agriculture", "feed", "turf", "water"]
     },
     {
-      "sku": "AR-M50",
-      "grade": "medium",
-      "bag_lb": 50,
-      "bag_type": "Trade bag",
-      "bag_note": "Plain woven poly, for volume and back-of-house",
-      "bags_per_pallet": 40,
-      "list_per_bag": 29.00,
-      "suggested_shelf": null,
-      "upc": "TODO: UPC for the 50 lb medium bag"
-    },
-    {
-      "sku": "AR-C20",
-      "grade": "coarse",
-      "bag_lb": 20,
-      "bag_type": "Retail bag",
-      "bag_note": "Printed poly, handle cut, shelf-ready",
-      "bags_per_pallet": 60,
-      "list_per_bag": 12.75,
-      "suggested_shelf": 24.99,
-      "upc": "TODO: UPC for the 20 lb coarse bag"
-    },
-    {
-      "sku": "AR-C50",
-      "grade": "coarse",
-      "bag_lb": 50,
-      "bag_type": "Trade bag",
-      "bag_note": "Plain woven poly, for volume and back-of-house",
-      "bags_per_pallet": 40,
-      "list_per_bag": 27.50,
-      "suggested_shelf": null,
-      "upc": "TODO: UPC for the 50 lb coarse bag"
+      "id": "bulk",
+      "name": "Bulk, by the ton",
+      "short": "Bulk",
+      "unit": "ton",
+      "lb": 2000,
+      "per_pallet": null,
+      "pallet_lb": null,
+      "spec": "Loaded to walking-floor or end-dump trailer, 24 ton per load",
+      "markets": ["agriculture", "feed"]
     }
   ],
+  "skus": [
+    { "sku": "AR-F20", "grade": "fine",   "pack": "bag20", "list": 14.00, "suggested_shelf": 27.99, "upc": "TODO" },
+    { "sku": "AR-F50", "grade": "fine",   "pack": "bag50", "list": 30.00, "suggested_shelf": null,  "upc": "TODO" },
+    { "sku": "AR-FTT", "grade": "fine",   "pack": "tote",  "list": 640.00, "suggested_shelf": null, "upc": null },
+    { "sku": "AR-FBK", "grade": "fine",   "pack": "bulk",  "list": 470.00, "suggested_shelf": null, "upc": null },
+
+    { "sku": "AR-M20", "grade": "medium", "pack": "bag20", "list": 13.50, "suggested_shelf": 26.99, "upc": "TODO" },
+    { "sku": "AR-M50", "grade": "medium", "pack": "bag50", "list": 29.00, "suggested_shelf": null,  "upc": "TODO" },
+    { "sku": "AR-MTT", "grade": "medium", "pack": "tote",  "list": 610.00, "suggested_shelf": null, "upc": null },
+    { "sku": "AR-MBK", "grade": "medium", "pack": "bulk",  "list": 445.00, "suggested_shelf": null, "upc": null },
+
+    { "sku": "AR-C20", "grade": "coarse", "pack": "bag20", "list": 12.75, "suggested_shelf": 24.99, "upc": "TODO" },
+    { "sku": "AR-C50", "grade": "coarse", "pack": "bag50", "list": 27.50, "suggested_shelf": null,  "upc": "TODO" },
+    { "sku": "AR-CTT", "grade": "coarse", "pack": "tote",  "list": 580.00, "suggested_shelf": null, "upc": null }
+  ],
   "tiers": [
-    { "id": "t1", "min_pallets": 1, "max_pallets": 3, "label": "1–3 pallets", "discount": 0.00, "note": "List price. One pallet opens an account." },
-    { "id": "t2", "min_pallets": 4, "max_pallets": 9, "label": "4–9 pallets", "discount": 0.06, "note": "Standing reorder territory." },
-    { "id": "t3", "min_pallets": 10, "max_pallets": 19, "label": "10–19 pallets", "discount": 0.11, "note": "Partial truckload." },
-    { "id": "t4", "min_pallets": 20, "max_pallets": null, "label": "20+ pallets", "discount": 0.15, "note": "Full truckload. Ask about delivered pricing to your dock." }
+    { "id": "t1", "min_pallets": 1,  "max_pallets": 3,    "label": "1–3 pallets",   "discount": 0.00, "note": "List price. One pallet opens an account." },
+    { "id": "t2", "min_pallets": 4,  "max_pallets": 9,    "label": "4–9 pallets",   "discount": 0.06, "note": "Standing reorder quantity." },
+    { "id": "t3", "min_pallets": 10, "max_pallets": 19,   "label": "10–19 pallets", "discount": 0.11, "note": "Partial truckload." },
+    { "id": "t4", "min_pallets": 20, "max_pallets": null, "label": "20+ pallets",   "discount": 0.15, "note": "Full truckload. Delivered pricing quoted on request." }
   ],
   "truckload_pallets": 20,
-  "distributor_note": "Regional distributors buying at truckload and redistributing to stores are quoted separately. Ask for the distributor schedule."
+  "distributor_note": "Distributors buying at truckload for redistribution are quoted on a separate schedule."
 }

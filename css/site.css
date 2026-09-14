@@ -951,3 +951,122 @@ table.price-list td .ext-link { min-height: 0; }
 .facts__row dt, .facts__k { color: var(--fg-2); }
 .facts__row dd, .facts__v { margin: 0; font-weight: 600; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
 .facts__v .sku { margin-left: 6px; }
+
+/* =====================================================================
+   MARKETS, FORMATS, COMPLIANCE, FAQ
+   ===================================================================== */
+
+/* ---------- Market cards ----------
+   A distributor arrives knowing their trade, not our grade names, so this is
+   the index everything else hangs off. Specification, not persuasion. */
+.market-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--ink-12); border: 1px solid var(--ink-12); border-radius: var(--radius); overflow: hidden; }
+.market { background: var(--paper); padding: 22px 22px 20px; min-width: 0; display: flex; flex-direction: column; }
+.market h3 { font-size: var(--h3); letter-spacing: -0.01em; }
+.market h3 a { text-decoration: none; }
+.market h3 a:hover { color: var(--surf); }
+.market__summary { margin-top: 8px; font-size: var(--small); line-height: 1.5; color: var(--fg-2); }
+.market__spec { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--ink-08); display: grid; gap: 7px; }
+.market__spec > div { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 12px; font-size: var(--small-xs); }
+.market__spec dt { color: var(--fg-3); }
+.market__spec dd { margin: 0; color: var(--ink); }
+.market .tag { margin-top: 14px; align-self: flex-start; }
+/* Five markets in a three-column grid leave a hole in the last row, and the
+   grid's hairline background makes that hole visible. The odd card out spans
+   the remainder instead. Stated for both column counts. */
+.market-grid > :last-child:nth-child(3n + 2) { grid-column: span 2; }
+@media (max-width: 960px) {
+  .market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .market-grid > :last-child:nth-child(3n + 2) { grid-column: auto; }
+  .market-grid > :last-child:nth-child(odd) { grid-column: span 2; }
+}
+@media (max-width: 620px) {
+  .market-grid { grid-template-columns: minmax(0, 1fr); }
+  .market-grid > :last-child { grid-column: auto !important; }
+}
+
+/* ---------- Tags ---------- */
+.tag {
+  display: inline-flex; align-items: center; min-height: 22px; padding: 2px 9px; border-radius: 3px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; line-height: 1.2; white-space: nowrap;
+}
+.tag--held { background: rgba(23, 112, 126, 0.10); border: 1px solid var(--sku-border); color: var(--surf-deep); }
+.tag--quiet { background: var(--ink-04); border: 1px solid var(--ink-12); color: var(--fg-2); }
+
+/* ---------- Format table inside a product card ---------- */
+table.fmt { width: 100%; font-size: var(--small); border-top: 1px solid var(--ink-08); }
+table.fmt th, table.fmt td { padding: 9px 22px; border-bottom: 1px solid var(--ink-08); text-align: left; vertical-align: baseline; }
+table.fmt th { font-weight: 500; color: var(--fg-2); }
+table.fmt th .sku { margin-right: 0; }
+/* Stacked, not inline: at card width the SKU and the format name broke
+   mid-phrase ("AR-F20 20 / lb bag"). */
+.fmt__name { display: block; margin-top: 4px; color: var(--ink); font-weight: 600; }
+table.fmt tr:last-child th, table.fmt tr:last-child td { border-bottom: 0; }
+table.fmt .t-price { text-align: right; font-weight: 700; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.fmt .t-sub { text-align: right; color: var(--fg-3); font-size: var(--small-xs); white-space: nowrap; }
+.per { font-weight: 500; color: var(--fg-3); }
+.t-sub { color: var(--fg-3); font-size: var(--small-xs); }
+td .t-sub { margin-top: 3px; }
+
+/* ---------- Pre-launch notice ----------
+   One quiet line per page instead of an amber chip beside every figure. The
+   chips read as an unfinished draft; this reads as a price list not yet in
+   force, which is what it is. */
+.notice {
+  padding: 11px 16px; margin-bottom: 22px; max-width: none;
+  border: 1px solid var(--ink-12); border-left: 3px solid var(--sand-deep);
+  border-radius: var(--radius-sm); background: var(--ink-04);
+  font-size: var(--small); line-height: 1.5; color: var(--fg-2);
+}
+.notice strong { color: var(--ink); }
+.band-ink .notice, .band-abyss .notice { background: var(--bone-08); border-color: var(--bone-40); border-left-color: var(--sand); color: var(--bone-78); }
+.band-ink .notice strong, .band-abyss .notice strong { color: var(--bone); }
+
+/* ---------- FAQ ---------- */
+.faq-list { border-top: 1px solid var(--ink-12); max-width: 92ch; }
+.faq { border-bottom: 1px solid var(--ink-08); }
+.faq > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 52px; padding: 12px 0; font-size: var(--body-xs); font-weight: 600; color: var(--ink);
+}
+.faq > summary::-webkit-details-marker { display: none; }
+.faq > summary::after {
+  content: ""; flex: none; width: 10px; height: 10px; border-right: 1.5px solid var(--fg-3); border-bottom: 1.5px solid var(--fg-3);
+  transform: rotate(45deg) translate(-2px, -2px); transition: transform var(--duration) var(--ease-tide);
+}
+.faq[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.faq > summary:hover { color: var(--surf); }
+.faq > p { margin: 0 0 16px; padding-right: 32px; font-size: var(--body-xs); line-height: var(--leading-body); color: var(--fg-2); max-width: 78ch; }
+@media (prefers-reduced-motion: reduce) { .faq > summary::after { transition: none; } }
+
+/* ---------- Inline button that reads as a link ---------- */
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--surf); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.linkish:hover { color: var(--surf-deep); }
+
+/* ---------- Lot panel on a light ground ---------- */
+.lot-panel--light { background: var(--paper); border: var(--rule); color: var(--ink); }
+.lot-panel--light .lot-panel__empty { color: var(--fg-2); }
+.lot-panel--light .lot-id { color: var(--ink); }
+.lot-panel--light .lot-meta, .lot-panel--light .lot-row span:first-child { color: var(--fg-2); }
+.lot-panel--light .lot-rows { border-top-color: var(--ink-12); }
+.lot-panel--light .lot-row { border-bottom-color: var(--ink-08); }
+.lot-panel--light .lot-row span:last-child { color: var(--ink); }
+.lot-panel--light .bar-track { background: var(--ink-08); }
+.lot-panel--light .bar-fill { background: var(--sand-deep); }
+.lot-panel--light .bar-row__k, .lot-panel--light .bar-row__v { color: var(--fg-2); }
+.lot-panel--light .lot-status { border-top-color: var(--ink-12); color: var(--fg-2); }
+.lot-panel--light .lot-status strong { color: var(--ink) !important; }
+.lot-panel--light .lot-panel__err { color: var(--error-text); }
+.lot-panel--light .eyebrow { color: var(--fg-2); }
+
+/* ---------- Two-column tier grid, for a narrower column ---------- */
+.tier-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 520px) { .tier-grid--2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Product card header, now two lines ---------- */
+.product__head { align-items: flex-start; }
+.product__head h3 { font-size: var(--h3); letter-spacing: -0.01em; }
+.product__head h3 a { text-decoration: none; }
+.product__head h3 a:hover { color: var(--surf); }
+
+/* The quantity stepper now lives in a table cell on the estimate table. */
+table.data .qty { margin: -4px 0; }

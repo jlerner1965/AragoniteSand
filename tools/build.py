@@ -264,109 +264,182 @@ def literature(lit, links, audience="all"):
 
 
 # ---------------------------------------------------------------- commerce
+#
+# Three grades in four pack formats, sold into five markets. `skus` in
+# products.json is the list of combinations actually offered; everything here
+# is rendered from it, and per-pallet, per-pound and per-ton figures are
+# derived rather than stored so they cannot disagree with the list price.
 
 def money(n, cents=True):
-    """Format a USD figure. Prices carry cents; pallet totals usually do not."""
     if cents:
         return "${:,.2f}".format(n)
     return "${:,.0f}".format(n)
 
 
-def tier_price(list_per_bag, tier):
-    return list_per_bag * (1 - tier.get("discount", 0))
+def tier_price(list_price, tier):
+    return list_price * (1 - tier.get("discount", 0))
 
 
-def price_status_banner(products):
-    """The amber banner that sits over every price while they are invented."""
-    if products.get("price_status") == "live":
-        return ""
-    return (
-        '<div class="price-banner" role="note">\n'
-        '      <span class="placeholder-flag" data-placeholder>Placeholder</span>\n'
-        '      <p><strong>These prices are not real.</strong> Every figure on this page is invented so the '
-        'price list, the volume breaks and the quote builder can be seen working. Replace them in '
-        '<code>data/products.json</code>, set <code>price_status</code> to <code>live</code>, and this banner '
-        'disappears on the next build.</p>\n'
-        '    </div>'
-    )
+def by_id(rows, key="id"):
+    return {r[key]: r for r in rows}
 
 
 def grade_by_slug(grades):
     return {g["slug"]: g for g in grades}
 
 
-def product_cards(products, grades, links):
-    by_slug = grade_by_slug(grades)
-    tiers = products["tiers"]
-    best = tiers[-1]
+def sku_rows(products, grades):
+    """Flatten skus into rows carrying their grade and pack, in catalogue order."""
+    gs, ps = grade_by_slug(grades), by_id(products["packs"])
     out = []
     for s in products["skus"]:
-        g = by_slug[s["grade"]]
-        pallet = s["list_per_bag"] * s["bags_per_pallet"]
-        per_lb = s["list_per_bag"] / s["bag_lb"]
-        best_bag = tier_price(s["list_per_bag"], best)
-        # Three, not five: the card is narrower than the hero plate and a
-        # 5 mm grain draws 75px across, so five coarse dots clip on a phone.
-        samples = ",".join(str(x) for x in g["grain_samples_mm"][:3])
-        sample = ac_url(links, "contact", "sample",
-                        f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
-                        f'({s["sku"]}), sample',
-                        f'card-{s["sku"]}')
-        tone = {"fine": "1", "medium": "2", "coarse": "3"}.get(s["grade"], "1")
-        # Every card carries this block, so the six line up in a grid. A retail
-        # bag shows the margin a shelf price would earn; a trade bag shows what
-        # the bigger bag saves per pound, which is the reason to stock it.
-        margin = ""
-        if s.get("suggested_shelf"):
-            pct = (s["suggested_shelf"] - s["list_per_bag"]) / s["suggested_shelf"] * 100
-            margin = (
-                f'<div class="product__margin">Suggested shelf {money(s["suggested_shelf"])} · '
-                f'<b>{pct:.0f}% margin</b> at single-pallet cost. A suggestion for your own pricing, '
-                f'not a condition of sale.</div>\n        '
-            )
-        else:
-            retail = next((x for x in products["skus"]
-                           if x["grade"] == s["grade"] and x.get("suggested_shelf")), None)
-            if retail:
-                saving = retail["list_per_bag"] / retail["bag_lb"] - per_lb
-                pct = saving / (retail["list_per_bag"] / retail["bag_lb"]) * 100
-                margin = (
-                    f'<div class="product__margin"><b>{money(saving)} less per pound</b> than the '
-                    f'{retail["bag_lb"]} lb bag, {pct:.0f}% down. For volume, refills and '
-                    f'back-of-house.</div>\n        '
-                )
+        g, pk = gs[s["grade"]], ps[s["pack"]]
+        per_lb = s["list"] / pk["lb"]
+        out.append({
+            "sku": s["sku"], "grade": g, "pack": pk, "list": s["list"],
+            "shelf": s.get("suggested_shelf"), "per_lb": per_lb,
+            "per_ton": per_lb * 2000,
+            "pallet": s["list"] * pk["per_pallet"] if pk["per_pallet"] else None,
+            "palletable": bool(pk["per_pallet"]),
+        })
+    return out
+
+
+def price_status_banner(products):
+    """Shown once per page carrying prices, while the figures are invented."""
+    if products.get("price_status") == "live":
+        return ""
+    return (
+        '<p class="notice" role="note"><strong>Pre-launch price list.</strong> '
+        'The figures below are placeholders for layout and are not quotable. '
+        'Current pricing is issued on request.</p>'
+    )
+
+
+# ---------- market cards ----------
+
+def market_cards(markets, products, grades):
+    gs, ps = grade_by_slug(grades), by_id(products["packs"])
+    out = []
+    for m in markets["markets"]:
+        grade_names = ", ".join(gs[x]["name"] for x in m["grades"])
+        pack_names = ", ".join(ps[x]["short"] for x in m["packs"])
+        tag = "" if m["status"] == "served" else (
+            '<span class="tag tag--quiet">Quoted per application</span>')
         out.append(
-            f'<article class="product product--{esc(s["grade"])}" data-sku="{esc(s["sku"])}" '
-            f'data-name="{esc(g["name"])} {esc(s["bag_lb"])} lb" data-per-bag="{s["list_per_bag"]}" '
-            f'data-bags-per-pallet="{s["bags_per_pallet"]}" data-bag-lb="{s["bag_lb"]}">\n'
+            f'<article class="market">\n'
+            f'        <h3><a href="markets.html#{esc(m["id"])}">{esc(m["name"])}</a></h3>\n'
+            f'        <p class="market__summary">{esc(m["summary"])}</p>\n'
+            f'        <dl class="market__spec">\n'
+            f'          <div><dt>Grades</dt><dd>{esc(grade_names)}</dd></div>\n'
+            f'          <div><dt>Formats</dt><dd>{esc(pack_names)}</dd></div>\n'
+            f'          <div><dt>Buyers</dt><dd>{esc(m["buyers"])}</dd></div>\n'
+            f'        </dl>\n'
+            f'        {tag}\n'
+            f'      </article>'
+        )
+    return "\n      ".join(out)
+
+
+def market_sections(markets, products, grades, links):
+    gs, ps = grade_by_slug(grades), by_id(products["packs"])
+    rows = None
+    out = []
+    for m in markets["markets"]:
+        lead = gs[m["lead_grade"]]
+        packs = "".join(
+            f'<div><dt>{esc(ps[x]["name"])}</dt><dd>{esc(ps[x]["spec"])}</dd></div>'
+            for x in m["packs"]
+        )
+        grade_links = " · ".join(
+            f'<a class="prose-link" href="{esc(gs[x]["page"])}">{esc(gs[x]["name"])}</a> '
+            f'({esc(gs[x]["grain_mm"])})' for x in m["grades"]
+        )
+        enquire = ac_url(links, "contact", "pricing",
+                         f'{m["name"]} — aragonite, pricing and availability',
+                         f'market-{m["id"]}')
+        sample = ac_url(links, "contact", "sample",
+                        f'{m["name"]} — aragonite sample',
+                        f'market-{m["id"]}-sample')
+        out.append(
+            f'<section class="section{" band-paper" if len(out) % 2 else ""}" id="{esc(m["id"])}" '
+            f'aria-labelledby="{esc(m["id"])}-title">\n'
+            f'  <div class="wrap">\n'
+            f'    <div class="split split--wide">\n'
+            f'      <div>\n'
+            f'        <p class="eyebrow">{esc(m["short"])}</p>\n'
+            f'        <h2 class="display-3" id="{esc(m["id"])}-title" style="margin-top:10px">{esc(m["name"])}</h2>\n'
+            f'        <p class="copy-2" style="margin-top:14px">{esc(m["function"])}</p>\n'
+            f'        <p class="copy-2">Sold to {esc(m["buyers"].lower())}.</p>\n'
+            f'        <div class="actions">\n'
+            f'          <a class="btn btn-ink btn-sm" href="{esc(enquire)}">Pricing{EXT_ICON}</a>\n'
+            f'          <a class="btn btn-inkline btn-sm" href="{esc(sample)}">Sample{EXT_ICON}</a>\n'
+            f'        </div>\n'
+            f'      </div>\n'
+            f'      <dl class="facts">\n'
+            f'        <div class="facts__row"><dt>Grades</dt><dd>{esc(", ".join(gs[x]["name"] for x in m["grades"]))}</dd></div>\n'
+            f'        <div class="facts__row"><dt>Most specified</dt><dd>{esc(lead["name"])}, {esc(lead["grain_mm"])}</dd></div>\n'
+            f'        <div class="facts__row"><dt>Formats</dt><dd>{esc(", ".join(ps[x]["name"] for x in m["packs"]))}</dd></div>\n'
+            f'        <div class="facts__row"><dt>Supply</dt><dd>{"Stock item" if m["status"] == "served" else "Quoted per application"}</dd></div>\n'
+            f'      </dl>\n'
+            f'    </div>\n'
+            f'    <p class="note" style="margin-top:22px">Grade pages: {grade_links}</p>\n'
+            f'  </div>\n'
+            f'</section>'
+        )
+    return "\n\n".join(out)
+
+
+# ---------- catalogue ----------
+
+def product_cards(products, grades, links):
+    """One card per grade, listing the formats that grade ships in."""
+    rows = sku_rows(products, grades)
+    out = []
+    for g in grades:
+        mine = [r for r in rows if r["grade"]["slug"] == g["slug"]]
+        if not mine:
+            continue
+        samples = ",".join(str(x) for x in g["grain_samples_mm"][:3])
+        tone = {"fine": "1", "medium": "2", "coarse": "3"}.get(g["slug"], "1")
+        fmt = []
+        for r in mine:
+            # The secondary figure is whichever unit the buyer converts to:
+            # a pallet total for bagged goods, a per-pound rate for bulk. Never
+            # a restatement of the price already in the row.
+            sub = (f'{money(r["pallet"], cents=False)} per pallet'
+                   if r["palletable"] and r["pack"]["per_pallet"] > 1
+                   else f'{money(r["per_lb"])} per lb')
+            fmt.append(
+                f'<tr>\n'
+                f'            <th scope="row"><span class="sku">{esc(r["sku"])}</span>'
+                f'<span class="fmt__name">{esc(r["pack"]["short"])}</span></th>\n'
+                f'            <td class="t-price">{money(r["list"])}<span class="per"> / {esc(r["pack"]["unit"])}</span></td>\n'
+                f'            <td class="t-sub">{esc(sub)}</td>\n'
+                f'          </tr>'
+            )
+        pricing = ac_url(links, "contact", "pricing",
+                         f'{g["name"]} grade aragonite, {g["grain_mm"]} — pricing',
+                         f'card-{g["slug"]}')
+        out.append(
+            f'<article class="product product--{esc(g["slug"])}">\n'
             f'        <div class="product__band" aria-hidden="true"></div>\n'
-            f'        <div class="product__head"><span class="sku">{esc(s["sku"])}</span>'
-            f'<span class="product__type">{esc(s["bag_type"])}</span></div>\n'
-            f'        <div class="product__sample" data-grains="{samples}" data-tone="{tone}" '
-            f'role="img" aria-label="{esc(g["name"])} grain, {esc(g["grain_mm"])}, drawn at true scale"></div>\n'
-            f'        <div class="product__title">\n'
-            f'          <h3><a href="{esc(g["page"])}">{esc(g["name"])} · {esc(s["bag_lb"])} lb</a></h3>\n'
-            f'          <div class="product__mm num">{esc(g["grain_mm"])} · {esc(g["mesh"])} mesh · '
+            f'        <div class="product__head">\n'
+            f'          <div>\n'
+            f'            <h3><a href="{esc(g["page"])}">{esc(g["name"])} grade</a></h3>\n'
+            f'            <div class="product__mm num">{esc(g["grain_mm"])} · {esc(g["mesh"])} mesh · '
             f'{esc(g["bulk_density_lb_ft3"])} lb/ft³</div>\n'
-            f'        </div>\n'
-            f'        <div class="product__price">\n'
-            f'          <div class="price">{money(s["list_per_bag"])} <small>per bag</small></div>\n'
-            f'          <div class="price__sub num">{money(pallet, cents=False)} per pallet · '
-            f'{s["bags_per_pallet"]} bags · {s["bags_per_pallet"] * s["bag_lb"]:,} lb</div>\n'
-            f'          <div class="price__rows">\n'
-            f'            <div class="price__row"><span>Per pound</span><b>{money(per_lb)}</b></div>\n'
-            f'            <div class="price__row"><span>At {esc(best["label"])}</span><b>{money(best_bag)} per bag</b></div>\n'
             f'          </div>\n'
             f'        </div>\n'
-            f'        {margin}<div class="product__foot">\n'
-            f'          <div class="qty">\n'
-            f'            <button type="button" data-qty-down aria-label="One pallet fewer of {esc(s["sku"])}" disabled>&minus;</button>\n'
-            f'            <label class="visually-hidden" for="q-{esc(s["sku"])}">Pallets of {esc(s["sku"])}</label>\n'
-            f'            <input id="q-{esc(s["sku"])}" type="number" inputmode="numeric" value="0" min="0" max="999" step="1">\n'
-            f'            <button type="button" data-qty-up aria-label="One pallet more of {esc(s["sku"])}">+</button>\n'
-            f'          </div>\n'
-            f'          <span class="qty__label">pallets</span>\n'
-            f'          <a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a>\n'
+            f'        <div class="product__sample" data-grains="{samples}" data-tone="{tone}" '
+            f'role="img" aria-label="{esc(g["name"])} grain at true scale"></div>\n'
+            f'        <table class="fmt">\n'
+            f'          <tbody>\n          ' + "\n          ".join(fmt) + '\n'
+            f'          </tbody>\n'
+            f'        </table>\n'
+            f'        <div class="product__foot">\n'
+            f'          <a class="btn btn-inkline btn-sm" href="{esc(g["page"])}">Technical data</a>\n'
+            f'          <a class="ext-link" href="{esc(pricing)}">Pricing{EXT_ICON}</a>\n'
             f'        </div>\n'
             f'      </article>'
         )
@@ -376,7 +449,7 @@ def product_cards(products, grades, links):
 def tier_cells(products):
     out = []
     for t in products["tiers"]:
-        off = "List price" if not t["discount"] else f'{t["discount"] * 100:.0f}% off'
+        off = "List" if not t["discount"] else f'{t["discount"] * 100:.0f}% off'
         out.append(
             f'<div class="tier" data-tier="{esc(t["id"])}" data-active="false">\n'
             f'        <div class="tier__label">{esc(t["label"])}</div>\n'
@@ -388,36 +461,47 @@ def tier_cells(products):
 
 
 def tier_headers(products):
-    return "".join(
-        f'<th scope="col">{esc(t["label"])}</th>' for t in products["tiers"]
-    )
+    return "".join(f'<th scope="col">{esc(t["label"])}</th>' for t in products["tiers"])
 
 
 def price_rows(products, grades, links):
-    by_slug = grade_by_slug(grades)
+    rows = sku_rows(products, grades)
     tiers = products["tiers"]
-    out = []
-    last_grade = None
-    for s in products["skus"]:
-        g = by_slug[s["grade"]]
-        brk = ' class="is-grade-break"' if last_grade and last_grade != s["grade"] else ""
-        last_grade = s["grade"]
+    out, last = [], None
+    for r in rows:
+        brk = ' class="is-grade-break"' if last and last != r["grade"]["slug"] else ""
+        last = r["grade"]["slug"]
         cells = "".join(
-            f'<td class="{"t-price" if i == 0 else ""}">{money(tier_price(s["list_per_bag"], t))}</td>'
+            f'<td class="{"t-price" if i == 0 else ""}">{money(tier_price(r["list"], t))}</td>'
             for i, t in enumerate(tiers)
         )
-        note = (f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
-                f'({s["sku"]}), sample')
-        sample = ac_url(links, "contact", "sample", note, f'pricelist-{s["sku"]}')
+        sample = ac_url(links, "contact", "sample",
+                        f'{r["grade"]["name"]} grade aragonite, {r["pack"]["name"]} '
+                        f'({r["sku"]}) — sample', f'pricelist-{r["sku"]}')
         out.append(
             f'<tr{brk}>\n'
-            f'            <th scope="row"><span class="sku">{esc(s["sku"])}</span></th>\n'
-            f'            <td class="t-left"><a class="prose-link" href="{esc(g["page"])}">{esc(g["name"])}</a> '
-            f'· {esc(s["bag_lb"])} lb {esc(s["bag_type"].lower())} · {esc(g["grain_mm"])}</td>\n'
+            f'            <th scope="row"><span class="sku">{esc(r["sku"])}</span></th>\n'
+            f'            <td class="t-left"><a class="prose-link" href="{esc(r["grade"]["page"])}">'
+            f'{esc(r["grade"]["name"])}</a> · {esc(r["grade"]["grain_mm"])}</td>\n'
+            f'            <td class="t-left">{esc(r["pack"]["name"])}</td>\n'
             f'            {cells}\n'
-            f'            <td>{money(s["list_per_bag"] * s["bags_per_pallet"], cents=False)}</td>\n'
-            f'            <td>{money(s["list_per_bag"] / s["bag_lb"])}</td>\n'
+            f'            <td>{money(r["per_lb"])}</td>\n'
             f'            <td><a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a></td>\n'
+            f'          </tr>'
+        )
+    return "\n          ".join(out)
+
+
+def pack_rows(products):
+    out = []
+    for p in products["packs"]:
+        pallet = (f'{p["per_pallet"]} per pallet, {p["pallet_lb"]:,} lb'
+                  if p["per_pallet"] else "Bulk load, 24 ton")
+        out.append(
+            f'<tr>\n'
+            f'            <th scope="row">{esc(p["name"])}</th>\n'
+            f'            <td>{esc(p["spec"])}</td>\n'
+            f'            <td class="val">{esc(pallet)}</td>\n'
             f'          </tr>'
         )
     return "\n          ".join(out)
@@ -425,12 +509,9 @@ def price_rows(products, grades, links):
 
 def spec_rows(grades):
     rows = [
-        ("Grain size", "grain_mm"),
-        ("Mesh, U.S. sieve", "mesh"),
-        ("Bulk density", None),
-        ("Calcium carbonate, typical", None),
-        ("Moisture at packaging", None),
-        ("Fines below 0.25 mm", None),
+        ("Grain size", "grain_mm"), ("Mesh, U.S. sieve", "mesh"),
+        ("Bulk density", None), ("Calcium carbonate, typical", None),
+        ("Moisture at packaging", None), ("Fines below 0.25 mm", None),
         ("Primary use", "primary_use"),
     ]
     out = []
@@ -449,113 +530,173 @@ def spec_rows(grades):
     return "\n          ".join(out)
 
 
+# ---------- company furniture ----------
+
+def company_facts(company):
+    return "\n        ".join(
+        f'<div class="facts__row"><dt>{esc(f["k"])}</dt><dd>{esc(f["v"])}</dd></div>'
+        for f in company["facts"]
+    )
+
+
+def compliance_rows(company, links):
+    """A credential only reads as one when it is actually held. Anything
+    unconfirmed renders as a request, never as a claim."""
+    out = []
+    for c in company["compliance"]:
+        if c["status"] == "held":
+            state = '<span class="tag tag--held">Held</span>'
+            detail = esc(c["detail"])
+        else:
+            state = '<span class="tag tag--quiet">On request</span>'
+            url = ac_url(links, "contact", "technical",
+                         f'{c["name"]} — aragonite, current status',
+                         f'compliance-{c["name"][:30].lower().replace(" ", "-")}')
+            detail = (f'Not published for these grades. '
+                      f'<a class="prose-link" href="{esc(url)}">Ask for the current status</a>.')
+        out.append(
+            f'<tr>\n'
+            f'            <th scope="row">{esc(c["name"])}</th>\n'
+            f'            <td>{state}</td>\n'
+            f'            <td>{detail}</td>\n'
+            f'          </tr>'
+        )
+    return "\n          ".join(out)
+
+
+def faq_list(company):
+    out = []
+    for i, f in enumerate(company["faq"], 1):
+        out.append(
+            f'<details class="faq"{" open" if i == 1 else ""}>\n'
+            f'        <summary>{esc(f["q"])}</summary>\n'
+            f'        <p>{esc(f["a"])}</p>\n'
+            f'      </details>'
+        )
+    return "\n      ".join(out)
+
+
+# ---------- quote builder ----------
+
+def quote_units(products, grades):
+    """Pallet-based formats only. Bulk is quoted, not added up on a web page."""
+    rows = [r for r in sku_rows(products, grades) if r["palletable"]]
+    out = []
+    for r in rows:
+        unit_per_pallet = r["pack"]["per_pallet"]
+        out.append(
+            f'<tr data-sku="{esc(r["sku"])}" data-name="{esc(r["grade"]["name"])} {esc(r["pack"]["short"])}" '
+            f'data-per-bag="{r["list"]}" data-bags-per-pallet="{unit_per_pallet}" '
+            f'data-bag-lb="{r["pack"]["lb"]}">\n'
+            f'          <th scope="row"><span class="sku">{esc(r["sku"])}</span> '
+            f'{esc(r["grade"]["name"])} · {esc(r["pack"]["name"])}</th>\n'
+            f'          <td class="t-price">{money(r["list"])}</td>\n'
+            f'          <td>{unit_per_pallet} / pallet</td>\n'
+            f'          <td>\n'
+            f'            <div class="qty">\n'
+            f'              <button type="button" data-qty-down aria-label="One pallet fewer of {esc(r["sku"])}" disabled>&minus;</button>\n'
+            f'              <label class="visually-hidden" for="q-{esc(r["sku"])}">Pallets of {esc(r["sku"])}</label>\n'
+            f'              <input id="q-{esc(r["sku"])}" type="number" inputmode="numeric" value="0" min="0" max="999" step="1">\n'
+            f'              <button type="button" data-qty-up aria-label="One pallet more of {esc(r["sku"])}">+</button>\n'
+            f'            </div>\n'
+            f'          </td>\n'
+            f'        </tr>'
+        )
+    return "\n        ".join(out)
+
+
 def tiers_attr(products):
-    """The tier table as a JSON attribute for the quote builder."""
-    data = [
-        {"id": t["id"], "label": t["label"], "min_pallets": t["min_pallets"],
-         "max_pallets": t["max_pallets"], "discount": t["discount"]}
-        for t in products["tiers"]
-    ]
+    data = [{"id": t["id"], "label": t["label"], "min_pallets": t["min_pallets"],
+             "max_pallets": t["max_pallets"], "discount": t["discount"]}
+            for t in products["tiers"]]
     return json.dumps(data, ensure_ascii=False).replace("'", "&#39;")
 
 
 def catalogue_attr(products, grades):
-    """Everything wholesale.html needs to re-price a quote handed to it."""
-    by_slug = grade_by_slug(grades)
+    rows = [r for r in sku_rows(products, grades) if r["palletable"]]
     data = {
-        "skus": {
-            s["sku"]: {
-                "name": f'{by_slug[s["grade"]]["name"]} {s["bag_lb"]} lb',
-                "perBag": s["list_per_bag"],
-                "bags": s["bags_per_pallet"],
-            }
-            for s in products["skus"]
-        },
-        "tiers": [
-            {"id": t["id"], "label": t["label"], "min_pallets": t["min_pallets"],
-             "max_pallets": t["max_pallets"], "discount": t["discount"]}
-            for t in products["tiers"]
-        ],
+        "skus": {r["sku"]: {"name": f'{r["grade"]["name"]} {r["pack"]["short"]}',
+                            "perBag": r["list"], "bags": r["pack"]["per_pallet"]}
+                 for r in rows},
+        "tiers": [{"id": t["id"], "label": t["label"], "min_pallets": t["min_pallets"],
+                   "max_pallets": t["max_pallets"], "discount": t["discount"]}
+                  for t in products["tiers"]],
     }
     return json.dumps(data, ensure_ascii=False).replace("'", "&#39;")
 
 
 def sku_block(products, grades, slug, links):
-    """The two bag sizes of one grade, priced, for that grade's own page."""
-    by_slug = grade_by_slug(grades)
-    g = by_slug[slug]
+    """The formats one grade ships in, for that grade's own page."""
+    rows = [r for r in sku_rows(products, grades) if r["grade"]["slug"] == slug]
     out = []
-    for s in products["skus"]:
-        if s["grade"] != slug:
-            continue
-        pallet = s["list_per_bag"] * s["bags_per_pallet"]
-        sample = ac_url(links, "contact", "sample",
-                        f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
-                        f'({s["sku"]}), sample', f'grade-{slug}-{s["sku"]}-sample')
+    for r in rows:
         pricing = ac_url(links, "contact", "pricing",
-                         f'{g["name"]} grade aragonite aquarium sand, {s["bag_lb"]} lb bag '
-                         f'({s["sku"]}), pricing by the pallet', f'grade-{slug}-{s["sku"]}-pricing')
-        shelf = ""
-        if s.get("suggested_shelf"):
-            pct = (s["suggested_shelf"] - s["list_per_bag"]) / s["suggested_shelf"] * 100
-            shelf = (f'<div class="price__row"><span>Suggested shelf</span>'
-                     f'<b>{money(s["suggested_shelf"])} · {pct:.0f}% margin</b></div>')
+                         f'{r["grade"]["name"]} grade aragonite, {r["pack"]["name"]} '
+                         f'({r["sku"]}) — pricing', f'grade-{slug}-{r["sku"]}')
+        extra = []
+        if r["palletable"] and r["pack"]["per_pallet"] > 1:
+            extra.append(f'{r["pack"]["per_pallet"]} per pallet · {r["pack"]["pallet_lb"]:,} lb')
+        extra.append(f'{money(r["per_lb"])} per lb')
+        if r["shelf"]:
+            pct = (r["shelf"] - r["list"]) / r["shelf"] * 100
+            extra.append(f'suggested shelf {money(r["shelf"])}, {pct:.0f}% margin')
         out.append(
-            f'<article class="product product--{esc(slug)}">\n'
-            f'        <div class="product__band" aria-hidden="true"></div>\n'
-            f'        <div class="product__head"><span class="sku">{esc(s["sku"])}</span>'
-            f'<span class="product__type">{esc(s["bag_type"])}</span></div>\n'
-            f'        <div class="product__title"><h3>{esc(g["name"])} · {esc(s["bag_lb"])} lb</h3>\n'
-            f'          <div class="product__mm">{esc(s["bag_note"])}</div>\n'
-            f'        </div>\n'
-            f'        <div class="product__price">\n'
-            f'          <div class="price">{money(s["list_per_bag"])} <small>per bag</small></div>\n'
-            f'          <div class="price__sub num">{money(pallet, cents=False)} per pallet · '
-            f'{s["bags_per_pallet"]} bags · {s["bags_per_pallet"] * s["bag_lb"]:,} lb</div>\n'
-            f'          <div class="price__rows">\n'
-            f'            <div class="price__row"><span>Per pound</span><b>{money(s["list_per_bag"] / s["bag_lb"])}</b></div>\n'
-            f'            {shelf}\n'
-            f'          </div>\n'
-            f'        </div>\n'
-            f'        <div class="product__foot">\n'
-            f'          <a class="btn btn-ink btn-sm" href="{esc(pricing)}">Request pricing{EXT_ICON}</a>\n'
-            f'          <a class="ext-link" href="{esc(sample)}">Sample{EXT_ICON}</a>\n'
-            f'        </div>\n'
-            f'      </article>'
+            f'<tr>\n'
+            f'            <th scope="row"><span class="sku">{esc(r["sku"])}</span></th>\n'
+            f'            <td class="t-left">{esc(r["pack"]["name"])}<div class="t-sub">{esc(r["pack"]["spec"])}</div></td>\n'
+            f'            <td class="t-price">{money(r["list"])}<span class="per"> / {esc(r["pack"]["unit"])}</span></td>\n'
+            f'            <td class="t-left t-sub">{esc(" · ".join(extra))}</td>\n'
+            f'            <td><a class="ext-link" href="{esc(pricing)}">Pricing{EXT_ICON}</a></td>\n'
+            f'          </tr>'
+        )
+    return "\n          ".join(out)
+
+
+def grade_markets(markets, slug, links):
+    """Which markets specify this grade, on the grade page."""
+    out = []
+    for m in markets["markets"]:
+        if slug not in m["grades"]:
+            continue
+        lead = " · most specified" if m["lead_grade"] == slug else ""
+        out.append(
+            f'<div class="feature">\n'
+            f'        <div class="feature__n">{esc(m["short"])}{esc(lead)}</div>\n'
+            f'        <h3>{esc(m["name"])}</h3>\n'
+            f'        <p>{esc(m["function"])}</p>\n'
+            f'      </div>'
         )
     return "\n      ".join(out)
 
 
 def jsonld_catalogue(products, grades):
-    by_slug = grade_by_slug(grades)
+    rows = sku_rows(products, grades)
     offers = []
-    for s in products["skus"]:
-        g = by_slug[s["grade"]]
+    for r in rows:
         offers.append({
             "@type": "Product",
-            "sku": s["sku"],
-            "name": f'AragoCor Aragonite, {g["name"]} grade, {s["bag_lb"]} lb',
-            "description": f'{g["grain_mm"]} ({g["mesh"]} mesh) Bahamian aragonite aquarium substrate, '
-                           f'{s["bag_lb"]} lb {s["bag_type"].lower()}, {s["bags_per_pallet"]} bags per pallet.',
+            "sku": r["sku"],
+            "name": f'Aragonite, {r["grade"]["name"]} grade, {r["pack"]["name"]}',
+            "description": f'{r["grade"]["grain_mm"]} ({r["grade"]["mesh"]} mesh) oolitic aragonite, '
+                           f'{r["pack"]["name"]}. {r["pack"]["spec"]}.',
             "brand": {"@type": "Brand", "name": "AragoCor"},
             "offers": {
                 "@type": "Offer",
                 "priceCurrency": products["currency"],
-                "price": "{:.2f}".format(s["list_per_bag"]),
-                "eligibleQuantity": {"@type": "QuantitativeValue", "value": s["bags_per_pallet"],
-                                     "unitText": "bags per pallet"},
+                "price": "{:.2f}".format(r["list"]),
                 "availability": "https://schema.org/InStock",
                 "url": "https://aragonitesand.com/products.html",
             },
         })
     return json.dumps({"@context": "https://schema.org", "@type": "ItemList",
-                       "name": "AragoCor Aragonite wholesale price list",
+                       "name": "Aragonite wholesale price list",
                        "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": o}
                                            for i, o in enumerate(offers)]},
                       ensure_ascii=False).replace("</", "<\\/")
 
 
 def jsonld_product(g, pack):
+    """`pack` is a plain string listing the formats this grade ships in."""
     data = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -569,8 +710,7 @@ def jsonld_product(g, pack):
             {"@type": "PropertyValue", "name": "Grain size", "value": g["grain_mm"]},
             {"@type": "PropertyValue", "name": "Mesh", "value": g["mesh"]},
             {"@type": "PropertyValue", "name": "Bulk density", "value": f"{g['bulk_density_lb_ft3']} lb/ft³"},
-            {"@type": "PropertyValue", "name": "Retail bag", "value": f"{pack['retail_bag_lb']} lb"},
-            {"@type": "PropertyValue", "name": "Trade bag", "value": f"{pack['trade_bag_lb']} lb"},
+            {"@type": "PropertyValue", "name": "Formats", "value": pack},
         ],
     }
     return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
@@ -582,6 +722,8 @@ def build():
     products = load_json("products.json")
     links = load_json("links.json")
     lit = load_json("literature.json")
+    markets = load_json("markets.json")
+    company = load_json("company.json")
     grades = grades_doc["grades"]
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
 
@@ -656,12 +798,27 @@ def build():
         "ac_note_html": ac_note(links),
         "literature_html": literature(lit, links, "all"),
         "literature_public_html": literature(lit, links, "public"),
+        # markets, packs and company furniture
+        "market_cards_html": market_cards(markets, products, grades),
+        "market_sections_html": market_sections(markets, products, grades, links),
+        "pack_rows_html": pack_rows(products),
+        "quote_units_html": quote_units(products, grades),
+        "company_facts_html": company_facts(company),
+        "compliance_rows_html": compliance_rows(company, links),
+        "faq_html": faq_list(company),
+        "hours": company["hours"],
+        "facility": company["facility"],
+        "market_count": len(markets["markets"]),
+        "sku_count": len(products["skus"]),
+        "pack_count": len(products["packs"]),
+        "market_list": ", ".join(m["short"].lower() for m in markets["markets"]),
     }
-    for s_ in products["skus"]:
-        common[f'{s_["sku"].lower().replace("-", "_")}_price'] = money(s_["list_per_bag"])
-    cheapest = min(products["skus"], key=lambda x: x["list_per_bag"] / x["bag_lb"])
-    common["from_per_lb"] = money(cheapest["list_per_bag"] / cheapest["bag_lb"])
-    common["from_per_bag"] = money(min(x["list_per_bag"] for x in products["skus"]))
+    _rows = sku_rows(products, grades)
+    for r in _rows:
+        common[f'{r["sku"].lower().replace("-", "_")}_price'] = money(r["list"])
+    common["from_per_lb"] = money(min(r["per_lb"] for r in _rows))
+    common["from_per_ton"] = money(min(r["per_ton"] for r in _rows), cents=False)
+    common["from_per_bag"] = money(min(r["list"] for r in _rows if r["pack"]["unit"] == "bag"))
 
     written = []
 
@@ -677,8 +834,11 @@ def build():
         ctx["sieve_html"] = sieve_rows(g["sieve"])
         ctx["uses_html"] = uses_blocks(g["uses"])
         ctx["others_html"] = other_cards(grades, g["slug"])
-        ctx["jsonld_html"] = jsonld_product(g, pack)
+        ctx["jsonld_html"] = jsonld_product(
+            g, ", ".join(r["pack"]["name"] for r in sku_rows(products, grades)
+                         if r["grade"]["slug"] == g["slug"]))
         ctx["sku_block_html"] = sku_block(products, grades, g["slug"], links)
+        ctx["grade_markets_html"] = grade_markets(markets, g["slug"], links)
         ctx["ac_grade_sample"] = ac_url(
             links, "contact", "sample",
             f'{g["name"]} grade aragonite aquarium sand, {g["grain_mm"]}, sample',
@@ -687,16 +847,15 @@ def build():
             links, "contact", "pricing",
             f'{g["name"]} grade aragonite aquarium sand, {g["grain_mm"]}, pricing by the pallet',
             f'pricing-{g["slug"]}')
-        ctx["grade_from_price"] = money(min(
-            x["list_per_bag"] for x in products["skus"]
-            if x["grade"] == g["slug"] and x["bag_lb"] == pack["retail_bag_lb"]))
+        _mine = [r for r in sku_rows(products, grades) if r["grade"]["slug"] == g["slug"]]
+        ctx["grade_from_price"] = money(min(r["per_lb"] for r in _mine))
         out = ROOT / g["page"]
         out.write_text(render(tpl, ctx), encoding="utf-8")
         written.append(out.name)
 
     # Other pages carry their own title/description in a leading JSON front
     # matter comment so the data stays with the page.
-    for name in ("index", "products", "wholesale", "dealers", "about", "404"):
+    for name in ("index", "markets", "products", "wholesale", "dealers", "about", "404"):
         src = (TEMPLATES / f"{name}.html").read_text(encoding="utf-8")
         m = re.match(r"\s*<!--\s*meta\s*(\{.*?\})\s*-->\s*", src, re.S)
         if not m:

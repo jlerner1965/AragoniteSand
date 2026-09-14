@@ -1,12 +1,12 @@
 <!-- meta {
-  "title": "Aragonite sand wholesale price list, 20 lb and 50 lb bags by the pallet | AragoCor Aragonite",
-  "description": "Six SKUs of Bahamian aragonite aquarium substrate in 20 lb retail and 50 lb trade bags, three grades, sold by the pallet to aquarium retailers and distributors. Per-bag and per-pallet pricing, volume breaks from four pallets, mixed pallets welcome."
+  "title": "Aragonite price list — bagged and bulk, three grades | Aragonite Sand",
+  "description": "Trade price list for oolitic aragonite: three grades in 20 lb and 50 lb bags, 2,000 lb bulk bags and bulk by the ton. Per-unit pricing at four volume tiers, pack specifications and grade comparison. FOB Stockton, California."
 } -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 {{> head}}
-<meta name="keywords" content="wholesale aragonite sand, bulk aragonite substrate, aragonite sand pallet price, 50 lb aragonite bag, aquarium substrate distributor, aragonite sand supplier">
+<meta name="keywords" content="aragonite price list, bulk aragonite price, calcium carbonate bulk bag, aragonite per ton, wholesale aragonite">
 <script type="application/ld+json">{{jsonld_html}}</script>
 </head>
 <body>
@@ -24,103 +24,77 @@
     </nav>
     <div class="hero__grid">
       <div>
-        <p class="eyebrow">Six SKUs · three grades · two bag sizes</p>
+        <p class="eyebrow">{{sku_count}} SKUs · three grades · {{pack_count}} formats</p>
         <h1 class="display-1" id="pr-title">Products and price list</h1>
-        <p class="lead">Everything we make, what it costs and what a pallet weighs. Build a pallet count below and the volume break is applied as you go, across grades. Send it over and you get a firm quote with freight the same business day.</p>
+        <p class="lead">List price per selling unit, FOB Stockton, California, before freight. Volume tiers apply across grades and formats on one order.</p>
         <div class="actions">
-          <a class="btn btn-ink" href="#price-list">Full price list</a>
-          <a class="btn btn-inkline" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+          <a class="btn btn-ink" href="#price-list">Price list</a>
+          <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
         </div>
-        <p class="note" style="margin-top:16px">{{ac_note_html}}</p>
       </div>
       <dl class="facts" aria-label="At a glance">
-        <div class="facts__row"><dt>Material</dt><dd>Aragonite, Bahamian oolitic</dd></div>
+        <div class="facts__row"><dt>Material</dt><dd>Oolitic aragonite, Bahamian</dd></div>
         <div class="facts__row"><dt>Grades</dt><dd>0.5–1.0 · 1.0–2.0 · 2.0–5.0 mm</dd></div>
-        <div class="facts__row"><dt>Bag sizes</dt><dd>{{retail_bag_lb}} lb retail · {{trade_bag_lb}} lb trade</dd></div>
-        <div class="facts__row"><dt>Unit of sale</dt><dd>Pallet, grades may be mixed</dd></div>
-        <div class="facts__row"><dt>From</dt><dd>{{from_per_bag}} per bag</dd></div>
-        <div class="facts__row"><dt>Volume breaks</dt><dd>From {{tier2_label}}</dd></div>
-        <div class="facts__row"><dt>Ships</dt><dd>FOB Stockton, CA</dd></div>
-        <div class="facts__row"><dt>Every lot</dt><dd>XRD, chemistry and sieve published</dd></div>
+        <div class="facts__row"><dt>Formats</dt><dd>20 lb · 50 lb · bulk bag · bulk</dd></div>
+        <div class="facts__row"><dt>From</dt><dd>{{from_per_lb}} per lb · {{from_per_ton}} per ton</dd></div>
+        <div class="facts__row"><dt>Minimum</dt><dd>One pallet, grades may be mixed</dd></div>
+        <div class="facts__row"><dt>Currency</dt><dd>{{currency}}, FOB Stockton</dd></div>
       </dl>
     </div>
   </div>
 </section>
 
-<div class="band-paper">
-  <div class="wrap">
-    <div class="stat-grid" role="list" aria-label="Trade facts">
-      <div role="listitem"><div class="v num">{{retail_bag_lb}} &amp; {{trade_bag_lb}} lb</div><div class="k">The two bags we make</div></div>
-      <div role="listitem"><div class="v">One pallet</div><div class="k">Opening order, grades may be mixed</div></div>
-      <div role="listitem"><div class="v num">{{tier2_label}}</div><div class="k">First volume break, {{tier2_pct}}% off list</div></div>
-      <div role="listitem"><div class="v">Stockton, CA</div><div class="k">FOB our plant, LTL or truckload</div></div>
-    </div>
-  </div>
-</div>
-
-<section class="section" id="catalogue" aria-labelledby="cat-title" data-quote data-tiers='{{tiers_json_html}}'>
+<section class="section band-paper" id="catalogue" aria-labelledby="cat-title">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Catalogue</p>
-      <h2 class="display-2" id="cat-title">Three grades, two bag sizes, sold by the pallet</h2>
-      <p class="lead">Prices are per bag at single-pallet quantity, FOB Stockton, before freight. Set a pallet count on any product and the running total appears at the bottom of the screen.</p>
+      <h2 class="display-2" id="cat-title">Grades</h2>
+      <p class="lead">Three screened grades of one material. Each ships in the formats listed against it.</p>
     </div>
-
     {{price_banner_html}}
-
     <div class="product-grid">
       {{product_cards_html}}
     </div>
-
-    <p class="note" style="margin-top:28px;max-width:80ch">{{price_note}} {{distributor_note}}</p>
-
-    <div style="margin-top:36px">
-      <div class="parent-cta">
-      <div>
-        <div class="parent-cta__label">Ordering</div>
-        <h3>Samples, pricing and orders run through {{ac_name}}</h3>
-        <p>This site is the catalogue and the lab record. {{ac_name}} makes the sand, holds the stock and writes the invoice, so a sample request or a firm quote goes straight to their desk at {{ac_host}}.</p>
-      </div>
-      <div class="parent-cta__actions">
-        <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
-        <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
-      </div>
-    </div>
-    </div>
   </div>
 </section>
 
-<section class="section band-paper" id="tiers" aria-labelledby="tiers-title">
+<section class="section" id="formats" aria-labelledby="fmt-title">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Volume pricing</p>
-      <h2 class="display-2" id="tiers-title">The break is on pallets, not on grades</h2>
-      <p class="lead">Count every pallet on the order, whatever is on it. Four pallets of one grade and four pallets mixed across three grades earn the same price.</p>
+      <p class="eyebrow">Packaging</p>
+      <h2 class="display-2" id="fmt-title">Pack formats</h2>
+      <p class="lead">Not every grade ships in every format. The price list below shows the combinations offered.</p>
     </div>
-    <div class="tier-grid">
-      {{tier_cells_html}}
+    <div class="data-wrap table-wrap">
+      <table class="data">
+        <caption>Pack specifications</caption>
+        <thead><tr><th scope="col">Format</th><th scope="col">Specification</th><th scope="col">Palletisation</th></tr></thead>
+        <tbody>
+          {{pack_rows_html}}
+        </tbody>
+      </table>
     </div>
-    <p class="note" style="margin-top:22px;max-width:80ch">Breaks apply per order, not per year. There is no annual commitment and no buy-in. {{distributor_note}}</p>
+    <p class="note" style="margin-top:16px">Pallets are 48 × 40 in GMA, stretch-wrapped. <span class="placeholder-flag" data-placeholder>Pallet height and gross weight to confirm</span></p>
   </div>
 </section>
 
-<section class="section" id="price-list" aria-labelledby="pl-title">
+<section class="section band-paper" id="price-list" aria-labelledby="pl-title">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Price list</p>
-      <h2 class="display-2" id="pl-title">Every SKU, every tier</h2>
-      <p class="lead">Per-bag price at each volume break. Pallet prices are this figure multiplied by the bags on the pallet, so the two can never disagree. Every row links to a sample request at {{ac_host}}.</p>
+      <h2 class="display-2" id="pl-title">Price list</h2>
+      <p class="lead">Per selling unit at each volume tier. Tiers count total pallets on the order, whatever grade or format is on them.</p>
     </div>
     {{price_banner_html}}
     <div class="data-wrap table-wrap">
       <table class="price-list">
-        <caption>Wholesale price list · per bag, FOB Stockton, California · {{currency}} · effective {{effective_date}}</caption>
+        <caption>Trade price list · per selling unit · {{currency}} · FOB Stockton, California · effective {{effective_date}}</caption>
         <thead>
           <tr>
             <th scope="col">SKU</th>
-            <th scope="col">Product</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Format</th>
             {{tier_headers_html}}
-            <th scope="col">Per pallet</th>
             <th scope="col">Per lb</th>
             <th scope="col">Sample</th>
           </tr>
@@ -130,20 +104,43 @@
         </tbody>
       </table>
     </div>
-    <p class="note" style="margin-top:18px;max-width:80ch">Per-pallet and per-pound figures are at single-pallet price. Freight is quoted per order and is not included. Suggested shelf prices are a margin reference for your own pricing, not a condition of sale.</p>
+    <p class="note" style="margin-top:16px;max-width:82ch">{{price_note}} Bulk is quoted by the ton on a 24 ton load. Suggested shelf prices, where shown, are a margin reference and not a condition of sale.</p>
+
+    <div class="tier-grid" style="margin-top:28px">
+      {{tier_cells_html}}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="estimate" aria-labelledby="est-title" data-quote data-tiers='{{tiers_json_html}}'>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Order estimate</p>
+      <h2 class="display-2" id="est-title">Build an estimate</h2>
+      <p class="lead">Enter pallet counts to see the tier applied and an indicative total. Bulk loads are not priced here; ask for a delivered quote.</p>
+    </div>
+    <div class="data-wrap table-wrap">
+      <table class="data">
+        <caption>Palletised formats</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">List</th><th scope="col">Per pallet</th><th scope="col">Pallets</th></tr></thead>
+        <tbody>
+        {{quote_units_html}}
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <section class="section band-sand" id="specs" aria-labelledby="spec-title">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Specification</p>
-      <h2 class="display-2" id="spec-title">One material, screened three ways</h2>
-      <p class="lead">The grade decides the customer, not the chemistry. Typical values; the published lot analysis governs. <span class="placeholder-flag" data-placeholder>Spec values are placeholders</span></p>
+      <p class="eyebrow">Technical</p>
+      <h2 class="display-2" id="spec-title">Grade comparison</h2>
+      <p class="lead">Typical values. The published lot analysis governs. <span class="placeholder-flag" data-placeholder>Values to confirm</span></p>
     </div>
     <div class="data-wrap table-wrap">
       <table class="data">
-        <caption>Grade comparison, typical values</caption>
+        <caption>Typical values by grade</caption>
         <thead>
           <tr><th scope="col">Property</th><th scope="col">Fine</th><th scope="col">Medium</th><th scope="col">Coarse</th></tr>
         </thead>
@@ -153,8 +150,8 @@
       </table>
     </div>
     <div class="actions">
-      <a class="btn btn-ink" href="{{ac_sample}}">Request a sample of all three {{ext_icon_html}}</a>
-      <a class="btn btn-inkline" href="index.html#lot">Look up a lot analysis</a>
+      <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
+      <a class="btn btn-inkline" href="index.html#quality">Lot analysis</a>
     </div>
   </div>
 </section>
@@ -165,57 +162,16 @@
       <div>
         <p class="eyebrow">Documents</p>
         <h2 class="display-2" id="plit-title">Specification and safety data</h2>
-        <p class="lead">What a buyer's technical review needs. Anything not yet posted is sent on request. <span class="placeholder-flag" data-placeholder>No files produced yet</span></p>
       </div>
-      <a class="tide-link" href="dealers.html#literature">Full dealer library <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="tide-link" href="dealers.html#literature">Full library <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     {{literature_public_html}}
   </div>
 </section>
 
-<section class="section band-ink" aria-labelledby="why-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Why this line sells</p>
-      <h2 class="display-2" id="why-title">What your customer gets that they cannot get elsewhere</h2>
-    </div>
-    <div class="feature-grid">
-      <div class="feature">
-        <div class="feature__n num">01</div>
-        <h3>A lot code on every bag</h3>
-        <p>The code on the back panel opens the lab analysis for that production run on this site: mineralogy, calcium carbonate, moisture, acid-insoluble residue, bulk density and the sieve distribution. Most substrate is sold on a claim. This is sold on a document.</p>
-      </div>
-      <div class="feature">
-        <div class="feature__n num">02</div>
-        <h3>The fines figure is published</h3>
-        <p>Cloudy water after a first fill is the single most common substrate complaint, and it is fines, not grade. We screen them out and publish what is left, per lot. That is a return you do not process.</p>
-      </div>
-      <div class="feature">
-        <div class="feature__n num">03</div>
-        <h3>One pallet covers the category</h3>
-        <p>Reef, mixed marine and cichlid customers are served from three grades of the same material. Mix them on one pallet, learn what your floor actually turns, and reorder to that.</p>
-      </div>
-    </div>
-
-    <div style="margin-top:44px">
-      <div class="parent-cta">
-      <div>
-        <div class="parent-cta__label">Ordering</div>
-        <h3>Samples, pricing and orders run through {{ac_name}}</h3>
-        <p>This site is the catalogue and the lab record. {{ac_name}} makes the sand, holds the stock and writes the invoice, so a sample request or a firm quote goes straight to their desk at {{ac_host}}.</p>
-      </div>
-      <div class="parent-cta__actions">
-        <a class="btn btn-ink" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
-        <a class="btn btn-inkline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
-<div class="quote-bar" id="quote-bar" hidden aria-live="polite" aria-label="Quote summary">
+<div class="quote-bar" id="quote-bar" hidden aria-live="polite" aria-label="Estimate summary">
   <div class="quote-bar__inner">
     <div class="quote-bar__figures">
       <div class="quote-bar__total" data-quote-total>—</div>
@@ -224,7 +180,7 @@
     <div class="quote-bar__actions">
       <button class="quote-bar__clear" type="button" data-quote-clear>Clear</button>
       <a class="quote-bar__alt" data-quote-local href="wholesale.html#inquiry">Send here instead</a>
-      <a class="btn btn-bone" data-quote-link {{ac_quote_attrs_html}} href="{{ac_pricing}}">Send to {{ac_name}} for a firm quote {{ext_icon_html}}</a>
+      <a class="btn btn-bone" data-quote-link {{ac_quote_attrs_html}} href="{{ac_pricing}}">Request a firm quote {{ext_icon_html}}</a>
     </div>
   </div>
 </div>

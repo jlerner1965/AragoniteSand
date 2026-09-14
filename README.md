@@ -1,8 +1,9 @@
 # aragonitesand.com
 
-Wholesale product site for AragoCor Minerals' bagged aragonite aquarium
-substrate. Six SKUs, three grades in 20 lb retail and 50 lb trade bags, sold by
-the pallet to aquarium retailers and distributors, with published pricing.
+Trade product site for AragoCor Minerals' oolitic aragonite. Three screened
+grades in four pack formats — 20 lb and 50 lb bags, 2,000 lb bulk bags and bulk
+by the ton — supplied to distributors in aquarium, agriculture, animal feed,
+turf and water treatment, with a published price list.
 
 Plain static HTML, CSS and JavaScript. No framework, no build step for hosting,
 no dependencies. Upload the repository root to any static host and it runs.
@@ -15,18 +16,19 @@ and the sales desk. See *Driving traffic to AragoCor* below.
 ## Layout
 
 ```
-index.html              Home: hero, the six products with prices and the quote
-                        builder, volume tiers, lot lookup, grade chooser,
-                        depth calculator, ordering CTA
-products.html           The catalogue: six product cards, the full tier-by-tier
-                        price list, volume breaks, grade comparison table
+index.html              Home: markets served, grades and formats, lot
+                        traceability, compliance status, ordering, FAQ
+markets.html            The five markets: grade and format by trade, and what
+                        the material does in each application
+products.html           Catalogue, pack specifications, the tier-by-tier price
+                        list, order estimator, grade comparison
 grade-fine.html         One template, three instances (generated, see below):
 grade-medium.html       hero with price, the grade's two SKUs priced, spec table,
 grade-coarse.html       sieve, fit and misfit, depth calculator, other grades
 wholesale.html          Ordering: price summary, pallet configuration, case pack,
                         opening terms, freight, dealer inquiry form
-dealers.html            Dealer resources: how the category sells at the counter,
-                        the literature library, shelf and facing guidance
+dealers.html            Distributor resources: grade selection, the literature
+                        library, retail merchandising, trade terms
 about.html              Ownership, Stockton operation, sourcing, testing practice
 404.html
 
@@ -35,7 +37,9 @@ css/site.css            Chrome (header, footer), page and commerce components
 js/site.js              Nav, grain illustration, lot lookup, depth calculator,
                         inquiry form, quote builder, quote handoff
 
-data/products.json      The six SKUs, prices and volume tiers
+data/products.json      Pack formats, SKUs, prices and volume tiers
+data/markets.json       The five markets: grades, formats and function
+data/company.json       Company facts, compliance status, distributor FAQ
 data/links.json         Outbound links to aragocorminerals.com
 data/literature.json    Spec sheets, safety data, price list, photography, POS
 data/grades.json        The three grades: sizes, densities, copy, sieve data
@@ -68,6 +72,41 @@ unknown key fails the build rather than shipping literal braces.
 The three grade pages are `templates/grade.html` rendered once per entry in
 `data/grades.json`. Change the template to change all three; change the data
 to change one.
+
+## Markets, grades and formats
+
+The catalogue is three grades crossed with four pack formats, and not every
+combination is offered. `data/products.json` holds `packs` (the formats) and
+`skus` (the combinations actually sold); `data/markets.json` maps each market
+to the grades and formats it takes. Everything else is derived:
+
+- **Grades** come from `data/grades.json` and are unchanged by market.
+- **Formats** are 20 lb bag, 50 lb bag, 2,000 lb bulk bag and bulk by the ton.
+  The 20 lb printed bag is aquarium retail only; bulk is agriculture and feed.
+- **Markets** are aquarium and aquaculture, agriculture and soil, animal feed,
+  turf and horticulture, and water treatment.
+
+To add a format, add it to `packs` and add the SKUs that ship in it. To add a
+market, add it to `markets.json` naming the grades and packs it takes; the
+market cards, the market page sections and the per-grade market list all
+follow. Per-pallet, per-pound and per-ton figures are derived at build time,
+never stored.
+
+## Compliance, and what may be claimed
+
+`data/company.json` holds a `compliance` list with a `status` per item:
+
+| Status | Renders as | Use when |
+|---|---|---|
+| `held` | A credential, stated plainly | The document exists and is current |
+| `unconfirmed` | "On request", with a link to ask | Not verified for these grades |
+
+**Nothing at `unconfirmed` is ever rendered as a claim.** Stating an OMRI
+listing, a feed-grade qualification or an NSF certification that is not held is
+a regulatory problem rather than a copy problem, so the table shows the honest
+state and offers to confirm it. Four of the six entries are currently
+`unconfirmed` and need a real answer from the plant before those markets are
+supplied.
 
 ## Changing prices
 
