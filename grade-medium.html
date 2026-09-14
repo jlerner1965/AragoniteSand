@@ -32,27 +32,27 @@
         <span class="ac-nav__site">Aragonite sand</span>
       </a>
       <ul class="ac-nav__links">
+        <li class="ac-nav__item"><a class="ac-nav__link" href="products.html">Products &amp; pricing</a></li>
         <li class="ac-nav__item"><a class="ac-nav__link" href="grade-fine.html">Fine</a></li>
         <li class="ac-nav__item"><a class="ac-nav__link" href="grade-medium.html">Medium</a></li>
         <li class="ac-nav__item"><a class="ac-nav__link" href="grade-coarse.html">Coarse</a></li>
-        <li class="ac-nav__item"><a class="ac-nav__link" href="index.html#lot">Lot lookup</a></li>
-        <li class="ac-nav__item"><a class="ac-nav__link" href="wholesale.html">Wholesale</a></li>
+        <li class="ac-nav__item"><a class="ac-nav__link" href="wholesale.html">Ordering</a></li>
         <li class="ac-nav__item"><a class="ac-nav__link" href="about.html">About</a></li>
       </ul>
     </div>
-    <a class="ac-nav__cta" href="wholesale.html#inquiry">Request a dealer packet <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="ac-nav__cta" href="wholesale.html#inquiry">Request pricing <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <button class="ac-nav__toggle" type="button" aria-expanded="false" aria-controls="ac-nav-mobile" aria-label="Open menu"></button>
   </div>
   <div class="ac-nav__mobile" id="ac-nav-mobile" hidden inert aria-hidden="true">
     <ul>
-      <li><a href="grade-fine.html">Fine grade</a></li>
-      <li><a href="grade-medium.html">Medium grade</a></li>
-      <li><a href="grade-coarse.html">Coarse grade</a></li>
+      <li><a href="products.html">Products &amp; pricing</a></li>
+      <li><a href="grade-fine.html">Fine grade, 0.5–1.0 mm</a></li>
+      <li><a href="grade-medium.html">Medium grade, 1.0–2.0 mm</a></li>
+      <li><a href="grade-coarse.html">Coarse grade, 2.0–5.0 mm</a></li>
+      <li><a href="wholesale.html">Ordering and freight</a></li>
       <li><a href="index.html#lot">Lot lookup</a></li>
-      <li><a href="index.html#calc">Depth calculator</a></li>
-      <li><a href="wholesale.html">Wholesale</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a class="ac-nav__mobile-cta" href="wholesale.html#inquiry">Request a dealer packet</a></li>
+      <li><a class="ac-nav__mobile-cta" href="wholesale.html#inquiry">Request pricing</a></li>
     </ul>
   </div>
 </header>
@@ -75,8 +75,9 @@
         <h1 class="display-1" id="grade-title">Medium grade aragonite</h1>
         <div class="hero__mm num">1.0–2.0 mm &nbsp;·&nbsp; 10–18 mesh &nbsp;·&nbsp; 92 lb/ft³</div>
         <p class="lead">The forgiving grade. Stays put under stronger flow than fine sand and still reads as a natural flat. If you are not sure which grade to run, start here.</p>
+        <p class="price" style="margin-top:24px">$13.50 <small>per bag, 20 lb at one pallet</small> <span class="placeholder-flag" data-placeholder>Placeholder price</span></p>
         <div class="actions">
-          <a class="btn btn-ink" href="wholesale.html#inquiry">Stock this grade</a>
+          <a class="btn btn-ink" href="#buy">Pricing for this grade</a>
           <a class="btn btn-inkline" href="index.html#lot">Look up a lot analysis</a>
         </div>
       </div>
@@ -93,7 +94,77 @@
   </div>
 </section>
 
-<section class="section band-paper" aria-labelledby="spec-title">
+<section class="section band-paper" id="buy" aria-labelledby="buy-title">
+  <div class="wrap">
+    <div class="sec-head sec-head--row">
+      <div>
+        <p class="eyebrow">Buy the medium grade</p>
+        <h2 class="display-3" id="buy-title">Two bags, one grade, sold by the pallet</h2>
+        <p class="lead">Per bag at single-pallet quantity, FOB Stockton, before freight. Volume breaks start at 4–9 pallets and count every pallet on the order, whatever grade is on it.</p>
+      </div>
+      <a class="tide-link" href="products.html#price-list">All six SKUs and every tier <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+
+    <div class="price-banner" role="note">
+      <span class="placeholder-flag" data-placeholder>Placeholder</span>
+      <p><strong>These prices are not real.</strong> Every figure on this page is invented so the price list, the volume breaks and the quote builder can be seen working. Replace them in <code>data/products.json</code>, set <code>price_status</code> to <code>live</code>, and this banner disappears on the next build.</p>
+    </div>
+
+    <div class="buy-grid">
+      <article class="product product--medium">
+        <div class="product__band" aria-hidden="true"></div>
+        <div class="product__head"><span class="sku">AR-M20</span><span class="product__type">Retail bag</span></div>
+        <div class="product__title"><h3>Medium · 20 lb</h3>
+          <div class="product__mm">Printed poly, handle cut, shelf-ready</div>
+        </div>
+        <div class="product__price">
+          <div class="price">$13.50 <small>per bag</small></div>
+          <div class="price__sub num">$810 per pallet · 60 bags · 1,200 lb</div>
+          <div class="price__rows">
+            <div class="price__row"><span>Per pound</span><b>$0.68</b></div>
+            <div class="price__row"><span>Suggested shelf</span><b>$26.99 · 50% margin</b></div>
+          </div>
+        </div>
+        <div class="product__foot">
+          <a class="btn btn-ink btn-sm" href="wholesale.html?q=AR-M20:1#inquiry">Quote one pallet</a>
+        </div>
+      </article>
+      <article class="product product--medium">
+        <div class="product__band" aria-hidden="true"></div>
+        <div class="product__head"><span class="sku">AR-M50</span><span class="product__type">Trade bag</span></div>
+        <div class="product__title"><h3>Medium · 50 lb</h3>
+          <div class="product__mm">Plain woven poly, for volume and back-of-house</div>
+        </div>
+        <div class="product__price">
+          <div class="price">$29.00 <small>per bag</small></div>
+          <div class="price__sub num">$1,160 per pallet · 40 bags · 2,000 lb</div>
+          <div class="price__rows">
+            <div class="price__row"><span>Per pound</span><b>$0.58</b></div>
+            
+          </div>
+        </div>
+        <div class="product__foot">
+          <a class="btn btn-ink btn-sm" href="wholesale.html?q=AR-M50:1#inquiry">Quote one pallet</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- TODO(packaging): pallet figures come from data/packaging.json and are placeholders -->
+    <div class="pack" style="margin-top:28px">
+      <div><div class="v num">60</div><div class="k">20 lb bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
+      <div><div class="v num">40</div><div class="k">50 lb bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
+      <div><div class="v num">1,200 lb</div><div class="k">Pallet net weight <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
+      <div><div class="v">Mixed OK</div><div class="k">Any grades on one pallet</div></div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-ink" href="wholesale.html#inquiry">Request pricing</a>
+      <a class="btn btn-inkline" href="wholesale.html#pallet">Pallet configuration and freight</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="spec-title">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Specification</p>
@@ -192,27 +263,6 @@
   </div>
 </section>
 
-<section class="section band-sand" id="packaging" aria-labelledby="pack-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Packaging and pallet</p>
-      <h2 class="display-3" id="pack-title">Retail bags for the shelf, trade bags for volume</h2>
-      <p class="lead">Opening orders can mix grades across a pallet. Full pallet configuration and dealer terms are on the wholesale page.</p>
-    </div>
-    <!-- TODO(packaging): figures come from data/packaging.json; pallet numbers are placeholders -->
-    <div class="pack">
-      <div><div class="v num">20 lb</div><div class="k">Retail bag</div></div>
-      <div><div class="v num">50 lb</div><div class="k">Trade bag</div></div>
-      <div><div class="v num">60</div><div class="k">Retail bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-      <div><div class="v num">1,200 lb</div><div class="k">Pallet net weight <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-    </div>
-    <div class="actions">
-      <a class="btn btn-ink" href="wholesale.html#inquiry">Request a dealer packet</a>
-      <a class="btn btn-inkline" href="wholesale.html#pallet">Pallet configuration</a>
-    </div>
-  </div>
-</section>
-
 <section class="section" aria-labelledby="others-title">
   <div class="wrap">
     <div class="sec-head">
@@ -240,7 +290,7 @@
   <div class="ac-foot__inner">
     <div>
       <a href="https://www.aragocorminerals.com/" aria-label="AragoCor Minerals"><img src="assets/aragocor-logo.png" alt="AragoCor Minerals" width="203" height="48"></a>
-      <p style="margin-top:20px;max-width:280px;">Aragonite sand for aquariums, screened and bagged at our Stockton, California facility. This site is published and operated by AragoCor Minerals LLC.</p>
+      <p style="margin-top:20px;max-width:280px;">Aragonite aquarium substrate in 20 lb and 50 lb bags, sold by the pallet to retailers and distributors. Screened and bagged at our Stockton, California facility by AragoCor Minerals LLC.</p>
       <p style="margin-top:14px;max-width:280px;">Our aragonite is sourced in The Bahamas through Aragosan Minerals Limited. Source documentation is available.</p>
     </div>
     <div>
@@ -250,23 +300,23 @@
       <div class="ac-foot__row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(247,244,237,0.55)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:info@aragocorminerals.com">info@aragocorminerals.com</a></div>
     </div>
     <div>
-      <div class="ac-foot__label">Product</div>
+      <div class="ac-foot__label">Products</div>
       <ul class="ac-foot__list">
+        <li><a href="products.html">All six SKUs and pricing</a></li>
         <li><a href="grade-fine.html">Fine grade, 0.5–1.0 mm</a></li>
         <li><a href="grade-medium.html">Medium grade, 1.0–2.0 mm</a></li>
         <li><a href="grade-coarse.html">Coarse grade, 2.0–5.0 mm</a></li>
-        <li><a href="index.html#lot">Lot lookup</a></li>
-        <li><a href="index.html#calc">Depth calculator</a></li>
+        <li><a href="products.html#tiers">Volume pricing</a></li>
       </ul>
     </div>
     <div>
-      <div class="ac-foot__label">Trade</div>
+      <div class="ac-foot__label">Ordering</div>
       <ul class="ac-foot__list">
-        <li><a href="wholesale.html">Wholesale and dealers</a></li>
+        <li><a href="wholesale.html">How an account opens</a></li>
         <li><a href="wholesale.html#pallet">Pallet configuration</a></li>
-        <li><a href="wholesale.html#inquiry">Dealer inquiry</a></li>
+        <li><a href="wholesale.html#inquiry">Request pricing</a></li>
+        <li><a href="index.html#lot">Lot lookup</a></li>
         <li><a href="about.html">About AragoCor</a></li>
-        <li><a href="https://www.aragocorminerals.com/">aragocorminerals.com</a></li>
       </ul>
     </div>
   </div>

@@ -1,11 +1,13 @@
 /* aragonitesand.com — shared behaviour.
  *
- * No build step, no dependencies. Four things:
+ * No build step, no dependencies. Seven things:
  *   1. the responsive navigation (ported from the parent's site-chrome.js)
  *   2. the grain-scale illustration, drawn from data attributes
  *   3. the lot lookup, which fetches data/lots.json
  *   4. the depth calculator, which reads bulk density from data/grades.json
  *   5. the dealer inquiry form on wholesale.html
+ *   6. the quote builder on products.html
+ *   7. the quote it hands to the inquiry form
  *
  * Every piece looks for its own markup and does nothing if it is absent, so
  * one script serves every page.
@@ -429,12 +431,223 @@
     });
   }
 
+  /* ---------- 6. Quote builder ----------
+   *
+   * The products page is a price list you can add up. Each SKU carries its
+   * price and pallet count in the markup (rendered from data/products.json by
+   * tools/build.py), so nothing is fetched and the arithmetic works from a
+   * file:// page too. Pallet counts across every grade decide which volume
+   * tier applies, which is the whole point: mixing grades still earns the
+   * break. The result hands off to the inquiry form as a query string, so no
+   * state has to survive the page change.
+   */
+  function money(n) {
+    return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function money0(n) {
+    return "$" + Math.round(n).toLocaleString("en-US");
+  }
+
+  function initQuoteBuilder() {
+    var root = document.querySelector("[data-quote]");
+    if (!root) return;
+    var bar = document.getElementById("quote-bar");
+    var tiers;
+    try { tiers = JSON.parse(root.getAttribute("data-tiers") || "[]"); } catch (e) { tiers = []; }
+
+    var lines = [];
+    root.querySelectorAll("[data-sku]").forEach(function (el) {
+      var input = el.querySelector('input[type="number"]');
+      if (!input) return;
+      lines.push({
+        el: el,
+        input: input,
+        sku: el.getAttribute("data-sku"),
+        name: el.getAttribute("data-name") || el.getAttribute("data-sku"),
+        perBag: parseFloat(el.getAttribute("data-per-bag")) || 0,
+        bags: parseInt(el.getAttribute("data-bags-per-pallet"), 10) || 0,
+        lb: parseFloat(el.getAttribute("data-bag-lb")) || 0
+      });
+    });
+    if (!lines.length) return;
+
+    function tierFor(pallets) {
+      var found = tiers[0] || { discount: 0, label: "" };
+      tiers.forEach(function (t) {
+        var min = t.min_pallets || 0;
+        var max = (t.max_pallets === null || t.max_pallets === undefined) ? Infinity : t.max_pallets;
+        if (pallets >= min && pallets <= max) found = t;
+      });
+      return found;
+    }
+
+    function paint() {
+      var pallets = 0, bags = 0, lb = 0, gross = 0;
+      lines.forEach(function (l) {
+        var q = Math.max(0, parseInt(l.input.value, 10) || 0);
+        pallets += q;
+        bags += q * l.bags;
+        lb += q * l.bags * l.lb;
+        gross += q * l.bags * l.perBag;
+        l.el.classList.toggle("product--active", q > 0);
+        var minus = l.el.querySelector("[data-qty-down]");
+        if (minus) minus.disabled = q <= 0;
+      });
+
+      var tier = tierFor(pallets || 1);
+      var discount = pallets > 0 ? (tier.discount || 0) : 0;
+      var net = gross * (1 - discount);
+
+      /* The tier cells sit in their own section, not inside the quote root, so
+         this is a document query on purpose. */
+      document.querySelectorAll("[data-tier]").forEach(function (cell) {
+        cell.setAttribute("data-active", pallets > 0 && cell.getAttribute("data-tier") === tier.id ? "true" : "false");
+      });
+
+      if (!bar) return;
+      var open = pallets > 0;
+      bar.hidden = false;
+      bar.classList.toggle("is-open", open);
+      document.body.classList.toggle("has-quote", open);
+      if (!open) {
+        reserveSpace(false);
+        return;
+      }
+
+      bar.querySelector("[data-quote-total]").innerHTML =
+        money0(net) + ' <small>estimated, before freight</small>';
+      bar.querySelector("[data-quote-meta]").innerHTML =
+        pallets + (pallets === 1 ? " pallet" : " pallets") + " · " +
+        bags.toLocaleString("en-US") + " bags · " +
+        Math.round(lb).toLocaleString("en-US") + " lb" +
+        (discount > 0 ? ' · <b>' + Math.round(discount * 100) + "% volume break applied</b>" : "");
+
+      var parts = [];
+      lines.forEach(function (l) {
+        var q = Math.max(0, parseInt(l.input.value, 10) || 0);
+        if (q > 0) parts.push(l.sku + ":" + q);
+      });
+      var link = bar.querySelector("[data-quote-link]");
+      if (link) link.href = "wholesale.html?q=" + encodeURIComponent(parts.join(",")) + "#inquiry";
+
+      /* Last, once the figures are in it: the bar is one row on a desktop and
+         three on a phone, and it is the text just written that decides which. */
+      reserveSpace(true);
+    }
+
+    root.querySelectorAll("[data-qty-up], [data-qty-down]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var input = btn.parentNode.querySelector('input[type="number"]');
+        var q = Math.max(0, parseInt(input.value, 10) || 0);
+        q = btn.hasAttribute("data-qty-up") ? Math.min(999, q + 1) : Math.max(0, q - 1);
+        input.value = q;
+        paint();
+      });
+    });
+    lines.forEach(function (l) {
+      l.input.addEventListener("input", paint);
+      l.input.addEventListener("change", function () {
+        var q = parseInt(l.input.value, 10);
+        l.input.value = (isNaN(q) || q < 0) ? 0 : Math.min(999, q);
+        paint();
+      });
+    });
+    /* Reserve exactly the bar's own height under the page, measured rather than
+       assumed: the bar wraps to two and then three rows as the viewport
+       narrows, and the stylesheet's fallback figure cannot know which. Without
+       this the bar covers the last rows of the footer on a phone. */
+    function reserveSpace(open) {
+      if (!bar) return;
+      document.body.style.paddingBottom = open ? bar.offsetHeight + "px" : "";
+    }
+    var reflow;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(reflow);
+      reflow = window.setTimeout(function () {
+        reserveSpace(document.body.classList.contains("has-quote"));
+      }, 120);
+    });
+
+    var clear = bar && bar.querySelector("[data-quote-clear]");
+    if (clear) {
+      clear.addEventListener("click", function () {
+        lines.forEach(function (l) { l.input.value = 0; });
+        paint();
+        lines[0].input.focus();
+      });
+    }
+    paint();
+  }
+
+  /* ---------- 7. The quote, carried into the inquiry form ----------
+   *
+   * `wholesale.html?q=AR-F20:2,AR-M50:1` renders the line items above the
+   * form and writes them into a field, so what the buyer priced is what we
+   * receive. The catalogue is embedded on that page for the same reason as
+   * above: no fetch, no build step, works offline.
+   */
+  function initQuoteContext() {
+    var host = document.getElementById("quote-context");
+    if (!host) return;
+    var m = /[?&]q=([^&#]+)/.exec(window.location.search || window.location.href);
+    if (!m) return;
+    var catalogue;
+    try { catalogue = JSON.parse(host.getAttribute("data-catalogue") || "{}"); } catch (e) { return; }
+    var tiers = catalogue.tiers || [];
+    var skus = catalogue.skus || {};
+
+    var pallets = 0, gross = 0, rows = [];
+    decodeURIComponent(m[1]).split(",").forEach(function (part) {
+      var bits = part.split(":");
+      var sku = skus[bits[0]];
+      var q = parseInt(bits[1], 10) || 0;
+      if (!sku || q <= 0) return;
+      var ext = q * sku.bags * sku.perBag;
+      pallets += q;
+      gross += ext;
+      rows.push({ sku: bits[0], name: sku.name, q: q, bags: q * sku.bags, ext: ext });
+    });
+    if (!rows.length) return;
+
+    var tier = tiers[0] || { discount: 0 };
+    tiers.forEach(function (t) {
+      var max = (t.max_pallets === null || t.max_pallets === undefined) ? Infinity : t.max_pallets;
+      if (pallets >= (t.min_pallets || 0) && pallets <= max) tier = t;
+    });
+    var net = gross * (1 - (tier.discount || 0));
+
+    var html = '<span class="quote-context__label">The quote you built</span><ul class="quote-context__list">';
+    rows.forEach(function (r) {
+      html += "<li><span>" + escapeHtml(r.name) + " · " + escapeHtml(r.sku) + " · " + r.q +
+        (r.q === 1 ? " pallet" : " pallets") + " (" + r.bags + " bags)</span><span>" + money(r.ext) + "</span></li>";
+    });
+    html += "</ul>";
+    if (tier.discount) {
+      html += '<div class="quote-context__total"><span>' + Math.round(tier.discount * 100) +
+        "% volume break, " + escapeHtml(tier.label || "") + "</span><span>&minus;" + money(gross - net) + "</span></div>";
+    }
+    html += '<div class="quote-context__total"><span>' + pallets + (pallets === 1 ? " pallet" : " pallets") +
+      ", estimated before freight</span><span>" + money(net) + "</span></div>";
+    host.innerHTML = html;
+    host.hidden = false;
+
+    var field = document.getElementById("df-quote");
+    if (field) {
+      field.value = rows.map(function (r) { return r.sku + " x " + r.q + " pallet" + (r.q === 1 ? "" : "s"); }).join(", ") +
+        " — estimated " + money(net) + " before freight";
+      var wrap = field.closest(".field");
+      if (wrap) wrap.hidden = false;
+    }
+  }
+
   function init() {
     initNavigation();
     initGrains();
     initLotLookup();
     initCalculator();
     initDealerForm();
+    initQuoteBuilder();
+    initQuoteContext();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

@@ -25,8 +25,9 @@
         <h1 class="display-1" id="grade-title">{{h1}}</h1>
         <div class="hero__mm num">{{grain_mm}} &nbsp;·&nbsp; {{mesh}} mesh &nbsp;·&nbsp; {{bulk_density_lb_ft3}} lb/ft³</div>
         <p class="lead">{{tagline}}</p>
+        <p class="price" style="margin-top:24px">{{grade_from_price}} <small>per bag, {{retail_bag_lb}} lb at one pallet</small> <span class="placeholder-flag" data-placeholder>Placeholder price</span></p>
         <div class="actions">
-          <a class="btn btn-ink" href="wholesale.html#inquiry">Stock this grade</a>
+          <a class="btn btn-ink" href="#buy">Pricing for this grade</a>
           <a class="btn btn-inkline" href="index.html#lot">Look up a lot analysis</a>
         </div>
       </div>
@@ -43,7 +44,39 @@
   </div>
 </section>
 
-<section class="section band-paper" aria-labelledby="spec-title">
+<section class="section band-paper" id="buy" aria-labelledby="buy-title">
+  <div class="wrap">
+    <div class="sec-head sec-head--row">
+      <div>
+        <p class="eyebrow">Buy the {{name_lower}} grade</p>
+        <h2 class="display-3" id="buy-title">Two bags, one grade, sold by the pallet</h2>
+        <p class="lead">Per bag at single-pallet quantity, FOB Stockton, before freight. Volume breaks start at {{tier2_label}} and count every pallet on the order, whatever grade is on it.</p>
+      </div>
+      <a class="tide-link" href="products.html#price-list">All six SKUs and every tier <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+
+    {{price_banner_html}}
+
+    <div class="buy-grid">
+      {{sku_block_html}}
+    </div>
+
+    <!-- TODO(packaging): pallet figures come from data/packaging.json and are placeholders -->
+    <div class="pack" style="margin-top:28px">
+      <div><div class="v num">{{retail_bags_per_pallet}}</div><div class="k">{{retail_bag_lb}} lb bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
+      <div><div class="v num">{{trade_bags_per_pallet}}</div><div class="k">{{trade_bag_lb}} lb bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
+      <div><div class="v num">{{pallet_net_lb}} lb</div><div class="k">Pallet net weight <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
+      <div><div class="v">Mixed OK</div><div class="k">Any grades on one pallet</div></div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-ink" href="wholesale.html#inquiry">Request pricing</a>
+      <a class="btn btn-inkline" href="wholesale.html#pallet">Pallet configuration and freight</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="spec-title">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Specification</p>
@@ -120,27 +153,6 @@
         <div class="result__sub num" data-calc-bags>—</div>
         <div class="result__note"><span data-calc-density-note>Calculated at {{bulk_density_lb_ft3}} lb per cubic foot, the typical bulk density of the {{name_lower}} grade.</span> {{calc_note}}</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section band-sand" id="packaging" aria-labelledby="pack-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Packaging and pallet</p>
-      <h2 class="display-3" id="pack-title">Retail bags for the shelf, trade bags for volume</h2>
-      <p class="lead">Opening orders can mix grades across a pallet. Full pallet configuration and dealer terms are on the wholesale page.</p>
-    </div>
-    <!-- TODO(packaging): figures come from data/packaging.json; pallet numbers are placeholders -->
-    <div class="pack">
-      <div><div class="v num">{{retail_bag_lb}} lb</div><div class="k">Retail bag</div></div>
-      <div><div class="v num">{{trade_bag_lb}} lb</div><div class="k">Trade bag</div></div>
-      <div><div class="v num">{{retail_bags_per_pallet}}</div><div class="k">Retail bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-      <div><div class="v num">{{pallet_net_lb}} lb</div><div class="k">Pallet net weight <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-    </div>
-    <div class="actions">
-      <a class="btn btn-ink" href="wholesale.html#inquiry">Request a dealer packet</a>
-      <a class="btn btn-inkline" href="wholesale.html#pallet">Pallet configuration</a>
     </div>
   </div>
 </section>

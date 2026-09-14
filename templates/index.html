@@ -1,14 +1,14 @@
 <!-- meta {
-  "title": "Aragonite sand for reef, marine and cichlid aquariums, tested by lot | AragoCor Aragonite",
-  "description": "Bahamian aragonite aquarium substrate in three screened grades, bagged in Stockton, CA. Every bag carries a lot code that opens the lab analysis for that run: mineralogy, CaCO₃, sieve distribution, moisture. Sold to aquarium retailers and reef keepers.",
+  "title": "Wholesale aragonite aquarium sand, 20 lb and 50 lb bags by the pallet | AragoCor Aragonite",
+  "description": "Bahamian aragonite aquarium substrate in three screened grades, 20 lb retail and 50 lb trade bags, sold by the pallet to aquarium retailers and distributors. Published per-bag pricing, volume breaks, mixed pallets, and a lab analysis behind every lot code.",
   "canonical": ""
 } -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 {{> head}}
-<meta name="keywords" content="aragonite sand, aragonite aquarium substrate, reef sand, fine aragonite sand reef tank, aragonite substrate cichlid, oolitic aragonite">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AragoCor Minerals LLC","url":"https://aragonitesand.com/","logo":"https://aragonitesand.com/assets/aragocor-logo.png","sameAs":["https://www.aragocorminerals.com/"],"address":{"@type":"PostalAddress","streetAddress":"2453 Grand Canal Blvd. Ste 200","addressLocality":"Stockton","addressRegion":"CA","postalCode":"95207","addressCountry":"US"},"telephone":"+1-209-487-0110","email":"info@aragocorminerals.com"}</script>
+<meta name="keywords" content="wholesale aragonite sand, aragonite aquarium substrate supplier, bulk aragonite bags, aquarium sand distributor, 50 lb aragonite, aragonite sand pallet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AragoCor Minerals LLC","url":"https://aragonitesand.com/","logo":"https://aragonitesand.com/assets/aragocor-logo.png","description":"Wholesale supplier of Bahamian aragonite aquarium substrate in 20 lb and 50 lb bags.","sameAs":["https://www.aragocorminerals.com/"],"address":{"@type":"PostalAddress","streetAddress":"2453 Grand Canal Blvd. Ste 200","addressLocality":"Stockton","addressRegion":"CA","postalCode":"95207","addressCountry":"US"},"telephone":"+1-209-487-0110","email":"info@aragocorminerals.com"}</script>
 </head>
 <body>
 {{> header}}
@@ -19,12 +19,12 @@
   <div class="wrap">
     <div class="hero__grid">
       <div>
-        <p class="eyebrow">Bahamian aragonite · screened and bagged in Stockton, California</p>
-        <h1 class="display-1" id="home-title">Aragonite you can verify.</h1>
-        <p class="lead">Aragonite sand for aquariums, screened to three grades and bagged at our own plant. Every bag carries a lot code that opens the actual lab analysis for that production run: mineralogy, calcium carbonate, sieve distribution, moisture and sample date.</p>
+        <p class="eyebrow">Wholesale aragonite aquarium substrate · Stockton, California</p>
+        <h1 class="display-1" id="home-title">Aragonite sand, by the pallet.</h1>
+        <p class="lead">Three screened grades in 20 lb retail and 50 lb trade bags, sold direct to aquarium retailers and distributors. Prices are published below, not held back for a phone call. Every bag carries a lot code that opens the lab analysis for that run.</p>
         <div class="actions">
-          <a class="btn btn-ink" href="#lot">Look up a lot</a>
-          <a class="btn btn-inkline" href="wholesale.html">Stock it in your store</a>
+          <a class="btn btn-ink" href="#products">See the price list</a>
+          <a class="btn btn-inkline" href="wholesale.html#inquiry">Request pricing</a>
         </div>
       </div>
       <figure class="plate" aria-label="The three grades drawn at true relative size against a millimetre rule">
@@ -36,7 +36,7 @@
           {{home_grains_html}}
         </div>
         <div class="ruler" data-ruler="6" aria-hidden="true"></div>
-        <figcaption class="plate__foot">Grain size is the choice that matters most. It sets how the bed settles, how it moves under flow, and what can live in it. Drawn geometry, not a photograph. <span class="placeholder-flag" data-placeholder>Replace with photography</span></figcaption>
+        <figcaption class="plate__foot">Grain size decides the customer. It sets how the bed settles, how it moves under flow, and what can live in it. Drawn geometry, not a photograph. <span class="placeholder-flag" data-placeholder>Replace with photography</span></figcaption>
       </figure>
     </div>
   </div>
@@ -44,29 +44,50 @@
 
 <div class="band-paper">
   <div class="wrap">
-    <div class="stat-grid" role="list" aria-label="Key facts">
-      <!-- TODO(data): CaCO3 figure is a placeholder from data/grades.json -->
-      <div role="listitem"><div class="v num">{{medium_caco3_pct}}%</div><div class="k">Calcium carbonate, typical <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-      <div role="listitem"><div class="v">Aragonite</div><div class="k">Mineral phase confirmed by XRD, every lot</div></div>
-      <div role="listitem"><div class="v num">{{retail_bag_lb}} lb</div><div class="k">Retail bag · {{trade_bag_lb}} lb trade bag</div></div>
-      <div role="listitem"><div class="v">Stockton, CA</div><div class="k">Screened and bagged in-house</div></div>
+    <div class="stat-grid" role="list" aria-label="Trade facts">
+      <div role="listitem"><div class="v num">6 SKUs</div><div class="k">Three grades × two bag sizes</div></div>
+      <div role="listitem"><div class="v num">{{from_per_bag}}</div><div class="k">From, per bag at one pallet <span class="placeholder-flag" data-placeholder>Placeholder price</span></div></div>
+      <div role="listitem"><div class="v">One pallet</div><div class="k">Opening order · grades may be mixed</div></div>
+      <div role="listitem"><div class="v num">{{tier2_pct}}% off</div><div class="k">From {{tier2_label}} on one order</div></div>
     </div>
   </div>
 </div>
 
-<section class="section" id="grades" aria-labelledby="grades-title">
+<section class="section" id="products" aria-labelledby="prod-title" data-quote data-tiers='{{tiers_json_html}}'>
   <div class="wrap">
     <div class="sec-head sec-head--row">
       <div>
-        <p class="eyebrow">Grades</p>
-        <h2 class="display-2" id="grades-title">Three grades, one material</h2>
-        <p class="lead">Same aragonite, screened differently. Pick by grain size and by how much flow the bed will see. <span class="placeholder-flag" data-placeholder>Spec values are placeholders</span></p>
+        <p class="eyebrow">The line</p>
+        <h2 class="display-2" id="prod-title">Everything we bag, and what it costs</h2>
+        <p class="lead">Per bag at single-pallet quantity, FOB Stockton, before freight. Set a pallet count and the volume break is applied across grades as you go.</p>
       </div>
-      <a class="tide-link" href="#calc">How much do I need? <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="tide-link" href="products.html#price-list">Full price list, every tier <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
-    <div class="grade-grid">
-      {{grade_cards_html}}
+
+    {{price_banner_html}}
+
+    <div class="product-grid">
+      {{product_cards_html}}
     </div>
+
+    <p class="note" style="margin-top:28px;max-width:80ch">{{price_note}}</p>
+  </div>
+</section>
+
+<section class="section band-paper" id="tiers" aria-labelledby="tier-title">
+  <div class="wrap">
+    <div class="sec-head sec-head--row">
+      <div>
+        <p class="eyebrow">Volume pricing</p>
+        <h2 class="display-2" id="tier-title">The break is on pallets, not on grades</h2>
+        <p class="lead">Count every pallet on the order, whatever is on it. Four pallets of one grade and four mixed across three earn the same price.</p>
+      </div>
+      <a class="tide-link" href="wholesale.html#pallet">Pallet configuration <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+    <div class="tier-grid">
+      {{tier_cells_html}}
+    </div>
+    <p class="note" style="margin-top:22px;max-width:80ch">{{distributor_note}}</p>
   </div>
 </section>
 
@@ -75,7 +96,7 @@
     <div class="sec-head">
       <p class="eyebrow">Lot lookup</p>
       <h2 class="display-2" id="lot-title">Every bag traces to a test</h2>
-      <p class="lead">Most substrate is sold on a claim. Ours is sold on a document. The code printed on your bag opens the analysis for that production run, not a generic spec sheet.</p>
+      <p class="lead">Most substrate is sold on a claim. Ours is sold on a document. The code printed on the bag opens the analysis for that production run, not a generic spec sheet, and your customers can open it as easily as you can.</p>
     </div>
     <div class="split split--lot">
       <div>
@@ -85,7 +106,7 @@
           <button class="btn btn-bone btn-sm" id="lot-go" type="button" style="height:48px">Look up lot</button>
         </form>
         <p class="lot-hint">Printed on the back panel, lower left. Try <button type="button" data-lot-example="AC-2608-F01"><code>AC-2608-F01</code></button>, <button type="button" data-lot-example="AC-2609-M01"><code>AC-2609-M01</code></button> or <button type="button" data-lot-example="AC-2607-C01"><code>AC-2607-C01</code></button>.</p>
-        <p class="lot-hint">Each analysis lists mineral phase, calcium carbonate, moisture at packaging, acid-insoluble residue, bulk density, the sieve distribution, the sample date and the testing lab.</p>
+        <p class="lot-hint">Each analysis lists mineral phase, calcium carbonate, moisture at packaging, acid-insoluble residue, bulk density, the sieve distribution, the sample date and the testing lab. A certificate of analysis ships with every order.</p>
         <noscript><p class="lot-hint">The lookup needs JavaScript. The lot register is also published as a plain file at <a class="prose-link" href="data/lots.json">data/lots.json</a>.</p></noscript>
       </div>
       <div class="lot-panel" id="lot-panel" aria-live="polite">
@@ -95,12 +116,25 @@
   </div>
 </section>
 
+<section class="section" id="grades" aria-labelledby="grades-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Which grade sells to whom</p>
+      <h2 class="display-2" id="grades-title">Three grades, one material</h2>
+      <p class="lead">Same aragonite, screened differently. Pick by grain size and by how much flow the tank will see. <span class="placeholder-flag" data-placeholder>Spec values are placeholders</span></p>
+    </div>
+    <div class="grade-grid">
+      {{grade_cards_html}}
+    </div>
+  </div>
+</section>
+
 <section class="section band-paper" id="calc" aria-labelledby="calc-title">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Depth calculator</p>
-      <h2 class="display-2" id="calc-title">How much sand does the tank need?</h2>
-      <p class="lead">Measure the footprint of the tank and the bed depth you want. Most reef tanks run a half inch to an inch. Deep sand beds and cichlid tanks run two to four.</p>
+      <p class="eyebrow">Counter tool</p>
+      <h2 class="display-2" id="calc-title">How many bags does that tank need?</h2>
+      <p class="lead">The question every customer asks at the register. Footprint and bed depth in, bags out, at the bulk density of the grade they picked.</p>
     </div>
     <div class="calc" data-calc data-bag-lb="{{retail_bag_lb}}">
       <div>
@@ -124,7 +158,7 @@
       <div class="result" aria-live="polite">
         <div class="result__big num" data-calc-lb>—</div>
         <div class="result__sub num" data-calc-bags>—</div>
-        <div class="result__note"><span data-calc-density-note>Calculated at {{medium_density}} lb per cubic foot, the typical bulk density of the medium grade.</span> Round up if you want the bed to stay level after it settles. Sand compacts over the first few weeks.</div>
+        <div class="result__note"><span data-calc-density-note>Calculated at {{medium_density}} lb per cubic foot, the typical bulk density of the medium grade.</span> Round up. Sand compacts over the first few weeks and settles lower than it goes in.</div>
       </div>
     </div>
   </div>
@@ -135,6 +169,7 @@
     <div class="sec-head">
       <p class="eyebrow">What the material does</p>
       <h2 class="display-2" id="why-title">What aragonite actually does in a tank</h2>
+      <p class="lead">What to tell a customer at the counter, and what not to promise them.</p>
     </div>
     <div class="feature-grid">
       <div class="feature">
@@ -145,43 +180,42 @@
       <div class="feature">
         <div class="feature__n num">02</div>
         <h3>Grain size sets behaviour</h3>
-        <p>Fine sand looks best and suits sand-sifting fish, but it lifts under strong flow. Coarse stays put and lets detritus fall into the bed. There is no single correct grade. There is a grade that matches your flow and your livestock.</p>
+        <p>Fine sand looks best and suits sand-sifting fish, but it lifts under strong flow. Coarse stays put and lets detritus fall into the bed. There is no single correct grade. There is a grade that matches your customer's flow and livestock.</p>
       </div>
       <div class="feature">
         <div class="feature__n num">03</div>
         <h3>Fines are the real variable</h3>
-        <p>Cloudy water after setup is almost always fines, not the grade. We screen ours out and publish what is left in each lot, so you know before the bag is open rather than after.</p>
+        <p>Cloudy water after setup is almost always fines, not the grade. We screen ours out and publish what is left in each lot, so the answer is on the shelf before the bag is open rather than at your returns counter after.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section band-sand" id="wholesale" aria-labelledby="ws-title">
+<section class="band-abyss cta" aria-labelledby="cta-title">
   <div class="wrap">
-    <div class="split">
-      <div>
-        <p class="eyebrow">Wholesale</p>
-        <h2 class="display-2" id="ws-title" style="margin-top:14px">Stock it in your store</h2>
-        <p class="lead" style="margin-top:16px">We sell direct to independent aquarium retailers and through regional distribution. Mixed pallets across the three grades are fine on opening orders.</p>
-        <div class="actions">
-          <a class="btn btn-ink" href="wholesale.html#inquiry">Request a dealer packet</a>
-          <a class="btn btn-inkline" href="wholesale.html">Dealer terms</a>
-        </div>
-      </div>
-      <div>
-        <!-- TODO(packaging): mirrors data/packaging.json; pallet figures are placeholders -->
-        <div class="pack">
-          <div><div class="v num">{{retail_bag_lb}} lb</div><div class="k">Retail bag</div></div>
-          <div><div class="v num">{{retail_bags_per_pallet}}</div><div class="k">Bags per pallet <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-          <div><div class="v num">{{pallet_net_lb}} lb</div><div class="k">Pallet net weight <span class="placeholder-flag" data-placeholder>TBC</span></div></div>
-          <div><div class="v">Mixed OK</div><div class="k">Opening order, any grades</div></div>
-        </div>
-      </div>
+    <h2 class="display-2" id="cta-title" style="max-width:760px;margin-left:auto;margin-right:auto">One pallet opens an account.</h2>
+    <p>Send us a pallet count and you get a firm quote with freight to your dock the same business day. Sample bags of all three grades come with the dealer packet.</p>
+    <div class="actions">
+      <a class="btn btn-bone" href="wholesale.html#inquiry">Request pricing</a>
+      <a class="btn btn-boneline" href="products.html">Full price list</a>
     </div>
   </div>
 </section>
 
 </main>
+
+<div class="quote-bar" id="quote-bar" hidden aria-live="polite" aria-label="Quote summary">
+  <div class="quote-bar__inner">
+    <div class="quote-bar__figures">
+      <div class="quote-bar__total" data-quote-total>—</div>
+      <div class="quote-bar__meta" data-quote-meta></div>
+    </div>
+    <div class="quote-bar__actions">
+      <button class="quote-bar__clear" type="button" data-quote-clear>Clear</button>
+      <a class="btn btn-bone" data-quote-link href="wholesale.html#inquiry">Send this for a firm quote</a>
+    </div>
+  </div>
+</div>
 
 {{> footer}}
 </body>

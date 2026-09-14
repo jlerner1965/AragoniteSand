@@ -43,6 +43,11 @@ sub, sup { font-size: max(0.83em, 10px); }
   outline-offset: 3px;
 }
 [id] { scroll-margin-top: var(--scroll-margin); }
+/* `hidden` is a UA-stylesheet rule and any author `display` beats it. Several
+   things here are hidden by attribute and carry their own display — the quote
+   field is a flex `.field`, the quote bar is fixed — so without this they are
+   set correctly and still paint. */
+[hidden] { display: none !important; }
 .num { font-variant-numeric: tabular-nums; }
 .visually-hidden {
   position: absolute !important; width: 1px !important; height: 1px !important;
@@ -65,6 +70,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .section--tight { padding: var(--section-tight) 0; }
 .band-paper { background: var(--paper); border-bottom: var(--rule-soft); }
 .band-ink { background: var(--gradient-deep); color: var(--bone); }
+.band-abyss { background: var(--gradient-abyss); color: var(--bone); }
 .band-sand { background: var(--sand); color: var(--ink); }
 @media (max-width: 960px) {
   .section { padding: var(--section-tablet) 0; }
@@ -84,7 +90,7 @@ sub, sup { font-size: max(0.83em, 10px); }
   line-height: 1.5;
   color: var(--fg-2);
 }
-.band-ink .eyebrow { color: var(--bone-60); }
+.band-ink .eyebrow, .band-abyss .eyebrow { color: var(--bone-60); }
 .band-sand .eyebrow { color: var(--ink-80); }
 .display-1 {
   font-size: var(--display-1);
@@ -96,14 +102,14 @@ sub, sup { font-size: max(0.83em, 10px); }
 .display-2 { font-size: var(--display-2); line-height: 1.08; letter-spacing: -0.015em; max-width: 640px; text-wrap: balance; }
 .display-3 { font-size: var(--display-3); letter-spacing: -0.015em; max-width: 640px; text-wrap: balance; }
 .lead { font-size: var(--lead); line-height: var(--leading-tight); color: var(--fg-2); max-width: var(--measure-lead); }
-.band-ink .lead { color: var(--bone-80); }
+.band-ink .lead, .band-abyss .lead { color: var(--bone-80); }
 .band-sand .lead { color: var(--ink-80); }
 .copy { font-size: var(--body); line-height: var(--leading-body); color: var(--ink); }
 .copy-2 { font-size: var(--body-sm); line-height: var(--leading-body); color: var(--fg-2); }
 .copy-2 + .copy-2, .copy + .copy-2 { margin-top: 20px; }
-.band-ink .copy-2 { color: var(--bone-78); }
+.band-ink .copy-2, .band-abyss .copy-2 { color: var(--bone-78); }
 .note { font-size: var(--small-xs); line-height: 1.5; color: var(--fg-3); }
-.band-ink .note { color: var(--bone-60); }
+.band-ink .note, .band-abyss .note { color: var(--bone-60); }
 .sec-head { margin-bottom: 40px; }
 .sec-head .eyebrow + h2 { margin-top: 14px; }
 .sec-head h2 + .lead { margin-top: 16px; font-size: var(--lead-sm); }
@@ -114,7 +120,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 
 /* ---------- Links ---------- */
 .tide-link {
-  color: var(--tide); text-decoration: none; font-weight: 500;
+  color: var(--surf); text-decoration: none; font-weight: 500;
   display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
   transition: color var(--duration) var(--ease-tide);
 }
@@ -122,8 +128,9 @@ sub, sup { font-size: max(0.83em, 10px); }
 .arrow-move { display: inline-flex; transition: transform var(--duration) var(--ease-tide); }
 .tide-link:hover .arrow-move, .link-row:hover .arrow-move { transform: translateX(4px); }
 .band-ink .tide-link { color: var(--bone-78); }
+.band-ink .prose-link, .band-abyss .prose-link { color: var(--surf-light); }
 .band-ink .tide-link:hover { color: var(--bone); }
-.prose-link { color: var(--tide); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.prose-link { color: var(--surf); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .prose-link:hover { color: var(--ink); }
 
 /* ---------- Buttons (parent `.btn-ar`) ---------- */
@@ -142,9 +149,9 @@ sub, sup { font-size: max(0.83em, 10px); }
 .btn-inkline { background: transparent; color: var(--ink); border-color: var(--ink-40); }
 .btn-inkline:hover { background: var(--ink-04); border-color: var(--ink); }
 .btn-bone { background: var(--bone); color: var(--ink); border-color: var(--bone); }
-.btn-bone:hover { background: rgba(247,244,237,0.88); }
+.btn-bone:hover { background: var(--bone-88); }
 .btn-boneline { background: transparent; color: var(--bone); border-color: var(--bone-40); }
-.btn-boneline:hover { background: rgba(247,244,237,0.08); border-color: var(--bone); }
+.btn-boneline:hover { background: var(--bone-08); border-color: var(--bone); }
 .btn-sm { height: var(--btn-sm-height); padding: 0 20px; font-size: 14.5px; }
 .btn[disabled] { opacity: 0.6; cursor: default; transform: none; }
 .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
@@ -173,7 +180,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 /* EXTENDED: the product-site name sits beside the parent wordmark, divided by
    the same hairline the nav CTA uses, so the page reads as an AragoCor site. */
 .ac-nav__site {
-  padding-left: 14px; border-left: 1px solid rgba(14,53,64,0.18);
+  padding-left: 14px; border-left: 1px solid var(--ink-20);
   font-family: var(--font-serif); font-size: 17px; font-weight: 600; letter-spacing: -0.01em;
   line-height: 1.2; white-space: nowrap;
 }
@@ -192,13 +199,13 @@ sub, sup { font-size: max(0.83em, 10px); }
 .ac-nav__cta {
   background: transparent; color: var(--ink); min-height: 44px; padding: 8px 0 8px 24px;
   font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
-  border: none; border-left: 1px solid rgba(14,53,64,0.18); white-space: nowrap; flex-shrink: 0;
+  border: none; border-left: 1px solid var(--ink-20); white-space: nowrap; flex-shrink: 0;
   text-decoration: none; transition: background var(--duration) var(--ease-tide);
 }
 .ac-nav__cta:hover, .ac-nav__cta:focus-visible { background: var(--ink-04); color: var(--ink); }
 .ac-nav__toggle {
   display: none; width: 44px; height: 44px; align-items: center; justify-content: center;
-  background: transparent; border: 1px solid rgba(14,53,64,0.24); border-radius: var(--radius-sm);
+  background: transparent; border: 1px solid var(--ink-20); border-radius: var(--radius-sm);
   color: var(--ink); cursor: pointer; flex-shrink: 0;
 }
 .ac-nav__toggle svg { width: 20px; height: 20px; display: block; }
@@ -210,7 +217,7 @@ sub, sup { font-size: max(0.83em, 10px); }
   .ac-nav__toggle { display: inline-flex; }
   .ac-nav__mobile {
     display: block; max-height: 0; overflow: hidden;
-    background: rgba(247,244,237,0.99); border-top: 1px solid var(--nav-border);
+    background: rgba(246,242,233,0.99); border-top: 1px solid var(--nav-border);
     transition: max-height 260ms var(--ease-tide);
   }
   .ac-nav__mobile.is-open { max-height: 80vh; overflow-y: auto; }
@@ -235,7 +242,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 }
 
 /* ---------- Footer (parent `.ac-foot`) ---------- */
-.ac-foot { background: var(--ink); color: var(--foot-fg); font-family: var(--font-sans); font-size: var(--foot-size); line-height: 1.65; }
+.ac-foot { background: var(--abyss); color: var(--foot-fg); font-family: var(--font-sans); font-size: var(--foot-size); line-height: 1.65; }
 .ac-foot__inner {
   max-width: var(--container); margin: 0 auto; padding: 64px var(--gutter) 40px;
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px;
@@ -315,9 +322,15 @@ sub, sup { font-size: max(0.83em, 10px); }
 .plate__head .eyebrow { color: var(--fg-2); }
 .plate__mm { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-3); }
 .grains { display: flex; align-items: flex-end; gap: clamp(20px, 3vw, 44px); flex-wrap: wrap; }
-.grain { flex: 0 0 auto; }
+.grain { flex: 0 0 auto; min-width: 0; max-width: 100%; }
 .grain__dots { display: flex; align-items: center; gap: 5px; height: 78px; }
 .grain__dots--tall { height: 78px; flex-wrap: wrap; }
+/* A 5 mm coarse grain draws 75px across and five of them need 283px, which is
+   wider than the plate on a phone. The fixed height is what lines the three
+   groups up on a desktop and is the thing that has to go once they wrap. */
+@media (max-width: 640px) {
+  .grain__dots, .grain__dots--tall { flex-wrap: wrap; height: auto; min-height: 56px; row-gap: 6px; }
+}
 .dot { display: block; border-radius: 50%; background: var(--sand); }
 .dot--2 { background: var(--grade-medium); }
 .dot--3 { background: var(--grade-coarse); }
@@ -404,9 +417,9 @@ sub, sup { font-size: max(0.83em, 10px); }
 .bar-fill { height: 100%; background: var(--bar-fill); }
 .bar-row__v { text-align: right; color: var(--fg-2); }
 .sieve__foot { margin: 18px 0 0; font-size: var(--small); line-height: 1.55; color: var(--fg-2); }
-.band-ink .bar-track { background: rgba(247,244,237,0.14); }
-.band-ink .bar-fill { background: var(--sand); }
-.band-ink .bar-row__k, .band-ink .bar-row__v { color: var(--bone-72); }
+.band-ink .bar-track, .band-abyss .bar-track { background: var(--bone-14); }
+.band-ink .bar-fill, .band-abyss .bar-fill { background: var(--sand); }
+.band-ink .bar-row__k, .band-ink .bar-row__v, .band-abyss .bar-row__k, .band-abyss .bar-row__v { color: var(--bone-72); }
 
 /* ---------- Two-column splits ---------- */
 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 52px; align-items: start; }
@@ -418,10 +431,10 @@ sub, sup { font-size: max(0.83em, 10px); }
 .lot-form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
 .lot-form .fld { flex: 1 1 220px; }
 .lot-hint { margin-top: 14px; font-size: var(--small); color: var(--bone-60); }
-.lot-hint code { font-family: var(--font-mono); font-size: var(--label); background: rgba(247,244,237,0.1); padding: 2px 6px; border-radius: 2px; }
+.lot-hint code { font-family: var(--font-mono); font-size: var(--label); background: var(--bone-10); padding: 2px 6px; border-radius: 2px; }
 .lot-hint button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-.lot-hint button code:hover { background: rgba(247,244,237,0.2); }
-.lot-panel { border: 1px solid var(--bone-14); background: rgba(247,244,237,0.05); border-radius: var(--radius); padding: 30px; min-height: 180px; }
+.lot-hint button code:hover { background: rgba(246,242,233,0.2); }
+.lot-panel { border: 1px solid var(--bone-14); background: var(--bone-04); border-radius: var(--radius); padding: 30px; min-height: 180px; }
 .lot-panel__empty { color: var(--bone-60); font-size: var(--body-sm); }
 .lot-panel__err { color: var(--sand); font-size: var(--body-sm); }
 .lot-id { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
@@ -464,7 +477,7 @@ sub, sup { font-size: max(0.83em, 10px); }
   display: block; font-size: var(--field-label); font-weight: 500; color: var(--ink); margin-bottom: 8px;
 }
 .field .req { color: var(--error); }
-.band-ink .field label { color: var(--bone); }
+.band-ink .field label, .band-abyss .field label { color: var(--bone); }
 .fld {
   width: 100%; height: var(--field-height); padding: var(--field-padding);
   border: 1px solid var(--border-strong); border-radius: var(--field-radius);
@@ -478,9 +491,9 @@ select.fld { appearance: none; -webkit-appearance: none; padding-right: 40px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230E3540' stroke-width='1.75'%3E%3Cpath d='m6 9 6 6 6-6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 14px center; }
 .fld[aria-invalid="true"] { border-color: var(--error); }
-.band-ink .fld { background: rgba(247,244,237,0.07); border-color: var(--bone-40); color: var(--bone); }
-.band-ink .fld::placeholder { color: var(--bone-40); }
-.band-ink .fld:focus { border-color: var(--bone); box-shadow: 0 0 0 3px rgba(247,244,237,0.12); }
+.band-ink .fld, .band-abyss .fld { background: var(--bone-08); border-color: var(--bone-40); color: var(--bone); }
+.band-ink .fld::placeholder, .band-abyss .fld::placeholder { color: var(--bone-40); }
+.band-ink .fld:focus, .band-abyss .fld:focus { border-color: var(--bone); box-shadow: 0 0 0 3px rgba(246,242,233,0.12); }
 .fld-err { display: block; min-height: 0; margin-top: 6px; font-size: var(--field-error); line-height: 1.4; color: var(--error-text); }
 .fld-err:empty { display: none; }
 @media (pointer: coarse), (max-width: 900px) { .fld { font-size: 16px; } }
@@ -505,7 +518,7 @@ select.fld { appearance: none; -webkit-appearance: none; padding-right: 40px;
   background: var(--ink-12); border: 1px solid var(--ink-12); border-radius: var(--radius); overflow: hidden;
 }
 .pack > div { background: var(--bone); padding: 22px 24px; min-width: 0; }
-.band-sand .pack { background: rgba(14,53,64,0.18); border-color: rgba(14,53,64,0.18); }
+.band-sand .pack { background: rgba(11,44,58,0.20); border-color: rgba(11,44,58,0.20); }
 .band-sand .pack > div { background: var(--sand); }
 .pack .v { font-family: var(--font-serif); font-size: var(--figure-sm); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
 .pack .k { font-size: var(--small); line-height: 1.4; color: var(--fg-2); margin-top: 8px; }
@@ -566,7 +579,7 @@ table.data .mono { font-family: var(--font-mono); font-size: var(--small-xs); }
   border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; line-height: 1.2;
   vertical-align: middle;
 }
-.band-ink .placeholder-flag { background: rgba(247,244,237,0.1); border-color: var(--sand); color: var(--sand); }
+.band-ink .placeholder-flag, .band-abyss .placeholder-flag { background: var(--bone-10); border-color: var(--sand); color: var(--sand); }
 
 /* ---------- Image frame (EXTENDED, parent about origin panel) ---------- */
 .frame { aspect-ratio: 21 / 7; border-radius: var(--radius); position: relative; overflow: hidden; background: var(--gradient-deep); }
@@ -580,3 +593,190 @@ table.data .mono { font-family: var(--font-mono); font-size: var(--small-xs); }
 .contact-list svg { flex-shrink: 0; margin-top: 4px; }
 .contact-list a { color: var(--ink); text-decoration: none; }
 .contact-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* =====================================================================
+   COMMERCE — product cards, price list, volume tiers, quote builder
+   =====================================================================
+   None of this exists on aragocorminerals.com, which sells by quotation and
+   publishes no prices. It is built from the parent's own vocabulary all the
+   same: the cards are its bordered white card, the price list is its
+   `table.data`, the tier cells are its proof strip, and the quantity control
+   is its form field. Only the accent (`--surf`) is new, and it is what makes
+   a price or a SKU readable as commerce rather than as one more spec value. */
+
+/* ---------- Price status banner ---------- */
+.price-banner {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 18px; margin-bottom: 28px;
+  border: 1px solid hsl(38 68% 66%); border-left: 4px solid hsl(38 68% 55%);
+  background: hsl(38 72% 94%); color: hsl(31 78% 27%);
+  border-radius: var(--radius-sm); font-size: var(--small); line-height: 1.55;
+}
+.price-banner strong { font-weight: 700; }
+.price-banner p { max-width: 80ch; margin: 0; }
+.band-ink .price-banner, .band-abyss .price-banner {
+  background: var(--bone-10); border-color: var(--sand); border-left-color: var(--sand); color: var(--sand);
+}
+
+/* ---------- SKU chip ---------- */
+.sku {
+  display: inline-flex; align-items: center; min-height: 24px; padding: 2px 9px;
+  border: 1px solid var(--sku-border); background: var(--sku-bg); border-radius: 3px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--sku); white-space: nowrap;
+}
+.band-ink .sku, .band-abyss .sku { background: var(--bone-08); border-color: var(--bone-40); color: var(--surf-light); }
+
+/* ---------- Product card ---------- */
+.product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.product {
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  background: var(--paper); border: var(--rule); border-radius: var(--radius); overflow: hidden;
+  transition: border-color var(--duration) var(--ease-tide), box-shadow var(--duration) var(--ease-tide);
+}
+.product:hover { border-color: var(--surf); box-shadow: var(--shadow-2); }
+.product__band { height: 5px; background: var(--grade-fine); }
+.product--medium .product__band { background: var(--grade-medium); }
+.product--coarse .product__band { background: var(--grade-coarse); }
+
+.product__head { padding: 20px 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.product__type { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-2); }
+
+/* The grain sample doubles as the product image: the actual grain, at the
+   scale the ruler on the grade page uses, rather than an empty photo frame. */
+/* A fixed height, not a min-height: a 5 mm coarse grain draws 75px tall and a
+   0.5 mm fine grain 8px, so without it the six cards in a grid never line up
+   their prices. Centred, so each sample still sits on the same optical line. */
+.product__sample {
+  margin: 16px 22px 0; padding: 12px 16px; height: 104px;
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap; overflow: hidden;
+  background: var(--bone); border: 1px solid var(--ink-08); border-radius: var(--radius-sm);
+}
+
+.product__title { padding: 18px 22px 0; }
+.product__title h3 { font-size: 23px; letter-spacing: -0.015em; }
+.product__title h3 a { text-decoration: none; }
+.product__title h3 a::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+.product__mm { margin-top: 5px; font-family: var(--font-mono); font-size: var(--small-xs); color: var(--fg-2); }
+
+.product__price { padding: 18px 22px 0; }
+.price {
+  font-family: var(--font-serif); font-size: var(--price); font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1; color: var(--price-color);
+  font-variant-numeric: tabular-nums;
+}
+.price small { font-family: var(--font-sans); font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--price-unit); }
+.price__sub { margin-top: 8px; font-size: var(--small); color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.price__rows { margin-top: 14px; border-top: 1px solid var(--ink-08); }
+.price__row {
+  display: flex; justify-content: space-between; gap: 16px; padding: 9px 0;
+  border-bottom: 1px solid var(--ink-08); font-size: var(--small); color: var(--fg-2);
+}
+.price__row b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.price__row:last-child { border-bottom: 0; }
+.product__margin {
+  margin: 14px 22px 0; padding: 10px 14px; border-radius: var(--radius-sm);
+  background: var(--tier-active); font-size: var(--small-xs); line-height: 1.5; color: var(--surf-deep);
+}
+.product__title h3 { min-height: 0; }
+.product__margin b { font-variant-numeric: tabular-nums; }
+.product__foot { padding: 18px 22px 22px; margin-top: auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.product__foot > * { position: relative; z-index: 1; }
+@media (max-width: 1080px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .product-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Quantity stepper ---------- */
+.qty { display: inline-flex; align-items: stretch; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden; background: var(--paper); }
+.qty button {
+  width: var(--qty-height); min-height: var(--qty-height); padding: 0;
+  background: var(--paper); border: 0; color: var(--ink); font-size: 19px; line-height: 1; cursor: pointer;
+  transition: background var(--duration) var(--ease-tide);
+}
+.qty button:hover { background: var(--sku-bg); }
+.qty button[disabled] { opacity: 0.35; cursor: default; }
+.qty input {
+  width: 56px; min-height: var(--qty-height); padding: 0 6px; text-align: center;
+  border: 0; border-inline: 1px solid var(--border); background: var(--paper);
+  font-family: var(--font-mono); font-size: 15px; color: var(--ink);
+  -moz-appearance: textfield; appearance: textfield;
+}
+.qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.qty input:focus { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+.qty__label { font-size: var(--small); color: var(--fg-2); }
+.product--active { border-color: var(--surf); box-shadow: inset 0 0 0 1px var(--surf); }
+
+/* ---------- Price list ---------- */
+table.price-list { width: 100%; font-size: var(--body-xs); font-variant-numeric: tabular-nums; }
+table.price-list caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-serif); font-size: 17px; font-weight: 600; }
+table.price-list thead th {
+  padding: 12px 16px; background: var(--ink); color: var(--bone);
+  font-family: var(--font-mono); font-size: var(--label-sm); font-weight: 500; letter-spacing: 0.03em; text-align: right;
+}
+table.price-list thead th:first-child, table.price-list thead th:nth-child(2) { text-align: left; }
+table.price-list th, table.price-list td { padding: 13px 16px; border-top: 1px solid var(--ink-08); vertical-align: middle; text-align: right; }
+table.price-list tbody th { text-align: left; font-weight: 600; color: var(--ink); white-space: nowrap; }
+table.price-list td { color: var(--fg-2); }
+table.price-list td.t-left { text-align: left; }
+table.price-list td.t-price { font-weight: 700; color: var(--ink); font-size: var(--body); white-space: nowrap; }
+table.price-list tbody tr:hover { background: var(--ink-04); }
+table.price-list tbody tr.is-grade-break th, table.price-list tbody tr.is-grade-break td { border-top: 1.5px solid var(--ink-20); }
+
+/* ---------- Volume tiers ---------- */
+.tier-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--ink-12); border: 1px solid var(--ink-12); border-radius: var(--radius); overflow: hidden; }
+.tier { background: var(--paper); padding: 22px; min-width: 0; transition: background var(--duration) var(--ease-tide); }
+.tier__label { font-family: var(--font-mono); font-size: var(--label); color: var(--fg-2); }
+.tier__off { margin-top: 10px; font-family: var(--font-serif); font-size: var(--figure-sm); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tier__note { margin-top: 8px; font-size: var(--small-xs); line-height: 1.5; color: var(--fg-2); }
+.tier[data-active="true"] { background: var(--tier-active); box-shadow: inset 3px 0 0 var(--surf); }
+.tier[data-active="true"] .tier__off { color: var(--surf-deep); }
+@media (max-width: 900px) { .tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .tier-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Quote builder bar ----------
+   Fixed to the bottom once the buyer has put a pallet in it. Hidden entirely
+   at zero, so a page with nothing selected looks exactly as it did before. */
+.quote-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  background: var(--abyss); color: var(--bone);
+  border-top: 1px solid var(--bone-14); box-shadow: 0 -10px 40px rgba(6, 20, 28, 0.28);
+  transform: translateY(100%); transition: transform 260ms var(--ease-tide);
+}
+.quote-bar.is-open { transform: translateY(0); }
+.quote-bar[hidden] { display: none !important; }
+.quote-bar__inner {
+  max-width: var(--container); margin: 0 auto; padding: 16px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px 28px; flex-wrap: wrap;
+}
+.quote-bar__figures { display: flex; align-items: baseline; gap: 28px; flex-wrap: wrap; min-width: 0; }
+.quote-bar__total { font-family: var(--font-serif); font-size: 30px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.quote-bar__total small { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--bone-60); letter-spacing: 0; }
+.quote-bar__meta { font-size: var(--small); color: var(--bone-72); font-variant-numeric: tabular-nums; }
+.quote-bar__meta b { color: var(--surf-light); font-weight: 600; }
+.quote-bar__actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.quote-bar__clear { background: none; border: 0; color: var(--bone-72); font-size: var(--small); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; padding: 0 4px; }
+.quote-bar__clear:hover { color: var(--bone); }
+/* Fallback only. js/site.js replaces this with the bar's measured height. */
+body.has-quote { padding-bottom: 108px; }
+@media (max-width: 720px) {
+  .quote-bar__inner { padding: 14px 20px; gap: 12px 18px; }
+  .quote-bar__total { font-size: 25px; }
+  .quote-bar__actions { width: 100%; }
+  .quote-bar__actions .btn { flex: 1 1 auto; }
+  body.has-quote { padding-bottom: 232px; }
+}
+@media (prefers-reduced-motion: reduce) { .quote-bar { transition: none; } }
+
+/* ---------- Quote carried into the inquiry form ---------- */
+.quote-context {
+  margin-bottom: 22px; padding: 18px 20px;
+  border: 1px solid var(--border); border-left: 3px solid var(--surf);
+  border-radius: var(--radius-sm); background: var(--sku-bg);
+}
+.quote-context__label { display: block; margin-bottom: 12px; font-family: var(--font-mono); font-size: var(--label-sm); letter-spacing: var(--label-tracking-tight); color: var(--surf-deep); }
+.quote-context__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.quote-context__list li { display: flex; justify-content: space-between; gap: 16px; font-size: var(--small); color: var(--ink); font-variant-numeric: tabular-nums; }
+.quote-context__total { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--sku-border); display: flex; justify-content: space-between; gap: 16px; font-size: var(--body-xs); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* ---------- Bag-size explainer on the grade pages ---------- */
+.buy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 720px) { .buy-grid { grid-template-columns: minmax(0, 1fr); } }
