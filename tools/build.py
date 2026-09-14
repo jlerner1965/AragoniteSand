@@ -344,6 +344,100 @@ def sku_rows(products, grades):
     return out
 
 
+def check_prices(products, grades):
+    """Refuse to build a price list that is inconsistent or half-filled.
+
+    The price list is the one part of this site a distributor acts on, so a
+    typo here is worse than a broken layout. Everything below is checked on
+    every build; the `live` block is checked only once the list stops being
+    marked as placeholder, so an unfinished list cannot be published by
+    flipping one flag.
+    """
+    status = products.get("price_status")
+    if status not in ("placeholder", "live"):
+        raise RuntimeError(
+            f"products.json: price_status is {status!r}, expected 'placeholder' or 'live'")
+
+    packs = by_id(products["packs"])
+    slugs = {g["slug"] for g in grades}
+    seen = set()
+
+    for s in products["skus"]:
+        sku = s["sku"]
+        if sku in seen:
+            raise RuntimeError(f"products.json: duplicate SKU {sku}")
+        seen.add(sku)
+        if s["grade"] not in slugs:
+            raise RuntimeError(f"products.json: {sku} names grade {s['grade']!r}, which is not in grades.json")
+        if s["pack"] not in packs:
+            raise RuntimeError(f"products.json: {sku} names pack {s['pack']!r}, which is not in packs")
+        if not isinstance(s["list"], (int, float)) or s["list"] <= 0:
+            raise RuntimeError(f"products.json: {sku} has list price {s['list']!r}; expected a number above zero")
+        shelf = s.get("suggested_shelf")
+        if shelf is not None and shelf <= s["list"]:
+            raise RuntimeError(
+                f"products.json: {sku} has a suggested shelf price of {shelf} at or below its "
+                f"trade price of {s['list']}, which leaves the dealer no margin")
+
+    # A larger pack that costs more per pound than a smaller one is a
+    # transposed figure, not a pricing strategy. Checked within a grade,
+    # since the grades are priced independently.
+    order = ["bag20", "bag50", "tote", "bulk"]
+    for slug in sorted(slugs):
+        rows = [s for s in products["skus"] if s["grade"] == slug]
+        rows.sort(key=lambda s: order.index(s["pack"]) if s["pack"] in order else len(order))
+        prev = None
+        for s in rows:
+            per_lb = s["list"] / packs[s["pack"]]["lb"]
+            if prev and per_lb > prev[1] + 1e-9:
+                raise RuntimeError(
+                    f"products.json: {s['sku']} works out at ${per_lb:.4f} per lb, above "
+                    f"{prev[0]} at ${prev[1]:.4f} per lb in the same grade. The larger pack "
+                    f"must not cost more per pound than the smaller one")
+            prev = (s["sku"], per_lb)
+
+    tiers = products["tiers"]
+    if not tiers or tiers[0]["min_pallets"] != 1:
+        raise RuntimeError("products.json: the first volume tier must start at 1 pallet")
+    if tiers[0]["discount"] != 0:
+        raise RuntimeError("products.json: the first volume tier is list price and must be at 0 discount")
+    for a, b in zip(tiers, tiers[1:]):
+        if a["max_pallets"] is None:
+            raise RuntimeError(f"products.json: tier {a['id']} is open-ended but is not the last tier")
+        if b["min_pallets"] != a["max_pallets"] + 1:
+            raise RuntimeError(
+                f"products.json: tier {b['id']} starts at {b['min_pallets']} pallets but "
+                f"{a['id']} ends at {a['max_pallets']}, which leaves a gap or an overlap")
+        if b["discount"] <= a["discount"]:
+            raise RuntimeError(
+                f"products.json: tier {b['id']} discounts {b['discount']}, which is not more "
+                f"than {a['id']} at {a['discount']}")
+    if tiers[-1]["max_pallets"] is not None:
+        raise RuntimeError("products.json: the last volume tier must be open-ended (max_pallets null)")
+    if tiers[-1]["discount"] >= 1:
+        raise RuntimeError("products.json: the deepest tier discounts the whole price or more")
+
+    if status != "live":
+        return
+
+    # From here down: the list claims to be real, so nothing may be a stub.
+    date = str(products.get("effective_date", ""))
+    if not re.fullmatch(r"\d{1,2} [A-Z][a-z]+ \d{4}", date):
+        raise RuntimeError(
+            f"products.json: price_status is 'live' but effective_date is {date!r}; "
+            f"expected a real date such as '1 October 2026'")
+    for s in products["skus"]:
+        for field in ("upc",):
+            val = s.get(field)
+            if isinstance(val, str) and val.strip().upper().startswith("TODO"):
+                raise RuntimeError(
+                    f"products.json: price_status is 'live' but {s['sku']} still has "
+                    f"{field} set to {val!r}")
+    for key in ("price_note", "distributor_note"):
+        if "TODO" in str(products.get(key, "")):
+            raise RuntimeError(f"products.json: price_status is 'live' but {key} still carries a TODO")
+
+
 def price_status_banner(products):
     """Shown once per page carrying prices, while the figures are invented."""
     if products.get("price_status") == "live":
@@ -767,6 +861,7 @@ def build():
     images = load_json("images.json")
     company = load_json("company.json")
     grades = grades_doc["grades"]
+    check_prices(products, grades)
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
 
     common = {
