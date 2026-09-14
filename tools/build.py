@@ -154,6 +154,45 @@ def calc_grade_options(grades):
     return "\n            ".join(out)
 
 
+# ------------------------------------------------------------------- images
+
+def shot(images, key, caption=None, cls=""):
+    """A product photograph, or the slot reserved for one.
+
+    The slot holds the exact aspect ratio the photograph will occupy and
+    prints its own brief, so the layout does not move when the image lands and
+    the shot list lives on the page rather than in a separate document.
+    """
+    img = images["images"].get(key)
+    if img is None:
+        raise KeyError(f"no image defined: {key}")
+    classes = ("shot " + cls).strip()
+    cap = f'<figcaption class="shot__cap">{esc(caption)}</figcaption>' if caption else ""
+    if img["file"]:
+        return (
+            f'<figure class="{classes}">\n'
+            f'        <img src="{esc(img["file"])}" alt="{esc(img["alt"])}" '
+            f'style="aspect-ratio:{esc(img["ratio"])}" loading="lazy" decoding="async">\n'
+            f'        {cap}\n'
+            f'      </figure>'
+        )
+    return (
+        f'<figure class="{classes}">\n'
+        f'        <div class="shot__slot" style="aspect-ratio:{esc(img["ratio"])}" '
+        f'role="img" aria-label="Photograph pending: {esc(img["alt"])}">\n'
+        f'          <svg class="shot__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" '
+        f'stroke="currentColor" stroke-width="1.4" aria-hidden="true">'
+        f'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.6"/>'
+        f'<path d="m4 17 5-4.5 3.5 3 3-2.5L20 17" stroke-linecap="round" stroke-linejoin="round"/></svg>\n'
+        f'          <p class="shot__brief">{esc(img["brief"])}</p>\n'
+        f'          <p class="shot__meta">{esc(img["ratio"].replace("/", ":"))} · '
+        f'{img["min"]} px long edge · {esc(key)}</p>\n'
+        f'        </div>\n'
+        f'        {cap}\n'
+        f'      </figure>'
+    )
+
+
 # ------------------------------------------------------- links to the parent
 
 def ac_url(links, path_key="contact", interest=None, note=None, content=None, industry=True):
@@ -197,9 +236,9 @@ EXT_ICON = (
 def ac_note(links):
     """The sentence that says where a link goes, used under outbound buttons."""
     return (
-        'Samples, pricing and orders are handled by '
+        'Pricing, samples and orders are handled by '
         f'<a class="prose-link" href="{esc(ac_url(links, "home", content="inline"))}">'
-        f'{esc(links["parent_name"])}</a>, the company that makes this sand.'
+        f'{esc(links["parent_name"])}</a>.'
     )
 
 
@@ -341,7 +380,7 @@ def market_cards(markets, products, grades):
     return "\n      ".join(out)
 
 
-def market_sections(markets, products, grades, links):
+def market_sections(markets, products, grades, links, images):
     gs, ps = grade_by_slug(grades), by_id(products["packs"])
     rows = None
     out = []
@@ -376,12 +415,15 @@ def market_sections(markets, products, grades, links):
             f'          <a class="btn btn-inkline btn-sm" href="{esc(sample)}">Sample{EXT_ICON}</a>\n'
             f'        </div>\n'
             f'      </div>\n'
-            f'      <dl class="facts">\n'
+            f'      <div>\n'
+            f'      {shot(images, "market-" + m["id"])}\n'
+            f'      <dl class="facts" style="margin-top:18px">\n'
             f'        <div class="facts__row"><dt>Grades</dt><dd>{esc(", ".join(gs[x]["name"] for x in m["grades"]))}</dd></div>\n'
             f'        <div class="facts__row"><dt>Most specified</dt><dd>{esc(lead["name"])}, {esc(lead["grain_mm"])}</dd></div>\n'
             f'        <div class="facts__row"><dt>Formats</dt><dd>{esc(", ".join(ps[x]["name"] for x in m["packs"]))}</dd></div>\n'
             f'        <div class="facts__row"><dt>Supply</dt><dd>{"Stock item" if m["status"] == "served" else "Quoted per application"}</dd></div>\n'
             f'      </dl>\n'
+            f'      </div>\n'
             f'    </div>\n'
             f'    <p class="note" style="margin-top:22px">Grade pages: {grade_links}</p>\n'
             f'  </div>\n'
@@ -392,7 +434,7 @@ def market_sections(markets, products, grades, links):
 
 # ---------- catalogue ----------
 
-def product_cards(products, grades, links):
+def product_cards(products, grades, links, images):
     """One card per grade, listing the formats that grade ships in."""
     rows = sku_rows(products, grades)
     out = []
@@ -431,8 +473,7 @@ def product_cards(products, grades, links):
             f'{esc(g["bulk_density_lb_ft3"])} lb/ft³</div>\n'
             f'          </div>\n'
             f'        </div>\n'
-            f'        <div class="product__sample" data-grains="{samples}" data-tone="{tone}" '
-            f'role="img" aria-label="{esc(g["name"])} grain at true scale"></div>\n'
+            f'        {shot(images, "product-" + g["slug"] + "-bag20", cls="shot--card")}\n'
             f'        <table class="fmt">\n'
             f'          <tbody>\n          ' + "\n          ".join(fmt) + '\n'
             f'          </tbody>\n'
@@ -723,6 +764,7 @@ def build():
     links = load_json("links.json")
     lit = load_json("literature.json")
     markets = load_json("markets.json")
+    images = load_json("images.json")
     company = load_json("company.json")
     grades = grades_doc["grades"]
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
@@ -755,7 +797,7 @@ def build():
         "price_banner_html": price_status_banner(products),
         "tiers_json_html": tiers_attr(products),
         "catalogue_json_html": catalogue_attr(products, grades),
-        "product_cards_html": product_cards(products, grades, links),
+        "product_cards_html": product_cards(products, grades, links, images),
         "tier_cells_html": tier_cells(products),
         "tier_headers_html": tier_headers(products),
         "price_rows_html": price_rows(products, grades, links),
@@ -800,7 +842,14 @@ def build():
         "literature_public_html": literature(lit, links, "public"),
         # markets, packs and company furniture
         "market_cards_html": market_cards(markets, products, grades),
-        "market_sections_html": market_sections(markets, products, grades, links),
+        "shot_facility_html": shot(images, "facility-screening",
+                                   "Screening deck, Stockton, California"),
+        "shot_packing_html": shot(images, "facility-packing", "Bagging line"),
+        "shot_shelf_html": shot(images, "shelf-set", "Three grades faced"),
+        "shot_bag50_html": shot(images, "pack-bag50", "50 lb trade bag"),
+        "shot_tote_html": shot(images, "pack-tote", "2,000 lb bulk bag"),
+        "shot_bulk_html": shot(images, "pack-bulk", "Bulk load"),
+        "market_sections_html": market_sections(markets, products, grades, links, images),
         "pack_rows_html": pack_rows(products),
         "quote_units_html": quote_units(products, grades),
         "company_facts_html": company_facts(company),
@@ -839,6 +888,10 @@ def build():
                          if r["grade"]["slug"] == g["slug"]))
         ctx["sku_block_html"] = sku_block(products, grades, g["slug"], links)
         ctx["grade_markets_html"] = grade_markets(markets, g["slug"], links)
+        ctx["shot_grain_html"] = shot(images, "grain-" + g["slug"],
+                                      f'{g["name"]} grade, {g["grain_mm"]}')
+        ctx["shot_bag_html"] = shot(images, "product-" + g["slug"] + "-bag20",
+                                    f'{g["name"]} grade, 20 lb retail bag')
         ctx["ac_grade_sample"] = ac_url(
             links, "contact", "sample",
             f'{g["name"]} grade aragonite aquarium sand, {g["grain_mm"]}, sample',

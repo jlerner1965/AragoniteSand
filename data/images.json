@@ -1,0 +1,107 @@
+{
+  "_readme": [
+    "The photography schedule. Every image the site needs, with the shot brief",
+    "attached to it.",
+    "",
+    "While `file` is null the slot renders at the right aspect ratio with the",
+    "brief printed in it, so the page holds its layout and the shot list is the",
+    "site itself rather than a separate document. Put the photograph in",
+    "assets/photos/ and set `file` to its path; the slot becomes an <img> with",
+    "the `alt` below. Nothing else changes.",
+    "",
+    "  ratio   width/height the layout reserves. Shoot to it or wider and crop.",
+    "  min     shortest acceptable long edge in pixels, for retail listings.",
+    "  brief   subject, angle, background, lighting. Written for a photographer.",
+    "  alt     the alt text once the image exists. Written now so it is not",
+    "          skipped later.",
+    "",
+    "NO PHOTOGRAPH HAS BEEN TAKEN. Every `file` is null."
+  ],
+  "images": {
+    "product-fine-bag20": {
+      "file": null, "ratio": "4/3", "min": 1600,
+      "brief": "20 lb printed retail bag, fine grade, standing, three-quarter front, plain white sweep, soft top light, no props.",
+      "alt": "20 lb printed retail bag of fine grade aragonite"
+    },
+    "product-medium-bag20": {
+      "file": null, "ratio": "4/3", "min": 1600,
+      "brief": "20 lb printed retail bag, medium grade, standing, three-quarter front, plain white sweep, matched to the fine-grade frame.",
+      "alt": "20 lb printed retail bag of medium grade aragonite"
+    },
+    "product-coarse-bag20": {
+      "file": null, "ratio": "4/3", "min": 1600,
+      "brief": "20 lb printed retail bag, coarse grade, standing, three-quarter front, plain white sweep, matched to the fine-grade frame.",
+      "alt": "20 lb printed retail bag of coarse grade aragonite"
+    },
+    "pack-bag50": {
+      "file": null, "ratio": "4/3", "min": 1600,
+      "brief": "50 lb plain woven poly trade bag, standing, three-quarter front, plain white sweep. Print and lot code legible.",
+      "alt": "50 lb woven polypropylene trade bag"
+    },
+    "pack-tote": {
+      "file": null, "ratio": "4/3", "min": 1600,
+      "brief": "2,000 lb FIBC bulk bag, filled, on a pallet, four loops visible, plain background or clean warehouse floor.",
+      "alt": "2,000 lb bulk bag on a pallet"
+    },
+    "pack-bulk": {
+      "file": null, "ratio": "4/3", "min": 1600,
+      "brief": "Bulk aragonite loading into a walking-floor trailer, or a stockpile with a loader for scale. Daylight.",
+      "alt": "Bulk aragonite loading"
+    },
+    "grain-fine": {
+      "file": null, "ratio": "3/2", "min": 2400,
+      "brief": "Macro of fine grade with a millimetre rule in frame, top-down, even diffuse light, focus stacked so the whole field is sharp.",
+      "alt": "Macro photograph of fine grade aragonite against a millimetre rule"
+    },
+    "grain-medium": {
+      "file": null, "ratio": "3/2", "min": 2400,
+      "brief": "Macro of medium grade with a millimetre rule in frame, same camera height and lighting as the fine-grade macro.",
+      "alt": "Macro photograph of medium grade aragonite against a millimetre rule"
+    },
+    "grain-coarse": {
+      "file": null, "ratio": "3/2", "min": 2400,
+      "brief": "Macro of coarse grade with a millimetre rule in frame, same camera height and lighting as the other two macros.",
+      "alt": "Macro photograph of coarse grade aragonite against a millimetre rule"
+    },
+    "market-aquarium": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Established marine tank with a visible substrate bed, shot level with the bed line. No livestock close-ups.",
+      "alt": "Aragonite substrate bed in a marine aquarium"
+    },
+    "market-agriculture": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Aragonite spread on worked soil, or a spreader in a field. Daylight, no people identifiable.",
+      "alt": "Aragonite applied as a soil amendment"
+    },
+    "market-feed": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Mineral blending or a feed-mill hopper, clean and current. Avoid livestock imagery.",
+      "alt": "Aragonite handled as a feed mineral"
+    },
+    "market-turf": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Top-dressing a sand rootzone, or a prepared sports-field surface. Daylight.",
+      "alt": "Aragonite top-dressing on a sand rootzone"
+    },
+    "market-water": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Contact media vessel or a filter bed with the media visible. Clean plant, no branding of other suppliers.",
+      "alt": "Aragonite contact media in a water treatment vessel"
+    },
+    "facility-screening": {
+      "file": null, "ratio": "21/7", "min": 2800,
+      "brief": "Screening deck running, wide, from the operator walkway. Plant lit, no faces. This is the page-width banner.",
+      "alt": "Screening deck at the Stockton plant"
+    },
+    "facility-packing": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Bagging line with a filled bag on the scale, or palletised finished goods stretch-wrapped and labelled.",
+      "alt": "Bagging line at the Stockton plant"
+    },
+    "shelf-set": {
+      "file": null, "ratio": "3/2", "min": 2000,
+      "brief": "Three grades faced side by side on a retail shelf, straight on, shelf label visible. Shot in a real store if possible.",
+      "alt": "Three grades of aragonite faced on a retail shelf"
+    }
+  }
+}

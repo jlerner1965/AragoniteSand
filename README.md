@@ -40,6 +40,7 @@ js/site.js              Nav, grain illustration, lot lookup, depth calculator,
 data/products.json      Pack formats, SKUs, prices and volume tiers
 data/markets.json       The five markets: grades, formats and function
 data/company.json       Company facts, compliance status, distributor FAQ
+data/images.json        The photography schedule: every shot the site needs
 data/links.json         Outbound links to aragocorminerals.com
 data/literature.json    Spec sheets, safety data, price list, photography, POS
 data/grades.json        The three grades: sizes, densities, copy, sieve data
@@ -91,6 +92,27 @@ market, add it to `markets.json` naming the grades and packs it takes; the
 market cards, the market page sections and the per-grade market list all
 follow. Per-pallet, per-pound and per-ton figures are derived at build time,
 never stored.
+
+## Photography
+
+`data/images.json` is the shot list. Every image the site needs is an entry
+carrying its aspect ratio, minimum long edge, a brief written for a
+photographer, and the alt text it will use.
+
+While `file` is null the slot renders at the right aspect ratio with the brief
+printed inside it. That does two things: the page holds its layout so nothing
+reflows when the picture arrives, and the shot list lives on the site rather
+than in a separate document that goes stale. Put the photograph in
+`assets/photos/`, set `file` to its path, rebuild, and the slot becomes an
+`<img>` with the alt text already written.
+
+**No photograph has been taken.** All seventeen entries are null: three retail
+bag shots, three pack shots, three grain macros, five in-application shots, two
+facility shots and a shelf set.
+
+The grain-scale diagrams are not photographs and stay: they are drawn to true
+scale against a millimetre rule and sit in the specification section as
+technical content, beside the sieve distribution.
 
 ## Compliance, and what may be claimed
 
@@ -368,6 +390,11 @@ noted at the bottom of `tokens.css`.
 - Each grade page says plainly where that grade is the wrong choice, in the
   third block of its fit section.
 - Sentence case throughout.
+- **This is a product site, not a marketing site.** Headings are labels, not
+  sentences. Copy states specification, price, format and terms. It does not
+  argue, compare against competitors, or tell a distributor what their
+  customers want. If a line could appear in a catalogue or on a spec sheet, it
+  belongs; if it reads like a brochure, it does not.
 - Prices are wholesale, per bag, FOB Stockton, before freight, and every page
   that shows one says so. Suggested shelf prices are labelled a margin
   reference and explicitly not a condition of sale.

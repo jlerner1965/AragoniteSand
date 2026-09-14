@@ -26,11 +26,8 @@
   </div>
 </section>
 
-<div class="wrap" style="padding-bottom:40px">
-  <div class="frame" aria-label="Photograph placeholder">
-    <div class="frame__todo"><span class="placeholder-flag" data-placeholder>TODO: photograph of the Stockton screening and bagging line, 21:7</span></div>
-    <div class="frame__caption">Stockton, California · screening and bagging</div>
-  </div>
+<div class="wrap" style="padding-bottom:36px">
+  {{shot_facility_html}}
 </div>
 
 <section class="section" aria-labelledby="ownership-title">
@@ -59,6 +56,7 @@
       <p class="eyebrow">The Stockton operation</p>
       <h2 class="display-2" id="operation-title">Processing</h2>
     </div>
+    <div style="margin-bottom:28px">{{shot_packing_html}}</div>
     <div class="feature-grid feature-grid--4">
       <div class="feature">
         <div class="feature__n num">01</div>
@@ -94,7 +92,7 @@
       <div>
         <p class="copy">Every production run is sampled after bagging and sent for analysis. The report covers mineral phase by X-ray diffraction, calcium carbonate content, moisture at packaging, acid-insoluble residue, bulk density and a dry sieve distribution. The sample date, the bagging date and the testing lab are printed with the results, and the results are published under the lot code on this site. <span class="placeholder-flag" data-placeholder>Lab name and methods to be confirmed, see README</span></p>
         <p class="copy-2">The analysis describes the sample that was tested on the date given. It is a measurement, not a warranty that every grain in every bag matches it. Specifications published elsewhere on this site are typical values across lots. Where the two differ, the lot analysis governs.</p>
-        <p class="copy-2">Aragonite is more soluble than calcite at the same particle size and supplies calcium and carbonate as it dissolves. It buffers alkalinity; it does not hold water or soil at a fixed pH, and no such claim is made for it.</p>
+        <p class="copy-2">Aragonite is more soluble than calcite at the same particle size and supplies calcium and carbonate as it dissolves. It buffers alkalinity. It does not hold water or soil at a fixed pH and no such claim is made for it.</p>
       </div>
     </div>
   </div>
@@ -121,7 +119,7 @@
 <section class="band-ink cta" aria-labelledby="cta-title">
   <div class="wrap">
     <h2 class="display-2" id="cta-title" style="max-width:720px;margin-left:auto;margin-right:auto">Samples and pricing</h2>
-    <p>{{ac_name}} sends a sample bag of each grade on request, and quotes freight to your dock the same business day.</p>
+    <p>Samples of each grade and quotations including freight are issued by {{ac_name}}.</p>
     <div class="actions">
       <a class="btn btn-bone" href="{{ac_sample}}">Request a sample {{ext_icon_html}}</a>
       <a class="btn btn-boneline" href="{{ac_pricing}}">Request pricing {{ext_icon_html}}</a>

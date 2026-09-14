@@ -24,17 +24,17 @@
     {
       "id": "technical",
       "title": "Technical documents",
-      "intro": "What a buyer's technical questions get answered with. Lot analyses are published live on this site and do not need a download."
+      "intro": "Specification, safety and analysis. Lot analyses are published on this site and need no download."
     },
     {
       "id": "commercial",
       "title": "Commercial documents",
-      "intro": "Price list, line sheet and the forms that open an account."
+      "intro": "Price list, line sheet and account forms."
     },
     {
       "id": "merchandising",
       "title": "Merchandising and photography",
-      "intro": "What a stocking retailer needs to sell it off the shelf and list it online."
+      "intro": "Assets for listing and merchandising the bagged line."
     }
   ],
   "items": [
@@ -42,7 +42,7 @@
       "group": "technical",
       "kind": "Specification",
       "title": "Product specification sheet, all three grades",
-      "note": "Grain size, mesh, bulk density, typical chemistry and packaging on one page.",
+      "note": "Grain size, mesh, bulk density, typical chemistry and packaging, one page per grade.",
       "format": "PDF",
       "pages": 2,
       "audience": "public",
@@ -52,7 +52,7 @@
       "group": "technical",
       "kind": "Safety",
       "title": "Safety data sheet",
-      "note": "Natural calcium carbonate. Required by most retailers before a first order.",
+      "note": "Natural calcium carbonate. Required by most distributors before a first order.",
       "format": "PDF",
       "pages": 4,
       "audience": "public",
@@ -62,7 +62,7 @@
       "group": "technical",
       "kind": "Analysis",
       "title": "Certificate of analysis, by lot",
-      "note": "Published live against the lot code on every bag. A signed PDF ships with each order.",
+      "note": "Issued per production lot and published against the lot code. A signed PDF ships with each order.",
       "format": "Web",
       "pages": null,
       "audience": "public",
@@ -82,7 +82,7 @@
       "group": "commercial",
       "kind": "Pricing",
       "title": "Wholesale price list",
-      "note": "The same figures as the price list on this site, as a dated PDF for your buying file.",
+      "note": "The price list as a dated PDF, per selling unit, all tiers.",
       "format": "PDF",
       "pages": 1,
       "audience": "trade",
@@ -91,8 +91,8 @@
     {
       "group": "commercial",
       "kind": "Line sheet",
-      "title": "Line sheet, six SKUs",
-      "note": "SKU, UPC, case and pallet quantities, cost and suggested shelf price.",
+      "title": "Line sheet, all SKUs",
+      "note": "SKU, UPC, pack and pallet quantities, cost and suggested shelf price.",
       "format": "PDF",
       "pages": 1,
       "audience": "trade",
@@ -102,7 +102,7 @@
       "group": "commercial",
       "kind": "Account",
       "title": "New account and credit application",
-      "note": "Needed only if you want terms. A first order can go out prepaid without it.",
+      "note": "Required for terms. A first order may be shipped prepaid without it.",
       "format": "PDF",
       "pages": 2,
       "audience": "trade",
@@ -112,7 +112,7 @@
       "group": "merchandising",
       "kind": "Photography",
       "title": "Product photography pack",
-      "note": "Bag shots on white and in-tank photography for your own site and listings.",
+      "note": "Bag and pack shots on white, and in-application photography, for listings.",
       "format": "ZIP",
       "pages": null,
       "audience": "trade",
@@ -122,7 +122,7 @@
       "group": "merchandising",
       "kind": "Point of sale",
       "title": "Shelf talkers, three grades",
-      "note": "Which grade for which customer, printed at shelf size. The question your floor staff get asked most.",
+      "note": "Grade selection at shelf size, for the retail bagged line.",
       "format": "PDF",
       "pages": 3,
       "audience": "trade",
@@ -132,7 +132,7 @@
       "group": "merchandising",
       "kind": "Point of sale",
       "title": "Counter card, how to read a lot code",
-      "note": "The thing that makes a customer trust the bag. Points at the lookup on this site.",
+      "note": "Explains the lot code and points to the lookup on this site.",
       "format": "PDF",
       "pages": 1,
       "audience": "trade",
@@ -142,7 +142,7 @@
       "group": "merchandising",
       "kind": "Listing copy",
       "title": "Web listing copy and specifications",
-      "note": "Descriptions and spec tables for each SKU, ready to paste into your storefront.",
+      "note": "Descriptions and specification tables per SKU, for storefront import.",
       "format": "XLSX",
       "pages": null,
       "audience": "trade",

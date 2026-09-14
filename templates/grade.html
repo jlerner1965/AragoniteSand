@@ -31,15 +31,7 @@
           <a class="btn btn-inkline" href="{{ac_grade_sample}}">Request a sample {{ext_icon_html}}</a>
         </div>
       </div>
-      <figure class="plate" aria-label="{{name}} grade grain size drawn at true scale against a millimetre rule">
-        <div class="plate__head">
-          <p class="eyebrow">Grain size at true scale</p>
-          <span class="plate__mm num">{{grain_mm}}</span>
-        </div>
-        <div class="grain__dots grain__dots--tall" data-grains="{{grain_samples}}" data-tone="{{tone}}"></div>
-        <div class="ruler" data-ruler="{{ruler_max_mm}}" aria-hidden="true"></div>
-        <figcaption class="plate__foot">Drawn geometry at 15 pixels per millimetre, not a photograph. <span class="placeholder-flag" data-placeholder>Replace with sample photography at scale before launch</span></figcaption>
-      </figure>
+      {{shot_grain_html}}
     </div>
   </div>
 </section>
@@ -50,7 +42,7 @@
       <div>
         <p class="eyebrow">Pricing</p>
         <h2 class="display-3" id="buy-title">Formats and pricing</h2>
-        <p class="lead">List price per selling unit, FOB Stockton, before freight. Volume tiers start at {{tier2_label}} and count every pallet on the order.</p>
+        <p class="lead">List price per selling unit, FOB Stockton, before freight. Volume tiers start at {{tier2_label}}.</p>
       </div>
       <a class="tide-link" href="products.html#price-list">Full price list, every tier <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
@@ -71,7 +63,7 @@
       <div>
         <div class="parent-cta__label">Ordering</div>
         <h3>Ordering</h3>
-        <p>Samples, firm quotes with freight, and the distributor schedule are handled by {{ac_name}} at {{ac_host}}.</p>
+        <p>Samples, quotations and the distributor schedule are handled by {{ac_name}} at {{ac_host}}.</p>
       </div>
       <div class="parent-cta__actions">
         <a class="btn btn-ink" href="{{ac_grade_pricing}}">Request pricing {{ext_icon_html}}</a>
@@ -108,6 +100,15 @@
           </tbody>
         </table>
       </div>
+      <figure class="plate" style="margin-bottom:22px" aria-label="{{name}} grade grain size drawn at true scale against a millimetre rule">
+        <div class="plate__head">
+          <p class="eyebrow">Grain size at true scale</p>
+          <span class="plate__mm num">{{grain_mm}}</span>
+        </div>
+        <div class="grain__dots grain__dots--tall" data-grains="{{grain_samples}}" data-tone="{{tone}}"></div>
+        <div class="ruler" data-ruler="{{ruler_max_mm}}" aria-hidden="true"></div>
+        <figcaption class="plate__foot">Scale diagram at 15 pixels per millimetre.</figcaption>
+      </figure>
       <div class="sieve">
         <h3>Sieve distribution</h3>
         <p class="sieve__note">Percent retained, representative lot <a class="prose-link num" href="index.html?lot={{representative_lot}}#lot">{{representative_lot}}</a>. <span class="placeholder-flag" data-placeholder>Demo lot</span></p>
@@ -135,7 +136,7 @@
     <div class="sec-head">
       <p class="eyebrow">Aquarium selection</p>
       <h2 class="display-3" id="aq-title">Selecting for an aquarium</h2>
-      <p class="lead">Where this grade is specified in aquarium retail, and where a different one is the right answer.</p>
+      <p class="lead">Aquarium applications for this grade, and where another grade is specified instead.</p>
     </div>
     <div class="feature-grid">
       {{uses_html}}
