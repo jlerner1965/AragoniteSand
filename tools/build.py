@@ -157,11 +157,15 @@ def calc_grade_options(grades):
 # ------------------------------------------------------------------- images
 
 def shot(images, key, caption=None, cls=""):
-    """A product photograph, or the slot reserved for one.
+    """A photograph, the drawing standing in for it, or the slot reserved for it.
 
-    The slot holds the exact aspect ratio the photograph will occupy and
-    prints its own brief, so the layout does not move when the image lands and
-    the shot list lives on the page rather than in a separate document.
+    Three states, in order of preference. A photograph wins. Failing that, a
+    figure from tools/make-figures.py renders as an image and says on its face
+    that it is a drawing, so a distributor is never left guessing whether they
+    are looking at the product or at an illustration of it. Failing both, the
+    slot holds the exact aspect ratio the photograph will occupy and prints its
+    own brief, so the layout does not move when the image lands and the shot
+    list is the site rather than a separate document.
     """
     img = images["images"].get(key)
     if img is None:
@@ -172,6 +176,20 @@ def shot(images, key, caption=None, cls=""):
         return (
             f'<figure class="{classes}">\n'
             f'        <img src="{esc(img["file"])}" alt="{esc(img["alt"])}" '
+            f'style="aspect-ratio:{esc(img["ratio"])}" loading="lazy" decoding="async">\n'
+            f'        {cap}\n'
+            f'      </figure>'
+        )
+    if img.get("figure"):
+        # The drawing carries its own footer rail, but that rail is unreadable
+        # at product-card size, so the disclosure is repeated in the caption
+        # where it is always legible.
+        note = "Drawing; photograph to follow"
+        cap = (f'<figcaption class="shot__cap">{esc(caption)} · {note}</figcaption>'
+               if caption else f'<figcaption class="shot__cap">{note}</figcaption>')
+        return (
+            f'<figure class="{classes} shot--figure">\n'
+            f'        <img src="{esc(img["figure"])}" alt="{esc(img["figure_alt"])}" '
             f'style="aspect-ratio:{esc(img["ratio"])}" loading="lazy" decoding="async">\n'
             f'        {cap}\n'
             f'      </figure>'

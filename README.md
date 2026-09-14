@@ -41,6 +41,7 @@ data/products.json      Pack formats, SKUs, prices and volume tiers
 data/markets.json       The five markets: grades, formats and function
 data/company.json       Company facts, compliance status, distributor FAQ
 data/images.json        The photography schedule: every shot the site needs
+assets/figures/         Drawings standing in for nine of those shots
 data/links.json         Outbound links to aragocorminerals.com
 data/literature.json    Spec sheets, safety data, price list, photography, POS
 data/grades.json        The three grades: sizes, densities, copy, sieve data
@@ -99,20 +100,34 @@ never stored.
 carrying its aspect ratio, minimum long edge, a brief written for a
 photographer, and the alt text it will use.
 
-While `file` is null the slot renders at the right aspect ratio with the brief
-printed inside it. That does two things: the page holds its layout so nothing
-reflows when the picture arrives, and the shot list lives on the site rather
-than in a separate document that goes stale. Put the photograph in
-`assets/photos/`, set `file` to its path, rebuild, and the slot becomes an
-`<img>` with the alt text already written.
+A slot is served by one of three things, in this order.
 
-**No photograph has been taken.** All seventeen entries are null: three retail
-bag shots, three pack shots, three grain macros, five in-application shots, two
-facility shots and a shelf set.
+**A photograph.** Put it in `assets/photos/`, set `file` to its path, rebuild,
+and the slot becomes an `<img>` with the alt text already written. A photograph
+beats everything below it.
 
-The grain-scale diagrams are not photographs and stay: they are drawn to true
-scale against a millimetre rule and sit in the specification section as
-technical content, beside the sieve distribution.
+**A drawing.** `tools/make-figures.py` writes nine SVGs into `assets/figures/`
+from `data/grades.json` and `data/products.json`, so a figure cannot contradict
+the catalogue: change a grain size or a net weight and the drawing changes with
+it. Run it after editing either file. Nine slots carry one — the three retail
+bags, the 50 lb bag, the bulk bag, the bulk load and the three grain plates —
+and each says in its caption that it is a drawing and a photograph is still to
+come. The retail bag carries a window of its own grade drawn at actual size, so
+the three bags differ the way the product does rather than by a colour swatch.
+
+**Neither.** The slot renders at the right aspect ratio with the brief printed
+inside it. The page holds its layout so nothing reflows when the picture
+arrives, and the shot list lives on the site rather than in a document that
+goes stale.
+
+**No photograph has been taken.** All seventeen `file` entries are null. The
+eight slots still showing a brief are the ones no drawing can honestly stand in
+for, because each needs a camera pointed at a real place: the five
+in-application shots, the two plant shots and the retail shelf set.
+
+The grain-scale diagrams drawn in the browser are a separate thing and stay:
+they are drawn to true scale against a millimetre rule and sit in the
+specification section as technical content, beside the sieve distribution.
 
 ## Compliance, and what may be claimed
 
@@ -290,6 +305,8 @@ called out in a `_todo` or `_readme` block; in the templates there is a
 | Payment terms, lead time, freight terms | `data/packaging.json` `opening_order` | TODO |
 | Dealer inquiry endpoint | `templates/wholesale.html` form `data-endpoint` | empty; form falls back to a pre-filled email. The AragoCor route above needs no endpoint |
 | Grain-scale visuals | every hero, and the product cards | drawn geometry at 15 px/mm, replace with photography at scale |
+| Pack and grain figures | `assets/figures/`, generated | drawings standing in for photography; the briefs in `data/images.json` still stand |
+| The five market shots, both plant shots, the shelf set | `data/images.json` | empty briefs; each needs a camera on a real place |
 | Stockton facility photograph | `about.html` | empty frame |
 | Every document in the literature library | `data/literature.json` | none produced; all `file: null` |
 | **Every price, per bag and per pallet** | `data/products.json` `skus` | market-referenced, not AragoCor's list; `price_status` is `indicative` and the sources are under `price_basis` |
