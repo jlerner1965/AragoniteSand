@@ -16,8 +16,17 @@
     "",
     "`canonical_origin` is written into every page's canonical link. It must be",
     "the domain actually served. Pointing it at a domain that does not answer",
-    "keeps the site out of the index."
+    "keeps the site out of the index.",
+    "",
+    "`hidden_pages` are templates that exist but are not built, not linked and",
+    "not in the sitemap. A page is hidden when it promises something that does",
+    "not exist yet: the dealer resources page lists a literature library in which",
+    "every file is still null, which reads as a library a buyer cannot reach.",
+    "Remove the entry to publish the page again."
   ],
   "status": "pre-launch",
-  "canonical_origin": "https://aragonitesand.com"
+  "canonical_origin": "https://aragonitesand.com",
+  "hidden_pages": [
+    "dealers"
+  ]
 }

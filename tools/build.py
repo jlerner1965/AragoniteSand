@@ -1058,7 +1058,7 @@ def jsonld_product(g, pack):
     return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
 
 
-def launch_gate(site, pages, products, images, company, lit, lots, packaging):
+def launch_gate(site, pages, products, images, company, lit, packaging):
     """What still stands between this site and being publishable.
 
     Everything unverified on this site renders with a flag on it, which is the
@@ -1105,8 +1105,8 @@ def launch_gate(site, pages, products, images, company, lit, lots, packaging):
                 + ", ".join(sorted(leaks)[:6]))
 
     # 3. Demonstration data presented as a record.
-    if lots.get("lots") or any("Demonstration records" in h or "Demo lot" in h
-                               for h in pages.values()):
+    if any('id="lot-panel"' in h or "Demonstration records" in h or "Demo lot" in h
+           for h in pages.values()):
         blockers.append(
             "index.html: the lot lookup is serving demonstration records. "
             "Connect it to real signed analyses or take it off the page")
@@ -1151,7 +1151,6 @@ def build():
     images = load_json("images.json")
     company = load_json("company.json")
     site = load_json("site.json")
-    lots = load_json("lots.json")
 
     global PRICING_MODE
     PRICING_MODE = products.get("pricing_mode", "published")
@@ -1329,7 +1328,10 @@ def build():
 
     # Other pages carry their own title/description in a leading JSON front
     # matter comment so the data stays with the page.
+    hidden = set(site.get("hidden_pages", []))
     for name in ("index", "markets", "products", "wholesale", "dealers", "about", "404"):
+        if name in hidden:
+            continue
         src = (TEMPLATES / f"{name}.html").read_text(encoding="utf-8")
         m = re.match(r"\s*<!--\s*meta\s*(\{.*?\})\s*-->\s*", src, re.S)
         if not m:
@@ -1353,8 +1355,7 @@ def build():
         rendered[out.name] = html
         written.append(out.name)
 
-    blockers, warnings = launch_gate(site, rendered, products, images, company, lit,
-                                     lots, pack)
+    blockers, warnings = launch_gate(site, rendered, products, images, company, lit, pack)
     if site["status"] == "live" and blockers:
         raise LaunchBlocked(blockers)
     return written, blockers, warnings, site["status"]

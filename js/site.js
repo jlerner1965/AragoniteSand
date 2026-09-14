@@ -3,7 +3,6 @@
  * No build step, no dependencies. Seven things:
  *   1. the responsive navigation (ported from the parent's site-chrome.js)
  *   2. the grain-scale illustration, drawn from data attributes
- *   3. the lot lookup, which fetches data/lots.json
  *   4. the depth calculator, which reads bulk density from data/grades.json
  *   5. the dealer inquiry form on wholesale.html
  *   6. the quote builder on products.html
@@ -165,102 +164,14 @@
     });
   }
 
-  /* ---------- 3. Lot lookup ---------- */
-  var lotsPromise = null;
-  function loadLots() {
-    if (!lotsPromise) {
-      lotsPromise = fetch(sitePath("data/lots.json"), { cache: "no-cache" }).then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      });
-    }
-    return lotsPromise;
-  }
-
-  function formatDate(iso) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
-    if (!m) return iso || "";
-    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    return parseInt(m[3], 10) + " " + months[parseInt(m[2], 10) - 1] + " " + m[1];
-  }
-
-  function gradeName(slug) {
-    return slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : "";
-  }
-
-  function initLotLookup() {
-    var input = document.getElementById("lot-input");
-    var button = document.getElementById("lot-go");
-    var panel = document.getElementById("lot-panel");
-    if (!input || !button || !panel) return;
-
-    function renderError(msg) {
-      panel.innerHTML = '<p class="lot-panel__err">' + msg + "</p>";
-    }
-
-    function render(code) {
-      var key = (code || "").trim().toUpperCase().replace(/\s+/g, "");
-      if (!key) {
-        panel.innerHTML = '<p class="lot-panel__empty">Enter the lot code printed on the bag to see its mineralogy, sieve distribution and sample date.</p>';
-        return;
-      }
-      panel.setAttribute("aria-busy", "true");
-      loadLots().then(function (data) {
-        var lot = data.lots && data.lots[key];
-        if (!lot) {
-          renderError("No lot found for “" + escapeHtml(key) + "”. Check the code on the back panel, lower left, or <a class=\"prose-link\" href=\"about.html#contact\">contact us</a> and we will pull the record.");
-          return;
-        }
-        var html = "";
-        if (lot.placeholder) {
-          html += '<span class="placeholder-flag" data-placeholder>Demo lot. Invented data, not a real analysis.</span>';
-        }
-        html += '<div class="lot-id num" style="margin-top:' + (lot.placeholder ? '14px' : '0') + '">' + escapeHtml(key) + "</div>" +
-          '<div class="lot-meta">' + escapeHtml(gradeName(lot.grade)) + " grade · bagged " + escapeHtml(formatDate(lot.bagged)) + " · sampled " + escapeHtml(formatDate(lot.sampled)) + "</div>" +
-          '<div class="lot-rows">';
-        (lot.rows || []).forEach(function (r) {
-          html += '<div class="lot-row"><span>' + escapeHtml(r[0]) + '</span><span class="num">' + escapeHtml(r[1]) + "</span></div>";
-        });
-        html += "</div>";
-        if (lot.sieve && lot.sieve.length) {
-          html += '<div class="lot-sieve"><p class="eyebrow">Sieve distribution, percent retained</p>';
-          lot.sieve.forEach(function (s) {
-            var pct = Math.max(0, Math.min(100, parseFloat(s[1]) || 0));
-            html += '<div class="bar-row"><span class="bar-row__k">' + escapeHtml(s[0]) + "</span>" +
-              '<span class="bar-track"><span class="bar-fill" style="width:' + pct + '%"></span></span>' +
-              '<span class="bar-row__v num">' + pct + "%</span></div>";
-          });
-          html += "</div>";
-        }
-        html += '<div class="lot-status"><strong style="color:var(--bone)">Tested by</strong> ' + escapeHtml(lot.lab || "") +
-          (lot.method ? '<br><span>' + escapeHtml(lot.method) + "</span>" : "") + "</div>";
-        panel.innerHTML = html;
-      }).catch(function () {
-        renderError("The lot register could not be loaded. If you opened this page as a file, serve it over HTTP; otherwise try again or <a class=\"prose-link\" href=\"about.html#contact\">contact us</a>.");
-      }).then(function () {
-        panel.removeAttribute("aria-busy");
-      });
-    }
-
-    button.addEventListener("click", function () { render(input.value); });
-    input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); render(input.value); } });
-    document.querySelectorAll("[data-lot-example]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        input.value = b.getAttribute("data-lot-example");
-        render(input.value);
-        input.focus();
-      });
-    });
-
-    /* ?lot=CODE or #lot=CODE deep links, for a QR code on the bag. */
-    var m = /[?&#]lot=([^&#]+)/.exec(window.location.href);
-    if (m) {
-      input.value = decodeURIComponent(m[1]);
-      render(input.value);
-      var section = document.getElementById("lot");
-      if (section) section.scrollIntoView();
-    }
-  }
+  /* ---------- 3. Lot lookup ----------
+   *
+   * Removed. It served demonstration records against invented lot codes,
+   * which on a trade site reads as a published analysis rather than as a
+   * demo. Analyses are issued against the shipment they belong to. When
+   * there are real signed reports to look up, this comes back reading
+   * them, and data/lots.json comes back with real codes in it.
+   */
 
   /* ---------- 4. Depth calculator ---------- */
   var gradesPromise = null;
@@ -679,8 +590,7 @@
   function init() {
     initNavigation();
     initGrains();
-    initLotLookup();
-    initCalculator();
+        initCalculator();
     initDealerForm();
     initQuoteBuilder();
     initQuoteContext();
