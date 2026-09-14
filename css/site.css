@@ -265,13 +265,19 @@ sub, sup { font-size: max(0.83em, 10px); }
 .ac-nav__item[aria-current="page"]::after {
   content: ""; position: absolute; left: 0; bottom: -1px; width: 100%; height: 2px; background: var(--ink);
 }
+/* The one action in the nav, so it is drawn as an object rather than another
+   link: an outlined pill that fills to solid ink on hover. Everything else on
+   the site uses the 4px trade button; the pill is reserved for this one place
+   so it never competes with the page's own primary button. */
 .ac-nav__cta {
-  background: transparent; color: var(--ink); min-height: 44px; padding: 8px 0 8px 24px;
+  background: transparent; color: var(--ink); height: 40px; padding: 0 20px;
   font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
-  border: none; border-left: 1px solid var(--ink-20); white-space: nowrap; flex-shrink: 0;
-  text-decoration: none; transition: background var(--duration) var(--ease-tide);
+  border: 1px solid var(--ink); border-radius: var(--radius-pill);
+  white-space: nowrap; flex-shrink: 0; text-decoration: none;
+  transition: background var(--duration) var(--ease-tide), color var(--duration) var(--ease-tide);
 }
-.ac-nav__cta:hover, .ac-nav__cta:focus-visible { background: var(--ink-04); color: var(--ink); }
+.ac-nav__cta:hover, .ac-nav__cta:focus-visible { background: var(--ink); color: var(--bone); }
+.ac-nav__cta:active { background: var(--abyss); border-color: var(--abyss); color: var(--bone); }
 .ac-nav__toggle {
   display: none; width: 44px; height: 44px; align-items: center; justify-content: center;
   background: transparent; border: 1px solid var(--ink-20); border-radius: var(--radius-sm);
@@ -301,7 +307,7 @@ sub, sup { font-size: max(0.83em, 10px); }
   .ac-nav__mobile a.ac-nav__mobile-cta,
   .ac-nav__mobile a.ac-nav__mobile-cta:hover,
   .ac-nav__mobile a.ac-nav__mobile-cta:focus-visible {
-    margin-top: 16px; background: var(--ink); color: var(--bone); border-radius: var(--radius-sm);
+    margin-top: 16px; background: var(--ink); color: var(--bone); border-radius: var(--radius-pill);
     text-align: center; font-weight: 600; border-bottom: none;
   }
   .ac-nav__mobile a.ac-nav__mobile-cta:hover { background: var(--tide); }
