@@ -183,8 +183,11 @@ def shot(images, key, caption=None, cls=""):
             note = "Packaging render"
             cap = (f'<figcaption class="shot__cap">{esc(caption)} · {note}</figcaption>'
                    if caption else f'<figcaption class="shot__cap">{note}</figcaption>')
+        # A cut-out on transparency is fitted, not cropped: cover would slice
+        # straight through the pack it is there to show.
+        fit = ' shot--contain' if img.get("fit") == "contain" else ""
         return (
-            f'<figure class="{classes}">\n'
+            f'<figure class="{classes}{fit}">\n'
             f'        <img src="{esc(img["file"])}" alt="{esc(img["alt"])}" '
             f'style="aspect-ratio:{esc(img["ratio"])}" loading="lazy" decoding="async">\n'
             f'        {cap}\n'

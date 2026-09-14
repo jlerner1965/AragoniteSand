@@ -1,0 +1,9 @@
+:root {
+  /* Small radii only. Buttons and fields are 4px; surfaces are 6-8px.
+     Nothing in the brand is pill-shaped except the spec medallions, which are
+     perfect circles. */
+  --radius-control: 4px;
+  --radius-media: 6px;
+  --radius-card: 8px;
+  --radius-round: 50%;
+}

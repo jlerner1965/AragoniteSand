@@ -67,9 +67,9 @@
       "detail": "TODO: issue an SDS for the product line. Required by most distributors before a first order."
     },
     {
-      "name": "OMRI listing, organic production",
-      "status": "unconfirmed",
-      "detail": "AragoCor's printed packaging carries an organic-input badge worded 'products available OMRI Listed'. That is a claim about the range, not about a given grade, so it is not published here as one. TODO: confirm the listing that covers these grades."
+      "name": "OMRI Listed®, organic production",
+      "status": "held",
+      "detail": "Product listing avw-23215. OMRI listing reviews the input, not the buyer's operation: confirm acceptance with your own certifier before use."
     },
     {
       "name": "Feed-grade qualification",

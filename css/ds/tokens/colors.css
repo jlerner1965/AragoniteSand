@@ -1,0 +1,92 @@
+/* ---------------------------------------------------------------------------
+   Palette layer — the literal marine colours. Reference these only when you
+   genuinely mean the colour. Everything else should use a role below, so a
+   second skin (e.g. a future retail line) is a config change, not a fork.
+   Values are verbatim from public/ds/colors_and_type.css and Chrome.tsx.
+   --------------------------------------------------------------------------- */
+:root {
+  --ink: #0E3540;
+  --tide: #526A70;
+  --shore: #7C97A0;
+  --sand: #D7C59C;
+  --bone: #F7F4ED;
+  --paper: #FFFFFF;
+  --root: #49613C;
+  --leaf: #49613C;
+  /* Near-black used by the site header / mobile nav panel only. */
+  --nav-ink: #0d141c;
+
+  /* Ink opacity scale — hairlines, scrims, tints */
+  --ink-04: rgba(14, 53, 64, 0.04);
+  --ink-08: rgba(14, 53, 64, 0.08);
+  --ink-12: rgba(14, 53, 64, 0.12);
+  --ink-20: rgba(14, 53, 64, 0.20);
+  --ink-40: rgba(14, 53, 64, 0.40);
+  --ink-60: rgba(14, 53, 64, 0.60);
+  --ink-80: rgba(14, 53, 64, 0.80);
+
+  /* Bone opacity scale — type on dark surfaces */
+  --bone-55: rgba(247, 244, 237, 0.55);
+  --bone-65: rgba(247, 244, 237, 0.65);
+  --bone-72: rgba(247, 244, 237, 0.72);
+  --bone-85: rgba(247, 244, 237, 0.85);
+  --bone-92: rgba(247, 244, 237, 0.92);
+
+  /* Legacy foreground aliases carried over from the site's own tokens. */
+  --fg-1: var(--ink);
+  --fg-2: var(--tide);
+  --fg-3: #627178;
+
+/* ---------------------------------------------------------------------------
+   Role layer — the API. Build with these.
+   --------------------------------------------------------------------------- */
+
+  /* Surfaces */
+  --surface-page: var(--bone);
+  --surface-card: var(--paper);
+  --surface-raised: var(--paper);
+  --surface-inverse: var(--ink);
+  --surface-chrome: var(--nav-ink);
+  --surface-accent: var(--sand);
+  --surface-subtle: var(--ink-04);
+
+  /* Text */
+  --text-heading: var(--ink);
+  --text-body: var(--tide);
+  --text-muted: #627178;
+  --text-inverse: var(--bone);
+  --text-inverse-body: var(--bone-92);
+  --text-inverse-muted: var(--bone-65);
+  --text-link: var(--tide);
+  --text-link-hover: var(--ink);
+
+  /* Borders */
+  --border: #C7CBC6;
+  --border-strong: #A9B0AC;
+  --border-subtle: var(--ink-08);
+  --border-inverse: rgba(247, 244, 237, 0.14);
+
+  /* Interactive */
+  --action-primary: var(--ink);
+  --action-primary-hover: var(--tide);
+  --action-primary-text: var(--bone);
+  --action-inverse: var(--bone);
+  --action-inverse-hover: var(--sand);
+  --action-inverse-text: var(--ink);
+  --focus-color: var(--tide);
+  --focus-color-inverse: var(--sand);
+
+  /* Accents */
+  --accent-warm: var(--sand);
+  --accent-agronomic: var(--root);
+
+  /* Claim tiers — see patterns/claims.css */
+  --claim-verified: var(--root);
+  --claim-representative: var(--tide);
+  --claim-hold: #8A6A2F;
+  --claim-prohibited: #9a3535;
+
+  /* Status */
+  --error: #9a3535;
+  --error-mobile: #8a2b2b;
+}

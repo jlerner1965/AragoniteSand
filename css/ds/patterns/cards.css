@@ -1,0 +1,23 @@
+.ar-card{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:26px}
+/* Media card: fixed rhythm so text of any length keeps the CTA aligned across a row. */
+.ar-card-media{display:flex;flex-direction:column;gap:0;height:100%}
+.ar-card-media .ar-card-img{width:100%;height:150px;object-fit:cover;border-radius:6px;margin-bottom:16px}
+.ar-card-media .ar-h3{margin:0 0 8px}
+.ar-card-media .ar-card-body{font-size:14.5px;line-height:1.6;color:var(--fg-2);margin:0 0 10px}
+.ar-card-media .ar-card-meta{font-size:12.5px;font-family:var(--font-mono);color:var(--fg-3);margin:0}
+.ar-card-media .ar-card-foot{margin-top:auto;padding-top:20px}
+.ar-card-media .ar-card-foot .btn-ar{display:flex;width:100%;justify-content:center;text-align:center}
+/* Elevated documentation card (homepage row). */
+.doc-card{box-shadow:var(--shadow-1);transition:box-shadow var(--dur-base) var(--ease-tide),border-color var(--dur-base) var(--ease-tide)}
+.doc-card:hover{box-shadow:var(--shadow-2);border-color:var(--ink-20)}
+/* Full-bleed image tile with a bottom-weighted ink scrim. */
+.ind-card{display:block;border-radius:8px;overflow:hidden;border-bottom:none;position:relative;aspect-ratio:4/3;text-decoration:none}
+.ind-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,53,64,.05) 0%,rgba(14,53,64,.68) 100%);transition:background var(--dur-base) var(--ease-tide);padding:20px;display:flex;flex-direction:column;justify-content:flex-end}
+.ind-card:hover .ind-scrim{background:linear-gradient(180deg,rgba(14,53,64,.05) 0%,rgba(14,53,64,.78) 100%)}
+.ind-arrow{transition:transform var(--dur-base) var(--ease-tide);flex-shrink:0}
+.ind-card:hover .ind-arrow{transform:translateX(var(--nudge))}
+/* Ooid speckle: the one texture in the system, laid over imagery at 12%. */
+.ooid-texture{position:absolute;inset:0;opacity:.12;mix-blend-mode:overlay;background-image:repeating-radial-gradient(circle at 0 0,rgba(255,255,255,.4) 0,rgba(255,255,255,0) 2px);background-size:3px 3px;pointer-events:none}
+details.ar-card summary::marker{color:var(--tide)}
+details.ar-card p{margin-top:12px}
+@media (max-width:900px){.ar-card{padding:20px}}

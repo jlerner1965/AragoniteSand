@@ -1,0 +1,16 @@
+/* All CTAs share one geometry; variants only change colour. */
+.btn-ar{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;height:auto;padding:10px 18px;border-radius:4px;font-family:var(--font-sans);font-size:15px;font-weight:600;line-height:1.25;white-space:normal;text-align:center;text-decoration:none;cursor:pointer;box-sizing:border-box;border:1px solid transparent;transition:background 200ms ease,border-color 200ms ease,color 200ms ease,transform 120ms ease}
+.btn-ar:active{transform:scale(.98)}
+.btn-ar:focus-visible{outline:3px solid var(--tide);outline-offset:3px}
+.btn-ar[disabled],.btn-ar[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.btn-primary{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.btn-primary:hover{background:var(--tide);border-color:var(--tide);color:var(--bone)}
+.btn-bone{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.btn-bone:hover{background:var(--sand);border-color:var(--sand);color:var(--ink)}
+.btn-bone:focus-visible{outline-color:var(--sand)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+/* On ink surfaces: hairline bone border, fills faintly on hover. */
+.btn-boneline{background:transparent;color:var(--bone);border:1px solid rgba(247,244,237,.4)}
+.btn-boneline:hover{border-color:var(--bone);background:rgba(247,244,237,.08);color:var(--bone)}
+.btn-lg{min-height:52px;padding:0 28px;font-size:16px;font-weight:500}

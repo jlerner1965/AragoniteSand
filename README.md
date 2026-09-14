@@ -111,7 +111,15 @@ page captions it *Packaging render*, because the pack it shows has not been
 produced. Put a real photograph in `assets/photos/`, set `file` to its path,
 drop the `source` line, rebuild, and the caption goes with it.
 
-**The pack renders.** The artwork follows AragoCor's own packaging language,
+**Photography.** Most slots now carry AragoCor's own photography, supplied
+with the design system: the 50 lb bag, the bulk sack, the bulk bag on its
+pallet, the macro of the grains, and four market shots. The studio renders that
+stood in for the packs are gone, and so is the generator that made them —
+`tools/make-packshots.py` and `tools/render-packshots.mjs` are deleted. Three
+slots still need a camera: the screening deck, a feed application and the retail
+shelf set.
+
+**The pack renders (removed).** The artwork follows AragoCor's own packaging language,
 taken from photographs of the real 50 lb bag and 2 tonne sack: a white woven
 sack with printed blue side bands and stitching, an organic-input badge at the
 top left, the product name set large over a rule, a row of round icons, an
@@ -202,6 +210,33 @@ a regulatory problem rather than a copy problem, so the table shows the honest
 state and offers to confirm it. Four of the six entries are currently
 `unconfirmed` and need a real answer from the plant before those markets are
 supplied.
+
+## The design system
+
+`css/ds/` is AragoCor's own design system, vendored from the package supplied
+with the brand: token files for colour, type, spacing, radius, elevation and
+motion, pattern files for base, layout, buttons, cards, data, forms and claims,
+and the three brand typefaces self-hosted in `assets/fonts/`. `css/ds/DESIGN-SYSTEM.md`
+is its readme and is the authority on voice, colour, type and claims — read it
+before changing anything visual here.
+
+`css/tokens.css` now consumes the system's **role layer** (`--surface-*`,
+`--text-*`, `--action-*`, `--border-*`) rather than restating a palette, so this
+site inherits the brand instead of approximating it.
+
+Three things this site had that the system forbids, and no longer does:
+
+- **Blur.** The sticky header had a 14px backdrop blur. There is no frosted
+  glass in this brand; protection over imagery is a gradient scrim.
+- **Pills.** The header action and the mobile action were pill-shaped. Nothing
+  is: 4px for controls, 6px for images inside cards, 8px for cards, panels and
+  tables, 50% for spec medallions.
+- **Archivo.** Headings were set in a grotesque to look distinct from the
+  parent. The system has three families and Archivo is not one of them: Source
+  Serif 4 at 600 for every heading, Geist for body, JetBrains Mono for labels.
+
+The header now sits on `--surface-chrome` (`#0d141c`), a shade darker than ink,
+because chrome should read as chrome.
 
 ## The launch gate
 

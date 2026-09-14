@@ -205,7 +205,6 @@ sub, sup { font-size: max(0.83em, 10px); }
   background: var(--nav-bg);
   border-bottom: 1px solid var(--nav-border);
   box-shadow: var(--shadow-nav);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   font-family: var(--font-sans);
 }
 .ac-nav__inner {
@@ -233,15 +232,12 @@ sub, sup { font-size: max(0.83em, 10px); }
  */
 .brand {
   display: flex; align-items: center; gap: 12px; flex-shrink: 0;
-  text-decoration: none; color: var(--ink); min-width: 0;
+  text-decoration: none; color: var(--bone); min-width: 0;
 }
-.brand__plate {
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--ink); border-radius: var(--radius-sm);
-  padding: 7px 11px; flex: none;
-}
+/* On chrome the wordmark needs no plate: the ground is already dark. */
+.brand__plate { display: inline-flex; align-items: center; flex: none; }
 .brand__parent { width: 116px; height: auto; display: block; }
-.brand__rule { width: 1px; height: 30px; background: var(--ink-20); flex: none; }
+.brand__rule { width: 1px; height: 30px; background: var(--border-inverse); flex: none; }
 .brand__text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .brand__name {
   font-family: var(--font-ui); font-size: 16.5px; font-weight: 700;
@@ -250,7 +246,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 }
 .brand__by {
   font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.07em;
-  line-height: 1.2; color: var(--fg-3); white-space: nowrap;
+  line-height: 1.2; color: var(--bone-65); white-space: nowrap;
 }
 .brand--foot { color: var(--bone); }
 .brand--foot .brand__by { color: var(--bone-60); }
@@ -282,28 +278,28 @@ sub, sup { font-size: max(0.83em, 10px); }
   min-height: 44px; padding: 8px 0; display: inline-flex; align-items: center;
   text-decoration: none; transition: color var(--duration) var(--ease-tide);
 }
-.ac-nav__link:hover, .ac-nav__link:focus-visible { color: var(--ink); }
-.ac-nav__item[aria-current="page"] .ac-nav__link { color: var(--ink); }
+.ac-nav__link:hover, .ac-nav__link:focus-visible { color: var(--bone); }
+.ac-nav__item[aria-current="page"] .ac-nav__link { color: var(--bone); }
 .ac-nav__item[aria-current="page"]::after {
-  content: ""; position: absolute; left: 0; bottom: -1px; width: 100%; height: 2px; background: var(--ink);
+  content: ""; position: absolute; left: 0; bottom: -1px; width: 100%; height: 2px; background: var(--sand);
 }
 /* The one action in the nav, so it is drawn as an object rather than another
    link: an outlined pill that fills to solid ink on hover. Everything else on
    the site uses the 4px trade button; the pill is reserved for this one place
    so it never competes with the page's own primary button. */
 .ac-nav__cta {
-  background: transparent; color: var(--ink); height: 40px; padding: 0 20px;
+  background: transparent; color: var(--bone); height: 38px; padding: 0 18px;
   font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
-  border: 1px solid var(--ink); border-radius: var(--radius-pill);
+  border: 1px solid var(--border-inverse); border-radius: var(--radius-sm);
   white-space: nowrap; flex-shrink: 0; text-decoration: none;
   transition: background var(--duration) var(--ease-tide), color var(--duration) var(--ease-tide);
 }
-.ac-nav__cta:hover, .ac-nav__cta:focus-visible { background: var(--ink); color: var(--bone); }
-.ac-nav__cta:active { background: var(--abyss); border-color: var(--abyss); color: var(--bone); }
+.ac-nav__cta:hover, .ac-nav__cta:focus-visible { background: var(--bone); color: var(--ink); }
+.ac-nav__cta:active { transform: scale(0.98); }
 .ac-nav__toggle {
   display: none; width: 44px; height: 44px; align-items: center; justify-content: center;
-  background: transparent; border: 1px solid var(--ink-20); border-radius: var(--radius-sm);
-  color: var(--ink); cursor: pointer; flex-shrink: 0;
+  background: transparent; border: 1px solid var(--border-inverse); border-radius: var(--radius-sm);
+  color: var(--bone); cursor: pointer; flex-shrink: 0;
 }
 .ac-nav__toggle svg { width: 20px; height: 20px; display: block; }
 .ac-nav__mobile { display: none; }
@@ -314,7 +310,7 @@ sub, sup { font-size: max(0.83em, 10px); }
   .ac-nav__toggle { display: inline-flex; }
   .ac-nav__mobile {
     display: block; max-height: 0; overflow: hidden;
-    background: rgba(246,242,233,0.99); border-top: 1px solid var(--nav-border);
+    background: var(--surface-chrome); border-top: 1px solid var(--nav-border);
     transition: max-height 260ms var(--ease-tide);
   }
   .ac-nav__mobile.is-open { max-height: 80vh; overflow-y: auto; }
@@ -322,14 +318,14 @@ sub, sup { font-size: max(0.83em, 10px); }
   .ac-nav__mobile ul { margin: 0; padding: 8px 20px 20px; }
   .ac-nav__mobile a {
     display: block; padding: 14px 0; color: var(--nav-link); font-size: 16px; font-weight: 500;
-    text-decoration: none; border-bottom: 1px solid var(--ink-12); min-height: 48px;
+    text-decoration: none; border-bottom: 1px solid var(--border-inverse); min-height: 48px;
   }
-  .ac-nav__mobile a:hover, .ac-nav__mobile a:focus-visible { color: var(--ink); }
-  .ac-nav__mobile a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--sand); }
+  .ac-nav__mobile a:hover, .ac-nav__mobile a:focus-visible { color: var(--bone); }
+  .ac-nav__mobile a[aria-current="page"] { color: var(--bone); font-weight: 700; border-bottom-color: var(--sand); }
   .ac-nav__mobile a.ac-nav__mobile-cta,
   .ac-nav__mobile a.ac-nav__mobile-cta:hover,
   .ac-nav__mobile a.ac-nav__mobile-cta:focus-visible {
-    margin-top: 16px; background: var(--ink); color: var(--bone); border-radius: var(--radius-pill);
+    margin-top: 16px; background: var(--bone); color: var(--ink); border-radius: var(--radius-sm);
     text-align: center; font-weight: 600; border-bottom: none;
   }
   .ac-nav__mobile a.ac-nav__mobile-cta:hover { background: var(--tide); }
@@ -558,7 +554,7 @@ sub, sup { font-size: max(0.83em, 10px); }
 .calc-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .chip {
   display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px;
-  border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: transparent;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: transparent;
   color: var(--ink); font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.02em; cursor: pointer;
   transition: background var(--duration) var(--ease-tide), border-color var(--duration) var(--ease-tide);
 }
@@ -1119,7 +1115,8 @@ table.data .qty { margin: -4px 0; }
 .shot__cap { margin-top: 8px; font-size: var(--small-xs); color: var(--fg-3); }
 /* A drawing standing in for a photograph. It is composed to its own frame,
    so it is fitted rather than cropped the way a photograph is. */
-.shot--figure img { object-fit: contain; background: var(--paper); }
+.shot--figure img, .shot--contain img { object-fit: contain; background: var(--paper); }
+.shot--contain img { padding: 14px; }
 /* The hero product shot: it is the page's lead image, so it is not cropped
    into a card but sits at its own ratio beside the headline. */
 .hero__grid--product { align-items: center; gap: 44px 56px; }

@@ -100,28 +100,19 @@
   --focus-ring: #17707E;   /* the accent doubles as the focus ring */
   --field-ring: rgba(23, 112, 126, 0.18);
 
-  /* ---------- Type ---------- */
   /* ---------- Typefaces ----------
    *
-   * DELIBERATELY NOT THE PARENT'S. aragocorminerals.com sets every heading in
-   * Source Serif 4, and while this site used it the two were hard to tell
-   * apart at a glance. The display face here is Archivo, a grotesque: it reads
-   * as the same company's trade catalogue rather than as the same website, and
-   * a squared industrial face suits a price list better than a book serif.
-   *
-   * Archivo is the face the project's own reference mockups were set in, and
-   * its width axis is what the wordmark uses. Still three families, not four:
-   * Archivo replaced Source Serif 4 rather than joining it. JetBrains Mono
-   * (labels, SKUs, figures) and the system sans stack (body) are the parent's
-   * and are unchanged, which is what keeps the two sites related. */
-  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --font-ui:      "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono:  "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
-
-  /* Weights actually loaded: serif 400 + 600 (opsz 8..60), mono 400 + 500.
-     Headings are 600. The home hero on the parent uses serif 700, which the
-     font request does not include; 600 is used everywhere here. */
+   * Three families, and they are AragoCor's own, self-hosted with the design
+   * system in css/ds. Source Serif 4 at 600 is the only display voice. Geist
+   * carries body text at 400/500/600. JetBrains Mono is the labelling face:
+   * eyebrows, column heads, SKUs, grade codes. A sans-serif heading or a serif
+   * button is off-brand. Archivo — which this site set its headings in while it
+   * was trying to look distinct from the parent — is not in the system, and is
+   * gone. */
+  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-ui:      "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans:    "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 
   /* Display scale.
    *
@@ -195,7 +186,9 @@
   /* Radii: 4px controls and buttons, 8px cards and panels, pill chips */
   --radius-sm:   4px;
   --radius:      8px;
-  --radius-pill: 999px;
+  /* No pill token. The brand's rule is explicit: 4px for controls, 6px for
+     images inside cards, 8px for cards, panels and tables, 50% for spec
+     medallions. Nothing is pill-shaped. */
 
   /* Rules */
   --rule-feature: 1.5px solid var(--ink);      /* the border-top on principle and step blocks */
@@ -226,9 +219,9 @@
   --util-size:       12.5px;
 
   --nav-height:      64px;
-  --nav-bg:          rgba(246, 242, 233, 0.97);
-  --nav-border:      rgba(14, 53, 64, 0.14);
-  --nav-link:        rgba(14, 53, 64, 0.82);
+  --nav-bg:          var(--surface-chrome);
+  --nav-border:      var(--border-inverse);
+  --nav-link:        var(--bone-85);
   --nav-link-size:   14.5px;
   --nav-breakpoint:  1080px;   /* links and CTA hide, toggle shows */
   --scroll-margin:   80px;     /* [id] scroll-margin-top under the sticky nav */

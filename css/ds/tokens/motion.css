@@ -1,0 +1,11 @@
+:root {
+  /* One easing curve for the whole brand: a decelerating "tide" curve. */
+  --ease-tide: cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur-base: 220ms; /* @kind other */
+  --dur-slow: 600ms; /* @kind other */
+  --nudge: 4px;   /* arrows slide this far on hover */
+  --press: 0.98; /* @kind other */ /* buttons scale to this on :active (0.97 on the ported pages) */
+}
+@keyframes revealUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes menuIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
