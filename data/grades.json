@@ -1,0 +1,184 @@
+{
+  "_readme": [
+    "Source of truth for the three grades. tools/build-grade-pages.py renders",
+    "grade-fine.html, grade-medium.html and grade-coarse.html from this file and",
+    "templates/grade.html. js/site.js also loads it at runtime for the depth",
+    "calculator's per-grade bulk density and the grain-scale illustration.",
+    "",
+    "Grain size, mesh, bulk density and primary use come from the brief and are",
+    "the values to build against. Everything marked TODO is invented placeholder",
+    "data and must be replaced before launch; see README.md."
+  ],
+  "_todo": {
+    "caco3_pct": "TODO: replace with the typical CaCO3 value from the lab.",
+    "moisture_max_pct": "TODO: replace with the packaging moisture limit actually held.",
+    "fines_max_pct": "TODO: replace with the fines limit below 0.25 mm actually screened to.",
+    "acid_insoluble_max_pct": "TODO: replace with the acid-insoluble residue limit from the lab.",
+    "sieve": "TODO: replace with a real representative lot's sieve distribution.",
+    "representative_lot": "TODO: point at a real lot code in data/lots.json.",
+    "grain_samples_mm": "Illustration only: dot diameters for the drawn grain-scale visual. Replace the visual with sample photography at scale."
+  },
+  "bag_lb": 20,
+  "trade_bag_lb": 50,
+  "grades": [
+    {
+      "slug": "fine",
+      "name": "Fine",
+      "page": "grade-fine.html",
+      "title": "Fine aragonite sand for reef tanks, 0.5–1.0 mm | AragoCor Aragonite",
+      "description": "Fine grade Bahamian aragonite sand, 0.5–1.0 mm (18–35 mesh), for reef and sand-bed aquariums. Screened, lot-tested, bagged in Stockton, CA in 20 lb retail and 50 lb trade bags.",
+      "h1": "Fine grade aragonite",
+      "tagline": "The reef grade. Fine enough to settle into a flat, even bed and to suit sand-sifting gobies and wrasses. Screened to keep the fines that cloud a new tank out of the bag.",
+      "grain_mm": "0.5–1.0 mm",
+      "grain_min_mm": 0.5,
+      "grain_max_mm": 1.0,
+      "mesh": "18–35",
+      "bulk_density_lb_ft3": 90,
+      "primary_use": "Reef, sand beds",
+      "card_use": "Reef and sand-bed tanks. Settles flat, holds a clean line against the glass, and suits burrowing gobies and wrasses. Needs gentle flow at the substrate.",
+      "other_blurb": "The reef grade. Settles flat and suits sand-sifting livestock. Needs gentle flow at the substrate.",
+      "caco3_pct": "96.4",
+      "moisture_max_pct": "0.4",
+      "fines_max_pct": "2",
+      "acid_insoluble_max_pct": "1.5",
+      "representative_lot": "AC-2608-F01",
+      "sieve": [
+        { "band": "> 1.0 mm", "pct": 4 },
+        { "band": "0.85–1.0 mm", "pct": 21 },
+        { "band": "0.60–0.85 mm", "pct": 44 },
+        { "band": "0.25–0.60 mm", "pct": 29 },
+        { "band": "< 0.25 mm", "pct": 2 }
+      ],
+      "sieve_note": "A tight distribution is what keeps a fine bed level. The bottom row is the one that causes cloudy water, so we publish it.",
+      "calc_default_depth_in": 1,
+      "calc_intro": "Shallow reef beds run half an inch to an inch. Deep sand beds run three to four. Measure the footprint, not the tank volume.",
+      "calc_note": "Round up. A fine bed compacts over the first few weeks and settles lower than it goes in.",
+      "uses": [
+        {
+          "fit": true,
+          "title": "Reef and sand-bed tanks",
+          "body": "Settles into a flat, even bed with a clean line at the glass. The look most reef keepers are after, and the grade that shallow sand beds are built on."
+        },
+        {
+          "fit": true,
+          "title": "Sand-sifting livestock",
+          "body": "Suits gobies, sleeper gobies, sand-sifting starfish and wrasses that bury at night. Coarser grades are hard on gill rakers and on burrowing behaviour."
+        },
+        {
+          "fit": false,
+          "title": "Not for high flow",
+          "body": "Fine sand lifts and drifts under strong bottom flow, and it will pile against the rockwork. If your powerheads sweep the substrate, take the medium grade instead."
+        }
+      ],
+      "grain_samples_mm": [0.6, 0.85, 0.7, 1.0, 0.55, 0.9, 0.75, 0.65],
+      "ruler_max_mm": 3,
+      "keywords": "fine aragonite sand reef tank, aragonite sand bed, sugar-fine aragonite alternative, oolitic aragonite sand"
+    },
+    {
+      "slug": "medium",
+      "name": "Medium",
+      "page": "grade-medium.html",
+      "title": "Medium aragonite sand for marine and mixed reef tanks, 1.0–2.0 mm | AragoCor Aragonite",
+      "description": "Medium grade Bahamian aragonite sand, 1.0–2.0 mm (10–18 mesh), for general marine and mixed reef aquariums. Holds under stronger flow. Screened, lot-tested, bagged in 20 lb retail and 50 lb trade bags.",
+      "h1": "Medium grade aragonite",
+      "tagline": "The forgiving grade. Stays put under stronger flow than fine sand and still reads as a natural flat. If you are not sure which grade to run, start here.",
+      "grain_mm": "1.0–2.0 mm",
+      "grain_min_mm": 1.0,
+      "grain_max_mm": 2.0,
+      "mesh": "10–18",
+      "bulk_density_lb_ft3": 92,
+      "primary_use": "General marine, mixed reef",
+      "card_use": "General marine and mixed reef. The forgiving grade. Stays put under stronger flow, still fine enough to look like a natural flat. Start here if you are not sure.",
+      "other_blurb": "The forgiving grade. Holds against stronger flow and still reads as a natural flat. Start here if you are unsure.",
+      "caco3_pct": "96.7",
+      "moisture_max_pct": "0.4",
+      "fines_max_pct": "1",
+      "acid_insoluble_max_pct": "1.5",
+      "representative_lot": "AC-2609-M01",
+      "sieve": [
+        { "band": "> 2.0 mm", "pct": 3 },
+        { "band": "1.7–2.0 mm", "pct": 18 },
+        { "band": "1.2–1.7 mm", "pct": 47 },
+        { "band": "1.0–1.2 mm", "pct": 31 },
+        { "band": "< 1.0 mm", "pct": 1 }
+      ],
+      "sieve_note": "Most of the bag sits in the middle two bands. That is what keeps a medium bed from sorting itself into a fine layer on top and a coarse layer underneath.",
+      "calc_default_depth_in": 1.5,
+      "calc_intro": "One to two inches is the usual range for a medium bed. Measure the footprint of the tank, not its volume.",
+      "calc_note": "Round up if you want the bed to stay level after it settles. Sand compacts over the first few weeks.",
+      "uses": [
+        {
+          "fit": true,
+          "title": "Mixed reef and fish-only marine",
+          "body": "Holds its place under the flow a mixed reef runs, and still looks like a flat rather than gravel. The default for a tank that has to please both fish and corals."
+        },
+        {
+          "fit": true,
+          "title": "Tanks with strong return flow",
+          "body": "Where a fine bed would drift and bare the glass, medium stays down. Detritus still settles on top where a clean-up crew can reach it rather than sinking into the bed."
+        },
+        {
+          "fit": false,
+          "title": "Not for sand sifters",
+          "body": "Sleeper gobies, sand-sifting starfish and burrowing wrasses want a grain they can pass through their gills and mouths. If the tank is built around them, take the fine grade."
+        }
+      ],
+      "grain_samples_mm": [1.4, 1.1, 1.8, 1.25, 1.6, 1.05, 1.9],
+      "ruler_max_mm": 4,
+      "keywords": "medium aragonite sand, aragonite substrate marine tank, aragonite sand mixed reef, 1-2 mm aragonite"
+    },
+    {
+      "slug": "coarse",
+      "name": "Coarse",
+      "page": "grade-coarse.html",
+      "title": "Coarse aragonite substrate for cichlid and hard-water tanks, 2.0–5.0 mm | AragoCor Aragonite",
+      "description": "Coarse grade Bahamian aragonite, 2.0–5.0 mm (4–10 mesh), for African cichlid tanks, hard-water freshwater, high-flow marine and filter media. Screened, lot-tested, bagged in 20 lb retail and 50 lb trade bags.",
+      "h1": "Coarse grade aragonite",
+      "tagline": "The cichlid and hard-water grade. A larger particle that stays put under strong flow, supports alkalinity in a tank that is pulling it down, and works as a filter media where a bigger grain is wanted.",
+      "grain_mm": "2.0–5.0 mm",
+      "grain_min_mm": 2.0,
+      "grain_max_mm": 5.0,
+      "mesh": "4–10",
+      "bulk_density_lb_ft3": 88,
+      "primary_use": "Cichlid, hard water, high flow",
+      "card_use": "African cichlid tanks, hard-water freshwater, and high-flow marine. Also used as filtration media where a larger particle is wanted.",
+      "other_blurb": "African cichlid and hard-water freshwater tanks, high-flow marine, and filter media where a larger particle is wanted.",
+      "caco3_pct": "96.1",
+      "moisture_max_pct": "0.5",
+      "fines_max_pct": "0.5",
+      "acid_insoluble_max_pct": "2.0",
+      "representative_lot": "AC-2607-C01",
+      "sieve": [
+        { "band": "> 5.0 mm", "pct": 2 },
+        { "band": "4.0–5.0 mm", "pct": 16 },
+        { "band": "3.0–4.0 mm", "pct": 41 },
+        { "band": "2.0–3.0 mm", "pct": 40 },
+        { "band": "< 2.0 mm", "pct": 1 }
+      ],
+      "sieve_note": "Almost nothing below 2 mm. A coarse bed with fines in it clouds on setup and then packs. This one does neither.",
+      "calc_default_depth_in": 2,
+      "calc_intro": "Cichlid tanks usually run two to three inches so the fish can dig. Measure the footprint of the tank, not its volume.",
+      "calc_note": "Coarse grain settles less than fine sand, but diggers will pile it. Round up if the tank has diggers.",
+      "uses": [
+        {
+          "fit": true,
+          "title": "African cichlid and hard-water tanks",
+          "body": "Rift-lake cichlids and livebearers want hard, alkaline water, and a carbonate substrate helps hold it there between water changes. The grain is large enough for diggers to move and for the bed to stay open."
+        },
+        {
+          "fit": true,
+          "title": "High-flow marine and filter media",
+          "body": "Stays down under the flow that would strip a fine bed. In a sump or reactor the larger particle keeps water moving through the media rather than channelling around it."
+        },
+        {
+          "fit": false,
+          "title": "Not for a natural reef flat or for sifters",
+          "body": "Coarse reads as gravel, not sand, and detritus falls into it where a clean-up crew cannot reach. It is wrong for sand-sifting fish and for anyone after a smooth reef bed. Take fine or medium instead."
+        }
+      ],
+      "grain_samples_mm": [3.2, 2.4, 4.1, 2.8, 4.8],
+      "ruler_max_mm": 6,
+      "keywords": "aragonite substrate cichlid, coarse aragonite gravel, aragonite for hard water aquarium, aragonite filter media"
+    }
+  ]
+}
