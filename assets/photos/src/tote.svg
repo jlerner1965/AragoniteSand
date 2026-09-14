@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" role="img" aria-labelledby="t d"><title id="t">Aragonite, 2,000 lb bulk bag on a pallet</title><desc id="d">Studio render of a filled 2,000 lb FIBC bulk bag with four lift loops and a discharge spout, standing on a 48 by 40 inch pallet. A render of proposed packaging, not a photograph of a produced bag.</desc>
+<defs>
+  <linearGradient id="sweep" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.52" stop-color="#FBFAF8"/>
+    <stop offset="0.70" stop-color="#EFEDE8"/>
+    <stop offset="1" stop-color="#E4E1DA"/>
+  </linearGradient>
+  <radialGradient id="vignette" cx="0.44" cy="0.40" r="0.78">
+    <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="1" stop-color="#9A958C" stop-opacity="0.30"/>
+  </radialGradient>
+
+  <!-- The key is upper left, so the face brightens off-centre to the left and
+       falls away to both edges. -->
+  <linearGradient id="face" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B9B2A4"/>
+    <stop offset="0.06" stop-color="#DCD6C9"/>
+    <stop offset="0.20" stop-color="#F7F4EC"/>
+    <stop offset="0.34" stop-color="#FFFFFF"/>
+    <stop offset="0.55" stop-color="#F4F1E8"/>
+    <stop offset="0.80" stop-color="#DED8CB"/>
+    <stop offset="0.94" stop-color="#C3BCAD"/>
+    <stop offset="1" stop-color="#ADA697"/>
+  </linearGradient>
+  <linearGradient id="faceV" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8E877A" stop-opacity="0.22"/>
+    <stop offset="0.14" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="0.82" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="1" stop-color="#7E776B" stop-opacity="0.30"/>
+  </linearGradient>
+  <linearGradient id="gusset" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#8F8779" stop-opacity="0.55"/>
+    <stop offset="0.45" stop-color="#B5AE9F" stop-opacity="0.34"/>
+    <stop offset="1" stop-color="#6E675B" stop-opacity="0.52"/>
+  </linearGradient>
+  <linearGradient id="seal" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#05202B"/>
+    <stop offset="0.28" stop-color="#14465A"/>
+    <stop offset="0.44" stop-color="#1B5468"/>
+    <stop offset="0.72" stop-color="#0C3040"/>
+    <stop offset="1" stop-color="#04191F"/>
+  </linearGradient>
+
+  <!-- Matte polyethylene: a fine isotropic grain, barely there. -->
+  <filter id="filmgrain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="4" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0"/>
+  </filter>
+  <filter id="soft40"><feGaussianBlur stdDeviation="40"/></filter>
+  <filter id="soft22"><feGaussianBlur stdDeviation="22"/></filter>
+  <filter id="soft12"><feGaussianBlur stdDeviation="12"/></filter>
+  <filter id="soft6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="soft3"><feGaussianBlur stdDeviation="3"/></filter>
+<pattern id="weave" width="9" height="9" patternUnits="userSpaceOnUse"><path d="M0 4.5 H9" stroke="#8C8577" stroke-opacity="0.11" stroke-width="2.6"/><path d="M0 2.2 H9" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1.4"/><path d="M4.5 0 V9" stroke="#6F6A5E" stroke-opacity="0.055" stroke-width="2.4"/></pattern><linearGradient id="pallet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9B87A"/><stop offset="0.5" stop-color="#C4A265"/><stop offset="1" stop-color="#A5854D"/></linearGradient></defs><rect width="1600" height="1200" fill="url(#sweep)"/><rect width="1600" height="1200" fill="url(#vignette)"/><g transform="translate(-174.5 -136.4) scale(1.22)"><g filter="url(#soft22)"><ellipse cx="823.0" cy="1002" rx="400" ry="26" fill="#6F6A61" opacity="0.45"/></g><path d="M554 280 V176 a26 26 0 0 1 52 0 V280" fill="none" stroke="#CDD2D2" stroke-width="17" stroke-linecap="round"/><path d="M554 280 V176 a26 26 0 0 1 52 0 V280" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.35" transform="translate(-4 0)"/><path d="M672 280 V192 a26 26 0 0 1 52 0 V280" fill="none" stroke="#B9BFC0" stroke-width="17" stroke-linecap="round"/><path d="M672 280 V192 a26 26 0 0 1 52 0 V280" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.35" transform="translate(-4 0)"/><path d="M862 280 V192 a26 26 0 0 1 52 0 V280" fill="none" stroke="#B9BFC0" stroke-width="17" stroke-linecap="round"/><path d="M862 280 V192 a26 26 0 0 1 52 0 V280" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.35" transform="translate(-4 0)"/><path d="M980 280 V176 a26 26 0 0 1 52 0 V280" fill="none" stroke="#CDD2D2" stroke-width="17" stroke-linecap="round"/><path d="M980 280 V176 a26 26 0 0 1 52 0 V280" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.35" transform="translate(-4 0)"/><rect x="741.0" y="200" width="104" height="70" rx="8" fill="#E9E5DA" stroke="#9E9788" stroke-width="2"/><clipPath id="ct"><path d="M536 262 H1050 C1088 282 1114 442 1110 532 C1106 754 1082 860 1044 884 H542 C504 860 480 754 476 532 C472 442 498 282 536 262 Z"/></clipPath><path d="M536 262 H1050 C1088 282 1114 442 1110 532 C1106 754 1082 860 1044 884 H542 C504 860 480 754 476 532 C472 442 498 282 536 262 Z" fill="url(#face)"/><g clip-path="url(#ct)"><rect x="462" y="242" width="662" height="682" fill="url(#faceV)"/><rect x="462" y="242" width="662" height="682" fill="url(#weave)" opacity="0.45"/><g filter="url(#soft12)" opacity="0.45"><path d="M548 262 V884" stroke="#867F72" stroke-width="30" fill="none"/></g><g filter="url(#soft12)" opacity="0.45"><path d="M1038 262 V884" stroke="#867F72" stroke-width="30" fill="none"/></g><g filter="url(#soft22)" opacity="0.4"><ellipse cx="692" cy="573.0" rx="74" ry="211.48000000000002" fill="#FFFFFF"/></g><g filter="url(#soft12)" opacity="0.5"><path d="M502 288 H1084" stroke="#7A7367" stroke-width="30" fill="none"/><path d="M502 864 H1084" stroke="#6E6759" stroke-width="34" fill="none"/></g></g><g filter="url(#soft6)" opacity="0.3"><rect x="586" y="420" width="426" height="214" rx="6" fill="#6B6559"/></g><rect x="580" y="412" width="426" height="214" rx="6" fill="#FCFAF5" stroke="#B5AE9F" stroke-width="2"/><g transform="translate(616 474) scale(1.5)" fill="#0B2C3A"><circle cx="0" cy="0" r="3.4"/><circle cx="12" cy="-2" r="5.6"/><circle cx="29.5" cy="-5" r="8.6"/><rect x="-7" y="5.5" width="45" height="1.8" rx="0.9" fill="#B8975A"/></g><text x="614" y="522" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="31.0" font-weight="700" fill="#0B2C3A" text-anchor="start">Aragonite sand</text><text x="614" y="550" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="14.5" font-weight="400" fill="#4E6B74" text-anchor="start">Oolitic aragonite · grade at packing</text><rect x="614" y="570" width="358" height="2.4" fill="#D9BE86"/><text x="614" y="614" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="36.0" font-weight="700" fill="#0B2C3A" text-anchor="start">Net 2,000 lb</text><text x="972" y="614" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="19.0" font-weight="400" fill="#4E6B74" text-anchor="end">907 kg</text><path d="M536 262 H1050 C1088 282 1114 442 1110 532 C1106 754 1082 860 1044 884 H542 C504 860 480 754 476 532 C472 442 498 282 536 262 Z" fill="url(#face)" style="mix-blend-mode:multiply" opacity="0.30" clip-path="url(#ct)"/><path d="M747.0 878 h92 l-12 58 h-68 z" fill="#E2DDD2" stroke="#9E9788" stroke-width="2"/><g><rect x="442.0" y="890" width="702" height="22" rx="2" fill="url(#pallet)"/><rect x="458.0" y="912" width="86" height="44" fill="#B08E56"/><rect x="750.0" y="912" width="86" height="44" fill="#BC9A61"/><rect x="1042.0" y="912" width="86" height="44" fill="#A88650"/><rect x="442.0" y="956" width="702" height="18" rx="2" fill="url(#pallet)"/></g><g filter="url(#soft6)" opacity="0.35"><rect x="442.0" y="890" width="702" height="10" fill="#5E5850"/></g><g clip-path="url(#ct)" opacity="0.06" style="mix-blend-mode:multiply"><rect x="462" y="242" width="662" height="682" filter="url(#filmgrain)"/></g></g></svg>

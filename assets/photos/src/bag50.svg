@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" role="img" aria-labelledby="t d"><title id="t">Aragonite, 50 lb woven polypropylene trade bag</title><desc id="d">Studio render of the 50 lb plain woven polypropylene trade bag, sewn at both seams, standing on a white sweep. A render of proposed packaging, not a photograph of a produced bag.</desc>
+<defs>
+  <linearGradient id="sweep" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.52" stop-color="#FBFAF8"/>
+    <stop offset="0.70" stop-color="#EFEDE8"/>
+    <stop offset="1" stop-color="#E4E1DA"/>
+  </linearGradient>
+  <radialGradient id="vignette" cx="0.44" cy="0.40" r="0.78">
+    <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="1" stop-color="#9A958C" stop-opacity="0.30"/>
+  </radialGradient>
+
+  <!-- The key is upper left, so the face brightens off-centre to the left and
+       falls away to both edges. -->
+  <linearGradient id="face" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B9B2A4"/>
+    <stop offset="0.06" stop-color="#DCD6C9"/>
+    <stop offset="0.20" stop-color="#F7F4EC"/>
+    <stop offset="0.34" stop-color="#FFFFFF"/>
+    <stop offset="0.55" stop-color="#F4F1E8"/>
+    <stop offset="0.80" stop-color="#DED8CB"/>
+    <stop offset="0.94" stop-color="#C3BCAD"/>
+    <stop offset="1" stop-color="#ADA697"/>
+  </linearGradient>
+  <linearGradient id="faceV" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8E877A" stop-opacity="0.22"/>
+    <stop offset="0.14" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="0.82" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="1" stop-color="#7E776B" stop-opacity="0.30"/>
+  </linearGradient>
+  <linearGradient id="gusset" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#8F8779" stop-opacity="0.55"/>
+    <stop offset="0.45" stop-color="#B5AE9F" stop-opacity="0.34"/>
+    <stop offset="1" stop-color="#6E675B" stop-opacity="0.52"/>
+  </linearGradient>
+  <linearGradient id="seal" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#05202B"/>
+    <stop offset="0.28" stop-color="#14465A"/>
+    <stop offset="0.44" stop-color="#1B5468"/>
+    <stop offset="0.72" stop-color="#0C3040"/>
+    <stop offset="1" stop-color="#04191F"/>
+  </linearGradient>
+
+  <!-- Matte polyethylene: a fine isotropic grain, barely there. -->
+  <filter id="filmgrain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="4" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0"/>
+  </filter>
+  <filter id="soft40"><feGaussianBlur stdDeviation="40"/></filter>
+  <filter id="soft22"><feGaussianBlur stdDeviation="22"/></filter>
+  <filter id="soft12"><feGaussianBlur stdDeviation="12"/></filter>
+  <filter id="soft6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="soft3"><feGaussianBlur stdDeviation="3"/></filter>
+<pattern id="weave" width="9" height="9" patternUnits="userSpaceOnUse"><path d="M0 4.5 H9" stroke="#8C8577" stroke-opacity="0.11" stroke-width="2.6"/><path d="M0 2.2 H9" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1.4"/><path d="M4.5 0 V9" stroke="#6F6A5E" stroke-opacity="0.055" stroke-width="2.4"/></pattern></defs><rect width="1600" height="1200" fill="url(#sweep)"/><rect width="1600" height="1200" fill="url(#vignette)"/><g transform="translate(-272.0 -214.2) scale(1.34)"><g filter="url(#soft22)"><ellipse cx="834.0" cy="936" rx="368" ry="28" fill="#6F6A61" opacity="0.5"/></g><g filter="url(#soft40)"><ellipse cx="886.0" cy="950" rx="452" ry="42" fill="#7C776D" opacity="0.24"/></g><clipPath id="cb"><path d="M402 376 C582 318 1018 318 1198 376 C1242 542 1242 714 1198 880 C1018 938 582 938 402 880 C358 714 358 542 402 376 Z"/></clipPath><path d="M402 376 C582 318 1018 318 1198 376 C1242 542 1242 714 1198 880 C1018 938 582 938 402 880 C358 714 358 542 402 376 Z" fill="url(#face)"/><g clip-path="url(#cb)"><rect x="332" y="292" width="936" height="682" fill="url(#faceV)"/><rect x="332" y="292" width="936" height="682" fill="url(#weave)" opacity="0.5"/><g filter="url(#soft22)" opacity="0.4"><path d="M492 362 C562 572 522 664 592 894" stroke="#8B8476" stroke-width="22" fill="none"/><path d="M1078 356 C1008 582 1058 674 988 898" stroke="#8B8476" stroke-width="20" fill="none"/></g><g filter="url(#soft22)" opacity="0.4"><ellipse cx="582" cy="628.0" rx="70" ry="213.12" fill="#FFFFFF"/></g><g filter="url(#soft12)" opacity="0.5"><path d="M386 332 V924" stroke="#7A7367" stroke-width="34" fill="none"/><path d="M1214 332 V924" stroke="#6E6759" stroke-width="38" fill="none"/><path d="M372 372 H1228" stroke="#7A7367" stroke-width="30" fill="none"/><path d="M372 884 H1228" stroke="#7A7367" stroke-width="30" fill="none"/></g></g><g clip-path="url(#cb)"><path d="M402 372 C622 356 978 356 1198 372" stroke="#6F6A5E" stroke-width="5" stroke-dasharray="16 13" fill="none" opacity="0.55"/><path d="M402 376 C622 360 978 360 1198 376" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="16 13" fill="none" opacity="0.4"/><path d="M402 884 C622 900 978 900 1198 884" stroke="#6F6A5E" stroke-width="5" stroke-dasharray="16 13" fill="none" opacity="0.55"/><path d="M402 888 C622 904 978 904 1198 888" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="16 13" fill="none" opacity="0.4"/></g><g clip-path="url(#cb)"><g transform="translate(766.0 482) scale(1.6)" fill="#0B2C3A"><circle cx="0" cy="0" r="3.4"/><circle cx="12" cy="-2" r="5.6"/><circle cx="29.5" cy="-5" r="8.6"/><rect x="-7" y="5.5" width="45" height="1.8" rx="0.9" fill="#B8975A"/></g><text x="800" y="546" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="44.0" font-weight="700" fill="#0B2C3A" text-anchor="middle">Aragonite sand</text><text x="800" y="578" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="18.0" font-weight="400" fill="#4E6B74" text-anchor="middle">Oolitic aragonite · washed and screened</text><rect x="610.0" y="598" width="380" height="2.6" fill="#D9BE86"/><rect x="605.0" y="628" width="110" height="46" rx="5" fill="none" stroke="#0B2C3A" stroke-opacity="0.45" stroke-width="2.5"/><text x="660" y="660" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="21.0" font-weight="600" fill="#0B2C3A" text-anchor="middle">Fine</text><rect x="735.0" y="628" width="110" height="46" rx="5" fill="none" stroke="#0B2C3A" stroke-opacity="0.45" stroke-width="2.5"/><text x="790" y="660" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="21.0" font-weight="600" fill="#0B2C3A" text-anchor="middle">Medium</text><rect x="865.0" y="628" width="110" height="46" rx="5" fill="none" stroke="#0B2C3A" stroke-opacity="0.45" stroke-width="2.5"/><text x="920" y="660" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="21.0" font-weight="600" fill="#0B2C3A" text-anchor="middle">Coarse</text><text x="800" y="704" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="15.0" font-weight="400" fill="#4E6B74" text-anchor="middle" letter-spacing="0.05em">Grade marked at packing</text><text x="800" y="784" font-family="system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" font-size="54.0" font-weight="700" fill="#0B2C3A" text-anchor="middle">Net 50 lb</text><text x="800" y="814" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="19.0" font-weight="400" fill="#4E6B74" text-anchor="middle">22.7 kg</text><rect x="640.0" y="832" width="320" height="46" rx="5" fill="none" stroke="#0B2C3A" stroke-opacity="0.3" stroke-width="2.5"/><text x="800" y="864" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="23.0" font-weight="500" fill="#0B2C3A" text-anchor="middle">Lot AC-2608-M01</text><path d="M402 376 C582 318 1018 318 1198 376 C1242 542 1242 714 1198 880 C1018 938 582 938 402 880 C358 714 358 542 402 376 Z" fill="url(#face)" style="mix-blend-mode:multiply" opacity="0.36"/></g><g clip-path="url(#cb)" opacity="0.07" style="mix-blend-mode:multiply"><rect x="332" y="292" width="936" height="682" filter="url(#filmgrain)"/></g></g></svg>

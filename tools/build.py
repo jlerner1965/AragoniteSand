@@ -173,6 +173,13 @@ def shot(images, key, caption=None, cls=""):
     classes = ("shot " + cls).strip()
     cap = f'<figcaption class="shot__cap">{esc(caption)}</figcaption>' if caption else ""
     if img["file"]:
+        # A render is captioned as one. The pack it shows has not been made, so
+        # a buyer looking at it is looking at a proposal, and the page says so
+        # in the one place they are looking.
+        if img.get("source") == "render":
+            note = "Packaging render"
+            cap = (f'<figcaption class="shot__cap">{esc(caption)} · {note}</figcaption>'
+                   if caption else f'<figcaption class="shot__cap">{note}</figcaption>')
         return (
             f'<figure class="{classes}">\n'
             f'        <img src="{esc(img["file"])}" alt="{esc(img["alt"])}" '

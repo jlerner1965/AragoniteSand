@@ -41,7 +41,9 @@ data/products.json      Pack formats, SKUs, prices and volume tiers
 data/markets.json       The five markets: grades, formats and function
 data/company.json       Company facts, compliance status, distributor FAQ
 data/images.json        The photography schedule: every shot the site needs
-assets/figures/         Drawings standing in for nine of those shots
+assets/figures/         Drawings standing in for four of those shots
+assets/photos/          Pack renders standing in for five more
+assets/photos/src/      Their SVG sources; not served
 data/links.json         Outbound links to aragocorminerals.com
 data/literature.json    Spec sheets, safety data, price list, photography, POS
 data/grades.json        The three grades: sizes, densities, copy, sieve data
@@ -102,9 +104,27 @@ photographer, and the alt text it will use.
 
 A slot is served by one of three things, in this order.
 
-**A photograph.** Put it in `assets/photos/`, set `file` to its path, rebuild,
-and the slot becomes an `<img>` with the alt text already written. A photograph
-beats everything below it.
+**An image**, set on `file`. `source` says what kind it is. With `source`
+absent it is a photograph of the real thing and the page says nothing about it.
+With `source: "render"` it is a studio render of proposed packaging and the
+page captions it *Packaging render*, because the pack it shows has not been
+produced. Put a real photograph in `assets/photos/`, set `file` to its path,
+drop the `source` line, rebuild, and the caption goes with it.
+
+**The pack renders.** `tools/make-packshots.py` writes the SVG sources into
+`assets/photos/src/` and `node tools/render-packshots.mjs` rasterises them to
+JPEG beside them. Chromium does the rasterising because the shots are built out
+of SVG filters — turbulence for the matte grain on the film, gaussian blurs for
+the folds and the contact shadow — which a plain SVG rasteriser will not
+composite the way a browser does. Five slots carry one: the three retail bags,
+the 50 lb bag and the bulk bag. The lighting is a single soft key from the upper
+left, which is what the briefs ask for, and everything else follows from it.
+
+The packaging in those renders is a **proposal**, not approved artwork. The
+print positions, the grade block and the lot-code block are what this site says
+the pack carries. Nobody has printed it. The grain window on the retail bag is
+drawn enlarged and says so on the pack: at the scale a whole-bag shot sees it, a
+1 mm grain is about a pixel.
 
 **A drawing.** `tools/make-figures.py` writes nine SVGs into `assets/figures/`
 from `data/grades.json` and `data/products.json`, so a figure cannot contradict
@@ -120,10 +140,11 @@ inside it. The page holds its layout so nothing reflows when the picture
 arrives, and the shot list lives on the site rather than in a document that
 goes stale.
 
-**No photograph has been taken.** All seventeen `file` entries are null. The
-eight slots still showing a brief are the ones no drawing can honestly stand in
-for, because each needs a camera pointed at a real place: the five
-in-application shots, the two plant shots and the retail shelf set.
+**Still no photograph.** Five slots carry a render of the pack, four carry a
+drawing, and eight are still empty briefs. Those eight are the ones nothing
+can honestly stand in for, because each needs a camera pointed at a real
+place: the five in-application shots, the two plant shots and the retail shelf
+set.
 
 The grain-scale diagrams drawn in the browser are a separate thing and stay:
 they are drawn to true scale against a millimetre rule and sit in the
@@ -305,6 +326,7 @@ called out in a `_todo` or `_readme` block; in the templates there is a
 | Payment terms, lead time, freight terms | `data/packaging.json` `opening_order` | TODO |
 | Dealer inquiry endpoint | `templates/wholesale.html` form `data-endpoint` | empty; form falls back to a pre-filled email. The AragoCor route above needs no endpoint |
 | Grain-scale visuals | every hero, and the product cards | drawn geometry at 15 px/mm, replace with photography at scale |
+| **The packaging itself** | `assets/photos/`, generated | renders of a *proposed* pack. No artwork has been approved or printed; the print, the grade block and the lot block are this site's proposal |
 | Pack and grain figures | `assets/figures/`, generated | drawings standing in for photography; the briefs in `data/images.json` still stand |
 | The five market shots, both plant shots, the shelf set | `data/images.json` | empty briefs; each needs a camera on a real place |
 | Stockton facility photograph | `about.html` | empty frame |

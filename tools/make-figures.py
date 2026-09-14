@@ -236,7 +236,7 @@ def bag20(grade, tone):
                       15.0, SEEDS[grade["slug"]], tone,
                       {"fine": 260, "medium": 120, "coarse": 40}[grade["slug"]]))
     out.append("</g>")
-    out.append(text(px, by + 404, "Grain shown at actual size", 8.5, TIDE, MONO, "400",
+    out.append(text(px, by + 404, "Grain shown enlarged", 8.5, TIDE, MONO, "400",
                     spacing="0.05em"))
 
     out.append(f'<rect x="{px - 10}" y="{by + 420}" width="{bw - 36}" height="1.2" '
