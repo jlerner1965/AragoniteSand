@@ -1,6 +1,6 @@
 <!-- meta {
-  "title": "About — AragoCor Minerals, Stockton, California | Aragonite Sand",
-  "description": "Oolitic aragonite supplied by AragoCor Minerals LLC of Stockton, California. Bahamian marine origin through Aragosan Minerals Limited, washed, dried and screened in-house, analysed by lot."
+  "title": "About AragoCor Minerals, Stockton CA | Aragonite Sand",
+  "description": "Oolitic aragonite supplied by AragoCor Minerals LLC of Stockton, California. Bahamian marine origin, washed, dried and screened in-house, analysed by lot."
 } -->
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +26,19 @@
   </div>
 </section>
 
-<div class="wrap" style="padding-bottom:36px">
-  {{shot_facility_html}}
-</div>
+<!-- The page-width screening-deck banner is out until the photograph exists.
+     With no image, shot() reserves the slot and prints the brief written for
+     the photographer plus the slot key - "Plant lit, no faces", "21:7 - 2800 px
+     long edge - facility-screening" - which is art direction on a trade page at
+     1200 x 400. The slot stays in data/images.json so the shot is still on the
+     list and the build keeps saying it is outstanding. To restore it, put the
+     photograph in assets/photos/, set `file` on the facility-screening entry,
+     and bring back:
+
+       <div class="wrap" style="padding-bottom:36px">
+         { {shot_facility_html} }        <- without the spaces
+       </div>
+-->
 
 <section class="section" aria-labelledby="ownership-title">
   <div class="wrap">
@@ -76,7 +86,7 @@
       <div class="feature">
         <div class="feature__n num">04</div>
         <h3>Packing</h3>
-        <p>Packed in-house in 20 lb and 50 lb bags, 2,000 lb bulk bags, and loose for bulk loads. Each production run carries a lot code, which is what the lot lookup on this site answers to.</p>
+        <p>Packed in-house in 20 lb and 50 lb bags, 2,000 lb bulk bags, and loose for bulk loads. Each production run carries a lot code, and the signed analysis for that lot is issued with the shipment it belongs to.</p>
       </div>
     </div>
   </div>

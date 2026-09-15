@@ -1,6 +1,6 @@
 <!-- meta {
-  "title": "Ordering — terms, pallet configuration and freight | Aragonite Sand",
-  "description": "How to order oolitic aragonite: pallet configuration, pack formats, opening order terms, volume tiers, mixed-pallet policy, freight and bulk loads. Supplied to distributors from Stockton, California."
+  "title": "Ordering — terms, pallets and freight | Aragonite Sand",
+  "description": "How to order oolitic aragonite: pallet configuration, pack formats, opening order terms, volume breaks, freight and bulk loads. From Stockton, California."
 } -->
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +22,10 @@
     </nav>
     <p class="eyebrow">Ordering</p>
     <h1 class="display-1" id="ws-title">Ordering and terms</h1>
-    <p class="lead">Prices are published on the <a class="prose-link" href="products.html">products page</a>. This page covers pallet configuration, freight, payment terms and how an account opens.</p>
+    <p class="lead">Every grade and pack format is listed on the <a class="prose-link" href="products.html">products page</a>, with trade pricing issued on request. This page covers pallet configuration, freight, payment terms and how an account opens.</p>
     <div class="actions">
       <a class="btn btn-ink" href="{{ac_pricing}}">Request pricing from {{ac_name}} {{ext_icon_html}}</a>
-      <a class="btn btn-inkline" href="products.html">Price list</a>
+      <a class="btn btn-inkline" href="products.html">{{catalogue_cta}}</a>
     </div>
     <p class="note" style="margin-top:18px">{{ac_note_html}}</p>
   </div>
@@ -50,7 +50,7 @@
         <h2 class="display-2" id="price-summary-title">Price summary</h2>
         <p class="lead">Per bag at single-pallet quantity, FOB Stockton, before freight. Volume breaks below apply across grades on one order.</p>
       </div>
-      <a class="tide-link" href="products.html#price-list">Every tier, in full <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="tide-link" href="products.html#price-list">{{catalogue_tier_link_short}} <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     {{price_banner_html}}
     {{price_table_html}}
@@ -78,7 +78,7 @@
           <tbody>
             <tr><th scope="row">Bag weight, net</th><td class="val num">{{retail_bag_lb}} lb</td><td class="val num">{{trade_bag_lb}} lb</td></tr>
             <tr><th scope="row">Bags per pallet</th><td class="val num">{{retail_bags_per_pallet}}</td><td class="val num">{{trade_bags_per_pallet}}</td></tr>
-            <tr><th scope="row">Pallet net weight</th><td class="val num">{{pallet_net_lb}} lb</td><td class="val num">{{pallet_net_lb}} lb</td></tr>
+            <tr><th scope="row">Pallet net weight</th><td class="val num">{{retail_pallet_net_lb}} lb</td><td class="val num">{{trade_pallet_net_lb}} lb</td></tr>
             <tr><th scope="row">Pallet footprint</th><td class="val" colspan="2">{{pallet_footprint}}</td></tr>
           </tbody>
         </table>
@@ -88,7 +88,7 @@
           <div><div class="v num">{{retail_bag_lb}} lb</div><div class="k">Retail bag</div></div>
           <div><div class="v num">{{trade_bag_lb}} lb</div><div class="k">Trade bag</div></div>
           <div><div class="v num">{{retail_bags_per_pallet}}</div><div class="k">Retail bags per pallet</div></div>
-          <div><div class="v num">{{pallet_net_lb}} lb</div><div class="k">Pallet net weight</div></div>
+          <div><div class="v num">{{retail_pallet_net_lb}} lb</div><div class="k">Retail pallet net</div></div>
         </div>
         <p class="pack__note">Bags are printed with grade, grain size, net weight and the lot code. The lot code on every bag on a pallet is the same unless the pallet is mixed, in which case each grade carries its own.</p>
         <h3 style="font-size:var(--h4);margin-top:28px">Mixed-pallet policy</h3>
@@ -113,7 +113,7 @@
         <div><dt>Lead time</dt><dd>{{opening_lead_time}}</dd></div>
         <div><dt>Ships from</dt><dd>{{opening_ships_from}}. LTL freight for single pallets, truckload for distribution orders.</dd></div>
         <div><dt>Freight</dt><dd>{{opening_freight}}</dd></div>
-        <div><dt>Documentation</dt><dd>A certificate of analysis for every lot shipped, matching what the lot lookup on this site shows. Safety data sheet on request.</dd></div>
+        <div><dt>Documentation</dt><dd>A certificate of analysis for every lot shipped, issued with the shipment and available again on request using the code printed on the pack. Safety data sheet on request.</dd></div>
         <div><dt>Distribution</dt><dd>Regional distributors are welcome. Ask for the distributor schedule in the inquiry form.</dd></div>
       </dl>
     </div>
@@ -135,15 +135,14 @@
           <a class="ext-link" href="{{ac_distribution}}">Distributor schedule {{ext_icon_html}}</a>
           <a class="ext-link" href="{{ac_tds}}">Technical data sheets {{ext_icon_html}}</a>
         </div>
-        <p class="copy-2" style="margin-top:22px">Prefer to call? <a class="prose-link" href="tel:{{dealer_phone_href}}">{{dealer_phone}}</a>, or email <a class="prose-link" href="mailto:{{dealer_email}}">{{dealer_email}}</a>. The form on the right reaches the same people and carries a quote built on the products page.</p>
+        <p class="copy-2" style="margin-top:22px">Prefer to call? <a class="prose-link" href="tel:{{dealer_phone_href}}">{{dealer_phone}}</a>, or email <a class="prose-link" href="mailto:{{dealer_email}}">{{dealer_email}}</a>. {{inquiry_form_note}}</p>
       </div>
       <div>
         <!-- The form composes an email by default. To capture inquiries server-side,
      add data-endpoint to the form with a URL that accepts JSON (the parent site
              uses a Vercel function at /api/leads). Until one is set, submitting opens a
              pre-filled email to data-mailto so the form still works on static hosting. -->
-        <div class="quote-context" id="quote-context" data-catalogue='{{catalogue_json_html}}' hidden></div>
-        <form class="form-card" id="dealer-form" method="post" action="{{dealer_mailto_action}}" novalidate data-mailto="{{dealer_email}}" aria-labelledby="inquiry-title">
+{{quote_context_html}}        <form class="form-card" id="dealer-form" method="post" action="{{dealer_mailto_action}}" novalidate data-mailto="{{dealer_email}}"{{inquiry_endpoint_attr_html}} aria-labelledby="inquiry-title">
           <div class="form-alert" data-form-alert role="alert" hidden></div>
           <fieldset class="form-group">
             <legend class="form-group__legend">Your store</legend>
@@ -163,19 +162,20 @@
               <div class="field"><label for="df-volume">Expected monthly volume</label><select class="fld" id="df-volume" name="volume"><option value="">Choose one</option><option>Under a pallet a month</option><option>About a pallet a month</option><option>Two to four pallets a month</option><option>Truckload or distribution</option></select></div>
               <div class="field"><label for="df-current">Current substrate brand</label><input class="fld" id="df-current" name="currentBrand" type="text" maxlength="120"></div>
               <div class="field"><label for="df-timing">When do you want to start?</label><input class="fld" id="df-timing" name="timing" type="text" maxlength="80" placeholder="e.g. next month"></div>
-              <div class="field field--full" hidden><label for="df-quote">Quote you built</label><input class="fld" id="df-quote" name="quote" type="text" readonly></div>
-              <div class="field field--full"><label for="df-notes">Anything else</label><textarea class="fld" id="df-notes" name="notes" maxlength="2000" placeholder="Sample bags, distributor schedule, product photography, delivery constraints…"></textarea></div>
+{{quote_field_html}}              <div class="field field--full"><label for="df-notes">Anything else</label><textarea class="fld" id="df-notes" name="notes" maxlength="2000" placeholder="Sample bags, distributor schedule, product photography, delivery constraints…"></textarea></div>
             </div>
           </fieldset>
           <div class="hp" aria-hidden="true"><label for="df-website">Leave this field empty</label><input id="df-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
           <div class="form-footer">
-            <button class="btn btn-ink" type="submit">Compose inquiry</button>
+            <button class="btn btn-ink" type="submit">{{inquiry_submit_label}}</button>
             <p>We use this only to reply to your inquiry. No mailing list.</p>
           </div>
         </form>
-        <div class="form-success" id="dealer-success" hidden tabindex="-1">
-          <h2>Thanks. Your quote is on its way.</h2>
-          <p>We reply within one business day with a firm quote including freight to your dock, the pallet sheet and product photography. If your mail client opened with the inquiry drafted, send it and we will pick it up from there.</p>
+        <div class="form-success" id="dealer-success" hidden tabindex="-1"
+             data-sent-title="Thanks. Your inquiry is on its way."
+             data-sent-body="We reply within one business day with a quote including freight to your dock, the pallet sheet and product photography.">
+          <h2 data-success-title>Your inquiry is drafted in your email.</h2>
+          <p data-success-body>Send that message and it reaches us. Nothing has been submitted from this page yet, so if your mail client did not open, email <a class="prose-link" href="mailto:{{dealer_email}}">{{dealer_email}}</a> directly. We reply within one business day with a quote including freight to your dock, the pallet sheet and product photography.</p>
           <p>Questions in the meantime: <a class="prose-link" href="tel:{{dealer_phone_href}}">{{dealer_phone}}</a>.</p>
         </div>
       </div>

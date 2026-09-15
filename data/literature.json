@@ -24,7 +24,7 @@
     {
       "id": "technical",
       "title": "Technical documents",
-      "intro": "Specification, safety and analysis. Lot analyses are published on this site and need no download."
+      "intro": "Specification, safety and analysis. The certificate for a lot is issued with the shipment and can be requested using the code printed on the pack."
     },
     {
       "id": "commercial",
@@ -62,11 +62,11 @@
       "group": "technical",
       "kind": "Analysis",
       "title": "Certificate of analysis, by lot",
-      "note": "Issued per production lot and published against the lot code. A signed PDF ships with each order.",
-      "format": "Web",
+      "note": "Issued per production lot. A signed PDF ships with each order, and can be requested again using the code printed on the pack.",
+      "format": "PDF",
       "pages": null,
       "audience": "public",
-      "file": "index.html#lot"
+      "file": null
     },
     {
       "group": "technical",

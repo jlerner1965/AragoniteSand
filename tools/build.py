@@ -16,6 +16,7 @@ Unknown keys are an error, so a typo cannot ship as literal braces.
 
 Standard library only.
 """
+import hashlib
 import html
 import json
 import re
@@ -60,6 +61,11 @@ def render(text, ctx, depth=0):
 
 def esc(s):
     return html.escape(str(s), quote=True)
+
+
+# Bound here because several functions below take a parameter named `html`,
+# which shadows the module inside them.
+html_unescape = html.unescape
 
 
 def sieve_rows(sieve):
@@ -195,9 +201,16 @@ def shot(images, key, caption=None, cls=""):
         )
     if img.get("figure"):
         # The drawing carries its own footer rail, but that rail is unreadable
-        # at product-card size, so the disclosure is repeated in the caption
-        # where it is always legible.
-        note = "Drawing; photograph to follow"
+        # at product-card size, so the caption names the artwork too.
+        #
+        # It used to read "Drawing; photograph to follow", which describes the
+        # photography schedule rather than the picture: on a trade page it
+        # reads as a placeholder nobody cleared, and it is the first thing a
+        # distributor sees on all three grade cards. `figure_label` in
+        # images.json says what the drawing is instead. The launch gate still
+        # counts these slots as carrying a drawing, so relabelling them does
+        # not hide that real photography is outstanding.
+        note = img.get("figure_label") or "Illustration"
         cap = (f'<figcaption class="shot__cap">{esc(caption)} · {note}</figcaption>'
                if caption else f'<figcaption class="shot__cap">{note}</figcaption>')
         return (
@@ -395,6 +408,42 @@ def sku_rows(products, grades):
             "palletable": bool(pk["per_pallet"]),
         })
     return out
+
+
+def check_pallets(products, packaging):
+    """Derive each pallet net weight, and refuse a build where the two files disagree.
+
+    Bags per pallet times bag weight is arithmetic, so it is derived here
+    rather than stored. It used to be stored, as one `pallet_net_lb` in
+    packaging.json, which the ordering page then printed in both the retail
+    and the trade column: 40 × 50 lb bags were reported as a 1,200 lb pallet.
+
+    packaging.json and products.json each carry the bag weight and the bags
+    per pallet, so the same figure exists twice and can drift. Both are
+    derived and compared; a mismatch stops the build rather than picking one.
+
+    Returns (retail_pallet_lb, trade_pallet_lb).
+    """
+    packs = by_id(products["packs"])
+    out = []
+    for kind, pack_id in (("retail", "bag20"), ("trade", "bag50")):
+        bag_lb = packaging[f"{kind}_bag_lb"]
+        per_pallet = packaging[f"{kind}_bags_per_pallet"]
+        derived = bag_lb * per_pallet
+        p = packs.get(pack_id)
+        if p is None:
+            raise RuntimeError(f"products.json: no pack {pack_id!r} to check the {kind} pallet against")
+        if p["lb"] != bag_lb or p["per_pallet"] != per_pallet:
+            raise RuntimeError(
+                f"packaging.json says the {kind} bag is {bag_lb} lb, {per_pallet} per pallet; "
+                f"products.json pack {pack_id} says {p['lb']} lb, {p['per_pallet']} per pallet. "
+                f"They describe the same pallet and must agree")
+        if p["pallet_lb"] != derived:
+            raise RuntimeError(
+                f"products.json: pack {pack_id} stores pallet_lb {p['pallet_lb']:,} but "
+                f"{per_pallet} × {bag_lb} lb is {derived:,} lb")
+        out.append(derived)
+    return tuple(out)
 
 
 def check_prices(products, grades):
@@ -995,15 +1044,25 @@ def sku_block(products, grades, slug, links):
         extra = []
         if r["palletable"] and r["pack"]["per_pallet"] > 1:
             extra.append(f'{r["pack"]["per_pallet"]} per pallet · {r["pack"]["pallet_lb"]:,} lb')
-        extra.append(f'{money(r["per_lb"])} per lb')
-        if r["shelf"]:
-            pct = (r["shelf"] - r["list"]) / r["shelf"] * 100
-            extra.append(f'suggested shelf {money(r["shelf"])}, {pct:.0f}% margin')
+        # Derived figures only say anything when there is a figure to derive
+        # from. "On request per lb · suggested shelf On request, 50% margin"
+        # is three fragments of a sentence with its subject removed; the
+        # margin is also a real number standing next to a withheld one, which
+        # is most of the way to publishing the price it was taken from.
+        if published():
+            extra.append(f'{money(r["per_lb"])} per lb')
+            if r["shelf"]:
+                pct = (r["shelf"] - r["list"]) / r["shelf"] * 100
+                extra.append(f'suggested shelf {money(r["shelf"])}, {pct:.0f}% margin')
+        else:
+            extra.append("Trade pricing on request")
+        price_cell = (f'{money(r["list"])}<span class="per"> / {esc(r["pack"]["unit"])}</span>'
+                      if published() else money(r["list"]))
         out.append(
             f'<tr>\n'
             f'            <th scope="row"><span class="sku">{esc(r["sku"])}</span></th>\n'
             f'            <td class="t-left">{esc(r["pack"]["name"])}<div class="t-sub">{esc(r["pack"]["spec"])}</div></td>\n'
-            f'            <td class="t-price">{money(r["list"])}<span class="per"> / {esc(r["pack"]["unit"])}</span></td>\n'
+            f'            <td class="t-price">{price_cell}</td>\n'
             f'            <td class="t-left t-sub">{esc(" · ".join(extra))}</td>\n'
             f'            <td><a class="ext-link" href="{esc(pricing)}">Pricing{EXT_ICON}</a></td>\n'
             f'          </tr>'
@@ -1028,33 +1087,47 @@ def grade_markets(markets, slug, links):
     return "\n      ".join(out)
 
 
-def jsonld_catalogue(products, grades):
+def jsonld_catalogue(products, grades, origin):
+    """The catalogue as structured data.
+
+    Structured data is published text: a crawler reads it whether or not a
+    visitor can see it. So the price a page withholds must be withheld here
+    too, or the site keeps its list private from customers and publishes it
+    to Google. On `on_request` no `offers` node is emitted at all — an Offer
+    without a price still asserts that the SKU is for sale at some price, and
+    an `availability` of InStock asserts stock nobody has confirmed.
+    """
     rows = sku_rows(products, grades)
-    offers = []
+    items = []
     for r in rows:
-        offers.append({
+        item = {
             "@type": "Product",
             "sku": r["sku"],
             "name": f'Aragonite, {r["grade"]["name"]} grade, {r["pack"]["name"]}',
             "description": f'{r["grade"]["grain_mm"]} ({r["grade"]["mesh"]} mesh) oolitic aragonite, '
                            f'{r["pack"]["name"]}. {r["pack"]["spec"]}.',
             "brand": {"@type": "Brand", "name": "AragoCor"},
-            "offers": {
+            "url": f"{origin}/products.html",
+        }
+        if published():
+            item["offers"] = {
                 "@type": "Offer",
                 "priceCurrency": products["currency"],
                 "price": "{:.2f}".format(r["list"]),
                 "availability": "https://schema.org/InStock",
-                "url": "https://aragonitesand.com/products.html",
-            },
-        })
+                "url": f"{origin}/products.html",
+            }
+        items.append(item)
+    name = ("Aragonite wholesale price list" if published()
+            else "Aragonite wholesale trade catalogue")
     return json.dumps({"@context": "https://schema.org", "@type": "ItemList",
-                       "name": "Aragonite wholesale price list",
+                       "name": name,
                        "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": o}
-                                           for i, o in enumerate(offers)]},
+                                           for i, o in enumerate(items)]},
                       ensure_ascii=False).replace("</", "<\\/")
 
 
-def jsonld_product(g, pack):
+def jsonld_product(g, pack, origin):
     """`pack` is a plain string listing the formats this grade ships in."""
     data = {
         "@context": "https://schema.org",
@@ -1063,7 +1136,7 @@ def jsonld_product(g, pack):
         "description": g["description"],
         "brand": {"@type": "Brand", "name": "AragoCor"},
         "manufacturer": {"@type": "Organization", "name": "AragoCor Minerals LLC", "url": "https://www.aragocorminerals.com/"},
-        "url": f"https://aragonitesand.com/{g['page']}",
+        "url": f"{origin}/{g['page']}",
         "material": "Aragonite (calcium carbonate)",
         "additionalProperty": [
             {"@type": "PropertyValue", "name": "Grain size", "value": g["grain_mm"]},
@@ -1073,6 +1146,163 @@ def jsonld_product(g, pack):
         ],
     }
     return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+
+
+SLUG_RE = re.compile(r"[^a-z0-9]+")
+
+
+def scrollable_tables(html, page):
+    """Make every horizontally scrollable table reachable and named.
+
+    A table wider than a phone scrolls sideways inside `.table-wrap`. That
+    scroll is mouse- and touch-only unless the box is focusable, so a keyboard
+    user could not reach the right-hand columns of the seven-column catalogue
+    at all — and a screen reader reached a scrollable box with no name saying
+    what it held.
+
+    So each wrapper gets `tabindex="0"`, `role="group"`, and a name taken from
+    the caption the table already carries. Doing it here rather than in the
+    templates means a table added later cannot be forgotten: there is no
+    wrapper this does not reach.
+
+    `group` rather than `region` on purpose. A region is a landmark, and this
+    runs on every table, so it would add thirteen landmarks to the landmark
+    menu and bury the four that mean something. It also collided: the pallet
+    table's caption and its enclosing section's heading are both "Pallet
+    configuration", which is two landmarks with one name. A focusable group
+    still announces its name when focus enters it.
+    """
+    seen = set()
+
+    def fix(m):
+        tag, cls = m.group(0), m.group(1)
+        if "tabindex" in tag:                 # already done, or hand-set
+            return tag
+        seg = html[m.end():m.end() + 1200]
+        cap = re.search(r"<caption[^>]*>(.*?)</caption>", seg, re.S)
+        if not cap:                           # unnamed: focusable, but no bare region
+            return tag[:-1] + ' tabindex="0">'
+        inner = cap.group(1)
+        text = html_unescape(re.sub(r"<[^>]+>", "", inner)).strip()
+        cid = re.search(r'<caption[^>]*\sid="([^"]+)"', cap.group(0))
+        if cid:
+            ref = cid.group(1)
+        else:
+            base = SLUG_RE.sub("-", text.lower()).strip("-")[:40] or "table"
+            ref = f"cap-{base}"
+            n = 2
+            while ref in seen:
+                ref, n = f"cap-{base}-{n}", n + 1
+            seen.add(ref)
+            fix.captions.append((cap.group(0), ref))
+        return (tag[:-1] + f' tabindex="0" role="group" aria-labelledby="{esc(ref)}">')
+
+    fix.captions = []
+    out = re.sub(r'<div class="([^"]*\btable-wrap\b[^"]*)"[^>]*>', fix, html)
+    for original, ref in fix.captions:
+        if ' id="' in original:
+            continue
+        replaced = original.replace("<caption", f'<caption id="{esc(ref)}"', 1)
+        if out.count(original) != 1:
+            raise RuntimeError(
+                f"{page}: caption {ref!r} is not unique, so it cannot be referenced")
+        out = out.replace(original, replaced, 1)
+    return out
+
+
+IMPORT_RE = re.compile(r'@import\s+url\(["\']?([^"\')]+)["\']?\)')
+
+
+def asset_version(rel, _seen=None):
+    """A short content hash for a CSS or JS file, covering what it pulls in.
+
+    Assets are served with a long immutable cache lifetime, which is only safe
+    if the URL changes when the bytes do. These filenames are stable
+    (`css/site.css`), so the version rides in a query string the HTML carries;
+    the HTML itself is always revalidated, so a new hash reaches a visitor on
+    their next page load.
+
+    A stylesheet's hash covers its transitive @imports as well as itself, so
+    editing css/ds/patterns/data.css changes the version of the styles.css that
+    imports it. The imported files keep a short cache lifetime of their own
+    (see vercel.json), because they are fetched by the stylesheet rather than
+    named in the HTML and so cannot carry a query string.
+    """
+    seen = _seen if _seen is not None else set()
+    path = (ROOT / rel).resolve()
+    if path in seen or not path.exists():
+        return ""
+    seen.add(path)
+    data = path.read_bytes()
+    h = hashlib.sha256(data)
+    if path.suffix == ".css":
+        for m in IMPORT_RE.finditer(data.decode("utf-8", "replace")):
+            target = (path.parent / m.group(1)).resolve()
+            try:
+                sub = target.relative_to(ROOT)
+            except ValueError:
+                continue                      # outside the tree; not ours to hash
+            h.update(asset_version(sub, seen).encode())
+    return h.hexdigest()[:10]
+
+
+def jsonld_keys(node):
+    """Every key appearing anywhere in a parsed JSON-LD document."""
+    keys = set()
+    if isinstance(node, dict):
+        for k, v in node.items():
+            keys.add(k)
+            keys |= jsonld_keys(v)
+    elif isinstance(node, list):
+        for v in node:
+            keys |= jsonld_keys(v)
+    return keys
+
+
+# How each page is advertised to a crawler. A page absent from here is absent
+# from the sitemap: 404.html is reachable but must never be indexed. Keyed by
+# the built filename, so a page that is hidden (site.json `hidden_pages`) or
+# renamed cannot linger in the sitemap after it stops being built.
+SITEMAP = {
+    "index.html":        ("monthly", "1.0"),
+    "products.html":     ("weekly",  "1.0"),
+    "grade-fine.html":   ("monthly", "0.9"),
+    "grade-medium.html": ("monthly", "0.9"),
+    "grade-coarse.html": ("monthly", "0.9"),
+    "wholesale.html":    ("monthly", "0.9"),
+    "markets.html":      ("monthly", "0.8"),
+    "dealers.html":      ("monthly", "0.7"),
+    "about.html":        ("yearly",  "0.6"),
+}
+
+
+def write_sitemap(origin, written):
+    """Write sitemap.xml and robots.txt for the pages this build produced.
+
+    Both used to be hand-maintained with the domain typed into them, so
+    changing `canonical_origin` in site.json moved every canonical link and
+    left these two pointing at the old host — and the sitemap listed whatever
+    set of pages was current when someone last edited it, regardless of what
+    the build now writes. Generating them removes both kinds of drift: one
+    value decides the origin, and the page list is the build's own output.
+    """
+    urls = []
+    for name in sorted(written, key=lambda n: (-float(SITEMAP.get(n, ("", "0"))[1]), n)):
+        if name not in SITEMAP:
+            continue                          # 404 and anything not for indexing
+        freq, prio = SITEMAP[name]
+        loc = f"{origin}/" if name == "index.html" else f"{origin}/{name}"
+        urls.append(f"  <url><loc>{esc(loc)}</loc><changefreq>{freq}</changefreq>"
+                    f"<priority>{prio}</priority></url>")
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(
+        "User-agent: *\n"
+        "Allow: /\n"
+        f"Sitemap: {origin}/sitemap.xml\n", encoding="utf-8")
+    return len(urls)
 
 
 def launch_gate(site, pages, products, images, company, lit, packaging):
@@ -1103,6 +1333,27 @@ def launch_gate(site, pages, products, images, company, lit, packaging):
         if n:
             blockers.append(f"{name}: {n} placeholder flag(s) rendered to the page")
 
+    # 1b. A reserved photograph slot that reached a visitor.
+    #
+    # An empty slot renders the brief written for the photographer, the shot
+    # spec and the slot's own key: "Screening deck running, wide, from the
+    # operator walkway. Plant lit, no faces." then "21:7 · 2800 px long edge ·
+    # facility-screening". That is the right thing in a draft — it keeps the
+    # shot list in the page rather than in a separate document nobody opens —
+    # and it is art direction printed on a trade page in front of a
+    # distributor. about.html was carrying one at 1200 × 400.
+    #
+    # Only a slot that is actually rendered blocks. An entry in images.json
+    # that no template uses is a shot still to be taken, which is honest and
+    # stays a warning below. Clear this by supplying the photograph or by
+    # taking the slot out of the template — not by deleting the brief.
+    for name, html in sorted(pages.items()):
+        for m in re.finditer(r'<p class="shot__meta">([^<]*)</p>', html):
+            key = m.group(1).split("·")[-1].strip() or "unknown"
+            blockers.append(
+                f"{name}: the reserved slot for {key} is printing its "
+                f"photographer's brief to the page")
+
     # 2. Figures that are not the company's own. A list that is not published
     # at all cannot be wrong, so the check only bites when one is.
     if published():
@@ -1116,10 +1367,70 @@ def launch_gate(site, pages, products, images, company, lit, packaging):
             body = re.sub(r"<!--.*?-->", "", html, flags=re.S)
             for m in set(re.findall(r"\$[0-9][0-9,.]*|[0-9]{1,2}% off", body)):
                 leaks.append(f"{name}: {m}")
+        # A currency sign is how a price looks to a reader, not how it looks to
+        # a crawler. Structured data carries the figure bare — "price": "14.00"
+        # — so the check above passed an eleven-SKU price list straight into
+        # products.html for anything that reads JSON-LD. Check the machine-
+        # readable copy on its own terms: the offer keys that assert a price or
+        # stock at all, and then the actual list figures, in any notation.
+        for name, html in sorted(pages.items()):
+            for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>',
+                                    html, re.S):
+                try:
+                    doc = json.loads(block)
+                except ValueError:
+                    blockers.append(f"{name}: a JSON-LD block is not valid JSON")
+                    continue
+                for key in sorted(jsonld_keys(doc) & {
+                        "offers", "price", "lowPrice", "highPrice",
+                        "priceSpecification", "availability"}):
+                    leaks.append(f"{name}: JSON-LD {key}")
+        # Only the two-decimal notations. A whole-dollar rendering of 13.50 is
+        # "14", which matches "20 lb bag" and every mesh number on the page;
+        # and whole-dollar figures only ever render behind a "$", which the
+        # check above already catches.
+        figures = set()
+        for sku in products["skus"]:
+            for n in (sku.get("list"), sku.get("suggested_shelf")):
+                if n is None:
+                    continue
+                figures.update({"{:.2f}".format(n), "{:,.2f}".format(n)})
+        for name, html in sorted(pages.items()):
+            body = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+            for f in figures:
+                if re.search(rf"(?<![0-9.,]){re.escape(f)}(?![0-9])", body):
+                    leaks.append(f"{name}: list figure {f}")
         if leaks:
             blockers.append(
                 "pricing_mode is on_request but a figure still reaches the page: "
-                + ", ".join(sorted(leaks)[:6]))
+                + ", ".join(sorted(set(leaks))[:8]))
+
+    # 2b. Links that land nowhere.
+    #
+    # Four shipped: products.html#tiers from the footer of every page,
+    # index.html#grades, index.html#lot and index.html#quality. A fragment is
+    # the one kind of broken link a browser hides — it silently scrolls
+    # nowhere instead of showing a 404 — so nothing catches it by hand. Both
+    # halves are checked here against the rendered pages and the files on
+    # disk, which is where the truth is.
+    ids = {n: set(re.findall(r'\sid="([^"]+)"', h)) for n, h in pages.items()}
+    dead = []
+    for name, html in sorted(pages.items()):
+        body = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+        for href in sorted(set(re.findall(r'href="([^"]+)"', body))):
+            if re.match(r"(?:[a-z][a-z0-9+.-]*:|//|#$)", href):
+                continue                      # external, mailto/tel, or bare "#"
+            target, _, frag = href.partition("#")
+            target = target.partition("?")[0]     # drop the ?v= asset version
+            if target and target not in pages and not (ROOT / target).exists():
+                dead.append(f"{name}: {href} (no such file)")
+                continue
+            page = target or name
+            if frag and page in ids and frag not in ids[page]:
+                dead.append(f"{name}: {href} (no #{frag} on {page})")
+    if dead:
+        blockers.append("link lands nowhere: " + ", ".join(dead[:8])
+                        + (f" … and {len(dead) - 8} more" if len(dead) > 8 else ""))
 
     # 3. Demonstration data presented as a record.
     lookup = [n for n, h in sorted(pages.items())
@@ -1171,6 +1482,15 @@ def launch_gate(site, pages, products, images, company, lit, packaging):
     unconf = [c["name"] for c in company["compliance"] if c["status"] != "held"]
     if unconf:
         warnings.append(f"{len(unconf)} compliance item(s) unconfirmed: {', '.join(unconf)}")
+    # A claim can be held and still be stated wrongly. `verify` carries what a
+    # person has to check against the certifying body before the claim is
+    # published — a registration number, a scope, a permitted use of a mark.
+    # It is a warning rather than a blocker because the claim is real; what is
+    # unverified is how this site describes it. Clearing the note is a human
+    # signing off, so it appears on every build until someone does.
+    for c in company["compliance"]:
+        if c.get("verify"):
+            warnings.append(f'{c["name"]}: needs sign-off before launch — {c["verify"]}')
     return blockers, warnings
 
 
@@ -1189,6 +1509,8 @@ def build():
     PRICING_MODE = products.get("pricing_mode", "published")
     grades = grades_doc["grades"]
     check_prices(products, grades)
+    retail_pallet_lb, trade_pallet_lb = check_pallets(products, pack)
+    inquiry_endpoint = pack.get("dealer_inquiry_endpoint") or ""
     tones = {"fine": "1", "medium": "2", "coarse": "3"}
 
     common = {
@@ -1197,17 +1519,32 @@ def build():
         # different domain than it declares - which keeps it out of the index -
         # is a one-line fix rather than a search and replace.
         "origin": site["canonical_origin"].rstrip("/"),
+        # Cache-busting versions for the assets the HTML names. See
+        # asset_version() and the Cache-Control rules in vercel.json.
+        "v_css_ds": asset_version("css/ds/styles.css"),
+        "v_css_tokens": asset_version("css/tokens.css"),
+        "v_css_site": asset_version("css/site.css"),
+        "v_js_site": asset_version("js/site.js"),
         "retail_bag_lb": pack["retail_bag_lb"],
         "trade_bag_lb": pack["trade_bag_lb"],
         "retail_bags_per_pallet": pack["retail_bags_per_pallet"],
         "trade_bags_per_pallet": pack["trade_bags_per_pallet"],
-        "pallet_net_lb": f"{pack['pallet_net_lb']:,}",
+        # Derived, not stored, and derived once per format. A single stored
+        # figure reported the 50 lb trade pallet at the 20 lb retail pallet's
+        # 1,200 lb; 40 × 50 lb is 2,000 lb. check_pallets() below holds these
+        # against products.json, which carries the same weights a second time.
+        "retail_pallet_net_lb": f"{retail_pallet_lb:,}",
+        "trade_pallet_net_lb": f"{trade_pallet_lb:,}",
+        "pallet_net_summary": (f"{retail_pallet_lb:,} lb for {pack['retail_bag_lb']} lb bags, "
+                               f"{trade_pallet_lb:,} lb for {pack['trade_bag_lb']} lb bags"),
         "pallet_footprint": pack["pallet_footprint"],
         "dealer_email": pack["dealer_contact_email"],
         # The form's no-JavaScript fallback. Posting to "#" reloaded the page
         # and lost everything typed; a mailto action at least hands the visitor
         # their own words back.
         "dealer_mailto_action": "mailto:" + pack["dealer_contact_email"],
+        "inquiry_endpoint_attr_html": (f' data-endpoint="{esc(inquiry_endpoint)}"'
+                                       if inquiry_endpoint else ""),
         "dealer_phone": pack["dealer_contact_phone"],
         "dealer_phone_href": "+" + re.sub(r"\D", "", pack["dealer_contact_phone"]),
         "opening_minimum": pack["opening_order"]["minimum"],
@@ -1239,12 +1576,54 @@ def build():
         "tier2_label": products["tiers"][1]["label"],
         # Only meaningful with published prices; kept so a published build
         # can still use it, blank otherwise so it cannot leak a schedule.
-        "price_heading": "Price list" if products.get("pricing_mode", "published") == "published" else "Trade catalogue",
+        "price_heading": "Price list" if published() else "Trade catalogue",
         "price_lead": ("Per selling unit at each volume tier. Tiers count total pallets on the order."
-                       if products.get("pricing_mode", "published") == "published"
+                       if published()
                        else "Every SKU with its pack and pallet quantity. Trade pricing is issued on request, against a named account and a delivery point."),
-        "price_note": (products["price_note"] if products.get("pricing_mode", "published") == "published"
+        "price_note": (products["price_note"] if published()
                        else "Volume breaks apply across grades and formats on one order. Bulk is quoted by the ton on a 24 ton load."),
+        # Every visible string that promises a published figure. A page that
+        # says "price list" while every cell reads "On request" reads as a
+        # list the visitor was refused, so the wording follows the mode
+        # rather than the intention. One place decides it for all seven pages.
+        "catalogue_nav": "Products and price list" if published() else "Products and trade catalogue",
+        "catalogue_cta": "Price list" if published() else "Trade catalogue",
+        "catalogue_h1": "Products and price list" if published() else "Products and trade catalogue",
+        "catalogue_lead": (
+            "List price per selling unit, FOB Stockton, California, before freight. "
+            "Volume tiers apply across grades and formats on one order."
+            if published() else
+            "Every grade and pack format we ship, FOB Stockton, California. "
+            "Volume breaks apply across grades and formats on one order; "
+            "trade pricing is issued on request."),
+        # The quote builder is only built with published prices (see
+        # estimate_section above), so the markup that feeds it and the copy
+        # that promises it follow the same switch. Left in, they advertised a
+        # builder that is not on the products page.
+        "quote_context_html": (
+            f"""        <div class="quote-context" id="quote-context" data-catalogue='{catalogue_attr(products, grades)}' hidden></div>\n"""
+            if published() else ""),
+        "quote_field_html": (
+            '              <div class="field field--full" hidden><label for="df-quote">Quote you built</label>'
+            '<input class="fld" id="df-quote" name="quote" type="text" readonly></div>\n'
+            if published() else ""),
+        "inquiry_form_note": (
+            "The form on the right reaches the same people and carries a quote built on the products page."
+            if published() else
+            "The form on the right reaches the same people."),
+        # It composes a message in the visitor's mail client; it does not send
+        # one. "Send inquiry" over a mailto: handoff is a promise the page
+        # cannot keep. With an endpoint configured it really does send.
+        "inquiry_submit_label": "Send inquiry" if inquiry_endpoint else "Compose email",
+        "catalogue_table_caption": "Formats and list pricing" if published() else "Formats and pack specifications",
+        "catalogue_tier_link": "Full price list, every tier" if published() else "Full catalogue, every pack",
+        "catalogue_tier_link_short": "Every tier, in full" if published() else "Every pack and tier, in full",
+        "grade_price_lead": (
+            f'List price per selling unit, FOB Stockton, before freight. '
+            f'Volume tiers start at {products["tiers"][1]["label"]}.'
+            if published() else
+            f'Pack formats and pallet quantities, FOB Stockton, before freight. '
+            f'Trade pricing on request; volume breaks start at {products["tiers"][1]["label"]}.'),
         "tier2_pct": ("{:.0f}".format(products["tiers"][1]["discount"] * 100)
                       if published() else ""),
         "truckload_pallets": products["truckload_pallets"],
@@ -1317,6 +1696,14 @@ def build():
                                     .replace("{ATTRS}", common["ac_quote_attrs_html"])
                                     .replace("{HREF}", esc(common["ac_pricing"]))
                                     .replace("{ICON}", EXT_ICON))
+    # "On request per lb · On request per ton" is a row that costs a line and
+    # says nothing; with a real list it is the cheapest useful fact on the page.
+    common["products_pricing_row_html"] = (
+        '        <div class="facts__row"><dt>From</dt><dd>{} per lb · {} per ton</dd></div>\n'.format(
+            money(min(r["per_lb"] for r in _rows)),
+            money(min(r["per_ton"] for r in _rows), cents=False))
+        if published() else
+        '        <div class="facts__row"><dt>Pricing</dt><dd>On request, per selling unit</dd></div>\n')
     common["from_per_lb"] = money(min(r["per_lb"] for r in _rows))
     common["from_per_ton"] = money(min(r["per_ton"] for r in _rows), cents=False)
     common["from_per_bag"] = money(min(r["list"] for r in _rows if r["pack"]["unit"] == "bag"))
@@ -1337,7 +1724,8 @@ def build():
         ctx["others_html"] = other_cards(grades, g["slug"])
         ctx["jsonld_html"] = jsonld_product(
             g, ", ".join(r["pack"]["name"] for r in sku_rows(products, grades)
-                         if r["grade"]["slug"] == g["slug"]))
+                         if r["grade"]["slug"] == g["slug"]),
+            common["origin"])
         ctx["sku_block_html"] = sku_block(products, grades, g["slug"], links)
         ctx["grade_markets_html"] = grade_markets(markets, g["slug"], links)
         ctx["shot_grain_html"] = shot(images, "grain-" + g["slug"],
@@ -1354,8 +1742,14 @@ def build():
             f'pricing-{g["slug"]}')
         _mine = [r for r in sku_rows(products, grades) if r["grade"]["slug"] == g["slug"]]
         ctx["grade_from_price"] = money(min(r["per_lb"] for r in _mine))
+        ctx["grade_price_line_html"] = (
+            f'<p class="price" style="margin-top:20px">{ctx["grade_from_price"]}'
+            f'<small> per lb, from</small></p>'
+            if published() else
+            '<p class="price" style="margin-top:20px">Trade pricing'
+            '<small> on request</small></p>')
         out = ROOT / g["page"]
-        html = render(tpl, ctx)
+        html = scrollable_tables(render(tpl, ctx), out.name)
         out.write_text(html, encoding="utf-8")
         rendered[out.name] = html
         written.append(out.name)
@@ -1374,8 +1768,16 @@ def build():
         body = src[m.end():]
         ctx = dict(common)
         ctx.update(meta)
+        # A page whose title or description promises a published price needs a
+        # second wording for the mode that publishes none. Both live in the
+        # page's own front matter, next to each other, so the pair cannot
+        # drift: `title_on_request` wins whenever prices are withheld.
+        if not published():
+            for key in ("title", "description"):
+                if f"{key}_on_request" in meta:
+                    ctx[key] = meta[f"{key}_on_request"]
         ctx.setdefault("canonical", "" if name == "index" else f"{name}.html")
-        ctx["jsonld_html"] = jsonld_catalogue(products, grades)
+        ctx["jsonld_html"] = jsonld_catalogue(products, grades, common["origin"])
         ctx["grade_cards_html"] = grade_cards(grades)
         ctx["home_grains_html"] = home_grains(grades)
         ctx["calc_grade_options_html"] = calc_grade_options(grades)
@@ -1384,10 +1786,14 @@ def build():
             for k in ("grain_mm", "mesh", "bulk_density_lb_ft3", "caco3_pct", "primary_use", "page", "name"):
                 ctx[f"{g['slug']}_{k}"] = g[k]
         out = ROOT / f"{name}.html"
-        html = render(body, ctx)
+        html = scrollable_tables(render(body, ctx), out.name)
         out.write_text(html, encoding="utf-8")
         rendered[out.name] = html
         written.append(out.name)
+
+    n_urls = write_sitemap(common["origin"], written)
+    written.append(f"sitemap.xml ({n_urls} urls)")
+    written.append("robots.txt")
 
     blockers, warnings = launch_gate(site, rendered, products, images, company, lit, pack)
     if site["status"] == "live" and blockers:

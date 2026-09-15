@@ -3,17 +3,22 @@
     "Pack and pallet configuration.",
     "",
     "Only figures that are known are here. Pallet net weight is bags per pallet",
-    "times bag weight, so it is arithmetic. Pallet height, pallet gross weight",
-    "and case pack were guesses and have been removed rather than guessed again:",
-    "an unmeasured figure on a trade page is read as a measured one. Add them",
-    "back when someone has weighed and measured a built pallet, and add their",
-    "rows back to templates/wholesale.html with them."
+    "times bag weight, so it is arithmetic - and so it is NOT stored here. It",
+    "was, as a single `pallet_net_lb`, and one figure cannot describe two pack",
+    "formats: the trade column on the ordering page reported a 50 lb bag pallet",
+    "as 1,200 lb when 40 x 50 lb is 2,000 lb. The build derives it per format",
+    "now, and cross-checks the result against products.json packs[].pallet_lb.",
+    "",
+    "Pallet height, pallet gross weight and case pack were guesses and have",
+    "been removed rather than guessed again: an unmeasured figure on a trade",
+    "page is read as a measured one. Add them back when someone has weighed and",
+    "measured a built pallet, and add their rows back to",
+    "templates/wholesale.html with them."
   ],
   "retail_bag_lb": 20,
   "trade_bag_lb": 50,
   "retail_bags_per_pallet": 60,
   "trade_bags_per_pallet": 40,
-  "pallet_net_lb": 1200,
   "pallet_footprint": "48 × 40 in GMA pallet",
   "opening_order": {
     "minimum": "One pallet",
@@ -24,5 +29,16 @@
     "freight": "Quoted per order, from Stockton, California."
   },
   "dealer_contact_email": "info@aragocorminerals.com",
+  "_dealer_inquiry_endpoint": [
+    "A URL that accepts a JSON POST of the dealer inquiry. Null means there is",
+    "none, and the form composes an email in the visitor's mail client instead:",
+    "the submit button then reads 'Compose email' and the confirmation says the",
+    "message is drafted rather than sent, because nothing was captured.",
+    "",
+    "Set this to a real endpoint and the same form posts to it, the button reads",
+    "'Send inquiry' and the confirmation says the inquiry is on its way. That is",
+    "the only change needed; the build wires the rest."
+  ],
+  "dealer_inquiry_endpoint": null,
   "dealer_contact_phone": "+1 (209) 487-0110"
 }

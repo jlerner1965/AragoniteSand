@@ -4,28 +4,45 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found | AragoCor Aragonite</title>
-<meta name="description" content="That page is not here. Find the three grades, the lot lookup, the depth calculator and the wholesale page from the links on this page.">
+<meta name="description" content="That page is not here. Find the three grades, the depth calculator, the trade catalogue and the ordering page from the links below on this page.">
 <link rel="canonical" href="https://aragonitesand.com/404.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AragoCor Aragonite">
 <meta property="og:image" content="https://aragonitesand.com/assets/mark-512.png">
 <meta property="og:title" content="Page not found | AragoCor Aragonite">
-<meta property="og:description" content="That page is not here. Find the three grades, the lot lookup, the depth calculator and the wholesale page from the links on this page.">
+<meta property="og:description" content="That page is not here. Find the three grades, the depth calculator, the trade catalogue and the ordering page from the links below on this page.">
 <meta property="og:url" content="https://aragonitesand.com/404.html">
+<meta property="og:image:alt" content="The AragoCor aragonite mark">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_US">
+<!-- The share image is a 512x512 mark, so `summary` is the right card: the
+     large-image card expects roughly 2:1 and crops a square badly. Switch to
+     summary_large_image only alongside a wide image made for it. -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Page not found | AragoCor Aragonite">
+<meta name="twitter:description" content="That page is not here. Find the three grades, the depth calculator, the trade catalogue and the ordering page from the links below on this page.">
+<meta name="twitter:image" content="https://aragonitesand.com/assets/mark-512.png">
+<meta name="twitter:image:alt" content="The AragoCor aragonite mark">
 <meta name="theme-color" content="#0E3540">
 <link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/mark-180.png">
-<link rel="stylesheet" href="css/ds/styles.css">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/ds/styles.css?v=253c2412ee">
+<link rel="stylesheet" href="css/tokens.css?v=f8a6e95f3a">
+<link rel="stylesheet" href="css/site.css?v=1219d0921f">
 
 <meta name="robots" content="noindex">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="ac-util">
+<!-- A landmark, not a bare div: this bar carries the phone number and the
+     sample link, and content outside every landmark is skipped by anyone
+     navigating by landmark. `aside` keeps the class selectors and the
+     block layout exactly as they were; the sticky .ac-nav below is left
+     unnested so its containing block does not change. -->
+<aside class="ac-util" aria-label="Contact and trade links">
   <div class="ac-util__inner">
     <div class="ac-util__group">
       <a href="tel:+12094870110"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1.5a11 11 0 0 0 5 5L16 12l5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5Z"/></svg><span class="ac-util__strong">+1 (209) 487-0110</span></a>
@@ -36,7 +53,7 @@
       <a class="ac-util__hide" href="https://www.aragocorminerals.com/contact?interest=sample&amp;document=Aragonite%20sand%20sample%2C%20all%20three%20grades&amp;utm_source=aragonitesand.com&amp;utm_medium=referral&amp;utm_campaign=trade&amp;utm_content=sample">Request a sample <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
-</div>
+</aside>
 
 <header class="ac-nav">
   <div class="ac-nav__inner">
@@ -125,11 +142,11 @@
       <div class="ac-foot__label">Products</div>
       <ul class="ac-foot__list">
         <li><a href="index.html#applications">Applications</a></li>
-        <li><a href="products.html">Products and price list</a></li>
+        <li><a href="products.html">Products and trade catalogue</a></li>
         <li><a href="grade-fine.html">Fine grade, 0.5–1.0 mm</a></li>
         <li><a href="grade-medium.html">Medium grade, 1.0–2.0 mm</a></li>
         <li><a href="grade-coarse.html">Coarse grade, 2.0–5.0 mm</a></li>
-        <li><a href="products.html#tiers">Volume pricing</a></li>
+        <li><a href="products.html#price-list">Volume pricing</a></li>
         <li><a href="products.html#formats">Pack formats</a></li>
       </ul>
     </div>
@@ -161,7 +178,7 @@
     <nav aria-label="Legal"><a href="https://www.aragocorminerals.com/privacy">Privacy policy</a><a href="https://www.aragocorminerals.com/terms">Terms of use</a></nav>
   </div>
 </footer>
-<script src="js/site.js" defer></script>
+<script src="js/site.js?v=9ec447e51e" defer></script>
 
 </body>
 </html>

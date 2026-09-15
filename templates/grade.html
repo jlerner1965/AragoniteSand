@@ -15,7 +15,7 @@
     <nav class="crumb" aria-label="Breadcrumb">
       <ol>
         <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#grades">Grades</a></li>
+        <li><a href="index.html#products">Grades</a></li>
         <li aria-current="page">{{name}}</li>
       </ol>
     </nav>
@@ -25,7 +25,7 @@
         <h1 class="display-1" id="grade-title">{{h1}}</h1>
         <div class="hero__mm num">{{grain_mm}} &nbsp;·&nbsp; {{mesh}} mesh &nbsp;·&nbsp; {{bulk_density_lb_ft3}} lb/ft³</div>
         <p class="lead">{{tagline}}</p>
-        <p class="price" style="margin-top:20px">{{grade_from_price}}<small> per lb, from</small></p>
+        {{grade_price_line_html}}
         <div class="actions">
           <a class="btn btn-ink" href="#buy">Pricing for this grade</a>
           <a class="btn btn-inkline" href="{{ac_grade_sample}}">Request a sample {{ext_icon_html}}</a>
@@ -42,16 +42,16 @@
       <div>
         <p class="eyebrow">Pricing</p>
         <h2 class="display-3" id="buy-title">Formats and pricing</h2>
-        <p class="lead">List price per selling unit, FOB Stockton, before freight. Volume tiers start at {{tier2_label}}.</p>
+        <p class="lead">{{grade_price_lead}}</p>
       </div>
-      <a class="tide-link" href="products.html#price-list">Full price list, every tier <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="tide-link" href="products.html#price-list">{{catalogue_tier_link}} <span class="arrow-move"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
 
     {{price_banner_html}}
 
     <div class="data-wrap table-wrap">
       <table class="data">
-        <caption>Formats and list pricing, {{name_lower}} grade</caption>
+        <caption>{{catalogue_table_caption}}, {{name_lower}} grade</caption>
         <thead><tr><th scope="col">SKU</th><th scope="col">Format</th><th scope="col">List</th><th scope="col">Detail</th><th scope="col">Enquiry</th></tr></thead>
         <tbody>
           {{sku_block_html}}

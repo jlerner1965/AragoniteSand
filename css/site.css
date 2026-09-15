@@ -498,6 +498,18 @@ sub, sup { font-size: max(0.83em, 10px); }
 .spec--full caption { text-align: left; padding: 16px 20px; border-bottom: var(--rule); font-family: var(--font-ui); font-size: 17px; font-weight: 600; }
 .spec--full td { white-space: normal; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* `.data-wrap` below sets `overflow: hidden` to clip its own rounded corners.
+   Both selectors are one class, so on `class="data-wrap table-wrap"` the later
+   rule won and the shorthand reset overflow-x to hidden: the right-hand
+   columns of the seven-column catalogue and comparison tables were cut off at
+   phone widths with no way to scroll to them. Two classes outrank one, so this
+   restores the scroll on exactly the elements that ask for both.
+   Keep it after `.table-wrap` and it holds regardless of `.data-wrap`'s order. */
+.data-wrap.table-wrap { overflow-x: auto; overflow-y: hidden; }
+/* A scrollable region has to be reachable without a trackpad, so the markup
+   carries tabindex="0"; give it a visible focus ring like every other focus
+   target. */
+.table-wrap:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* ---------- Sieve chart (EXTENDED) ---------- */
 .sieve { background: var(--paper); border: var(--rule); border-radius: var(--radius); padding: 24px; }

@@ -69,7 +69,8 @@
     {
       "name": "OMRI Listed®, organic production",
       "status": "held",
-      "detail": "Product listing avw-23215. OMRI listing reviews the input, not the buyer's operation: confirm acceptance with your own certifier before use."
+      "detail": "Product listing avw-23215. OMRI listing reviews the input, not the buyer's operation: confirm acceptance with your own certifier before use.",
+      "verify": "Confirm against OMRI's own lists that avw-23215 is the crop/organic-production listing for this product and not a livestock listing (a neighbouring avw-23214 appears in OMRI's crop materials), then state the listed product name, category and scope exactly as OMRI has them, and confirm permitted use of the OMRI Listed mark on the 50 lb bag artwork."
     },
     {
       "name": "Feed-grade qualification",
@@ -94,7 +95,7 @@
     },
     {
       "q": "Do you sell direct to end users?",
-      "a": "No. This is a trade price list. Retail and farm customers are referred to a stocking distributor."
+      "a": "No. This is a trade catalogue. Retail and farm customers are referred to a stocking distributor."
     },
     {
       "q": "Can I mix grades and pack sizes on one pallet?",
