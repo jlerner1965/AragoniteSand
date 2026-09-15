@@ -37,7 +37,12 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="ac-util">
+<!-- A landmark, not a bare div: this bar carries the phone number and the
+     sample link, and content outside every landmark is skipped by anyone
+     navigating by landmark. `aside` keeps the class selectors and the
+     block layout exactly as they were; the sticky .ac-nav below is left
+     unnested so its containing block does not change. -->
+<aside class="ac-util" aria-label="Contact and trade links">
   <div class="ac-util__inner">
     <div class="ac-util__group">
       <a href="tel:+12094870110"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1.5a11 11 0 0 0 5 5L16 12l5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5Z"/></svg><span class="ac-util__strong">+1 (209) 487-0110</span></a>
@@ -48,7 +53,7 @@
       <a class="ac-util__hide" href="https://www.aragocorminerals.com/contact?interest=sample&amp;document=Aragonite%20sand%20sample%2C%20all%20three%20grades&amp;utm_source=aragonitesand.com&amp;utm_medium=referral&amp;utm_campaign=trade&amp;utm_content=sample">Request a sample <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
-</div>
+</aside>
 
 <header class="ac-nav">
   <div class="ac-nav__inner">

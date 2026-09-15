@@ -38,7 +38,12 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="ac-util">
+<!-- A landmark, not a bare div: this bar carries the phone number and the
+     sample link, and content outside every landmark is skipped by anyone
+     navigating by landmark. `aside` keeps the class selectors and the
+     block layout exactly as they were; the sticky .ac-nav below is left
+     unnested so its containing block does not change. -->
+<aside class="ac-util" aria-label="Contact and trade links">
   <div class="ac-util__inner">
     <div class="ac-util__group">
       <a href="tel:+12094870110"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1.5a11 11 0 0 0 5 5L16 12l5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5Z"/></svg><span class="ac-util__strong">+1 (209) 487-0110</span></a>
@@ -49,7 +54,7 @@
       <a class="ac-util__hide" href="https://www.aragocorminerals.com/contact?interest=sample&amp;document=Aragonite%20sand%20sample%2C%20all%20three%20grades&amp;utm_source=aragonitesand.com&amp;utm_medium=referral&amp;utm_campaign=trade&amp;utm_content=sample">Request a sample <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
-</div>
+</aside>
 
 <header class="ac-nav">
   <div class="ac-nav__inner">
@@ -261,7 +266,7 @@
       <h2 class="display-2" id="fmt-title">Pack formats</h2>
       <p class="lead">Not every grade ships in every format.</p>
     </div>
-    <div class="data-wrap table-wrap" tabindex="0" role="region" aria-labelledby="cap-pack-specifications">
+    <div class="data-wrap table-wrap" tabindex="0" role="group" aria-labelledby="cap-pack-specifications">
       <table class="data">
         <caption id="cap-pack-specifications">Pack specifications</caption>
         <thead><tr><th scope="col">Format</th><th scope="col">Specification</th><th scope="col">Palletisation</th></tr></thead>
@@ -301,7 +306,7 @@
       <p class="lead">Every SKU with its pack and pallet quantity. Trade pricing is issued on request, against a named account and a delivery point.</p>
     </div>
     <p class="notice" role="note"><strong>Pricing on request.</strong> Trade pricing is issued against a named account and a delivery point, so it is not published here. Ask and it comes back the same business day.</p>
-    <div class="data-wrap table-wrap" tabindex="0" role="region" aria-labelledby="cap-trade-catalogue-usd-fob-stockton-califor"><table class="price-list">
+    <div class="data-wrap table-wrap" tabindex="0" role="group" aria-labelledby="cap-trade-catalogue-usd-fob-stockton-califor"><table class="price-list">
         <caption id="cap-trade-catalogue-usd-fob-stockton-califor">Trade catalogue · USD · FOB Stockton, California · pricing issued on request</caption>
         <thead><tr><th scope="col">SKU</th><th scope="col">Grade</th><th scope="col">Format</th><th scope="col">Unit</th><th scope="col">Per pallet</th><th scope="col">Price</th><th scope="col">Sample</th></tr></thead>
         <tbody>
@@ -416,7 +421,7 @@
       <h2 class="display-2" id="grad-title">Published gradation</h2>
       <p class="lead">AragoCor's own screen size specification, as printed on the pack. It is the analysis of the <strong>natural, unscreened grade</strong> — the material before it is cut into the three grades on this page — so read it as the source material, not as any one grade.</p>
     </div>
-    <div class="data-wrap table-wrap" style="max-width:520px" tabindex="0" role="region" aria-labelledby="cap-natural-grade-percent-retained">
+    <div class="data-wrap table-wrap" style="max-width:520px" tabindex="0" role="group" aria-labelledby="cap-natural-grade-percent-retained">
       <table class="data">
         <caption id="cap-natural-grade-percent-retained">Natural grade · percent retained</caption>
         <thead><tr><th scope="col">U.S. standard mesh</th><th scope="col">Percent retained</th></tr></thead>
@@ -443,7 +448,7 @@
       <h2 class="display-2" id="spec-title">Grade comparison</h2>
       <p class="lead">Typical values. The certificate of analysis issued for the lot supplied governs.</p>
     </div>
-    <div class="data-wrap table-wrap" tabindex="0" role="region" aria-labelledby="cap-typical-values-by-grade">
+    <div class="data-wrap table-wrap" tabindex="0" role="group" aria-labelledby="cap-typical-values-by-grade">
       <table class="data">
         <caption id="cap-typical-values-by-grade">Typical values by grade</caption>
         <thead>

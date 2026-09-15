@@ -252,14 +252,15 @@ item and the page it is on.
 The gate reads the rendered HTML, not the intent, so it cannot be satisfied by
 meaning well. It blocks on author notes reaching the page, placeholder flags, a
 price list that is not AragoCor's own, a price reaching a page while
-`pricing_mode` withholds it, an internal link that lands nowhere, a lot lookup
-serving demonstration records, an inquiry form with no endpoint, and packaging
-renders of a pack that has not been printed. It warns, without blocking, on
+`pricing_mode` withholds it, an internal link that lands nowhere, a reserved
+photograph slot printing its brief to the page, a lot lookup serving
+demonstration records, an inquiry form with no endpoint, and packaging renders
+of a pack that has not been printed. It warns, without blocking, on
 drawings standing in for photographs, empty photographic briefs, literature
 that does not exist yet, unconfirmed compliance items, and compliance claims
 carrying a `verify` note that still needs a person's sign-off.
 
-Two of those checks exist because the thing they catch shipped:
+Three of those checks exist because the thing they catch shipped:
 
 - **Prices.** The leak check matched `$`-prefixed figures, which is how a price
   looks to a reader and not how it looks to a crawler. The `ItemList` JSON-LD
@@ -274,6 +275,14 @@ Two of those checks exist because the thing they catch shipped:
   it scrolls nowhere instead of showing a 404, so nothing catches it by reading
   the page. Both halves of every internal href are now checked against the
   rendered pages and the files on disk.
+- **Reserved photograph slots.** An image slot with no file renders the brief
+  written for the photographer, the shot spec and the slot's own key. That is
+  the right thing in a draft and art direction on a trade page in front of a
+  distributor: `about.html` carried "Plant lit, no faces" and "21:7 · 2800 px
+  long edge · facility-screening" as a 1200 × 400 banner. Only a slot that is
+  actually rendered blocks; an entry no template uses is a shot still to be
+  taken, and stays a warning. Clear it with the photograph or by taking the
+  slot out of the template — not by deleting the brief.
 
 `tools/build.py` also refuses to build when `data/packaging.json` and
 `data/products.json` disagree about a pallet. They each carry the bag weight

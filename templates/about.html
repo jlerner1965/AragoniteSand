@@ -26,9 +26,19 @@
   </div>
 </section>
 
-<div class="wrap" style="padding-bottom:36px">
-  {{shot_facility_html}}
-</div>
+<!-- The page-width screening-deck banner is out until the photograph exists.
+     With no image, shot() reserves the slot and prints the brief written for
+     the photographer plus the slot key - "Plant lit, no faces", "21:7 - 2800 px
+     long edge - facility-screening" - which is art direction on a trade page at
+     1200 x 400. The slot stays in data/images.json so the shot is still on the
+     list and the build keeps saying it is outstanding. To restore it, put the
+     photograph in assets/photos/, set `file` on the facility-screening entry,
+     and bring back:
+
+       <div class="wrap" style="padding-bottom:36px">
+         { {shot_facility_html} }        <- without the spaces
+       </div>
+-->
 
 <section class="section" aria-labelledby="ownership-title">
   <div class="wrap">

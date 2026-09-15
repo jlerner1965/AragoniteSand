@@ -1160,10 +1160,17 @@ def scrollable_tables(html, page):
     at all — and a screen reader reached a scrollable box with no name saying
     what it held.
 
-    So each wrapper gets `tabindex="0"`, `role="region"`, and a name taken from
+    So each wrapper gets `tabindex="0"`, `role="group"`, and a name taken from
     the caption the table already carries. Doing it here rather than in the
     templates means a table added later cannot be forgotten: there is no
     wrapper this does not reach.
+
+    `group` rather than `region` on purpose. A region is a landmark, and this
+    runs on every table, so it would add thirteen landmarks to the landmark
+    menu and bury the four that mean something. It also collided: the pallet
+    table's caption and its enclosing section's heading are both "Pallet
+    configuration", which is two landmarks with one name. A focusable group
+    still announces its name when focus enters it.
     """
     seen = set()
 
@@ -1188,7 +1195,7 @@ def scrollable_tables(html, page):
                 ref, n = f"cap-{base}-{n}", n + 1
             seen.add(ref)
             fix.captions.append((cap.group(0), ref))
-        return (tag[:-1] + f' tabindex="0" role="region" aria-labelledby="{esc(ref)}">')
+        return (tag[:-1] + f' tabindex="0" role="group" aria-labelledby="{esc(ref)}">')
 
     fix.captions = []
     out = re.sub(r'<div class="([^"]*\btable-wrap\b[^"]*)"[^>]*>', fix, html)
@@ -1325,6 +1332,27 @@ def launch_gate(site, pages, products, images, company, lit, packaging):
         n = len(re.findall(r'data-placeholder', body))
         if n:
             blockers.append(f"{name}: {n} placeholder flag(s) rendered to the page")
+
+    # 1b. A reserved photograph slot that reached a visitor.
+    #
+    # An empty slot renders the brief written for the photographer, the shot
+    # spec and the slot's own key: "Screening deck running, wide, from the
+    # operator walkway. Plant lit, no faces." then "21:7 · 2800 px long edge ·
+    # facility-screening". That is the right thing in a draft — it keeps the
+    # shot list in the page rather than in a separate document nobody opens —
+    # and it is art direction printed on a trade page in front of a
+    # distributor. about.html was carrying one at 1200 × 400.
+    #
+    # Only a slot that is actually rendered blocks. An entry in images.json
+    # that no template uses is a shot still to be taken, which is honest and
+    # stays a warning below. Clear this by supplying the photograph or by
+    # taking the slot out of the template — not by deleting the brief.
+    for name, html in sorted(pages.items()):
+        for m in re.finditer(r'<p class="shot__meta">([^<]*)</p>', html):
+            key = m.group(1).split("·")[-1].strip() or "unknown"
+            blockers.append(
+                f"{name}: the reserved slot for {key} is printing its "
+                f"photographer's brief to the page")
 
     # 2. Figures that are not the company's own. A list that is not published
     # at all cannot be wrong, so the check only bites when one is.
