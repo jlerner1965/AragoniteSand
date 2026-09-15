@@ -117,14 +117,26 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ from, to, reply_to: lead.email, subject, html, text }),
-    }).then(async r => { if (!r.ok) throw new Error(`Resend ${r.status}: ${await r.text()}`); }));
+    }).then(async r => {
+      if (!r.ok) {
+        const e = new Error(`Resend ${r.status}: ${await r.text()}`);
+        e.channel = 'resend'; e.status = r.status;
+        throw e;
+      }
+    }));
   }
 
   // 2) Webhook (CRM, sheet, Slack, etc.)
   if (process.env.LEAD_WEBHOOK_URL) {
     tasks.push(fetch(process.env.LEAD_WEBHOOK_URL, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead),
-    }).then(r => { if (!r.ok) throw new Error(`Webhook ${r.status}`); }));
+    }).then(r => {
+      if (!r.ok) {
+        const e = new Error(`Webhook ${r.status}`);
+        e.channel = 'webhook'; e.status = r.status;
+        throw e;
+      }
+    }));
   }
 
   if (tasks.length === 0) {
@@ -146,7 +158,14 @@ export default async function handler(req, res) {
 
          Vercel → Project → Logs → filter: LEAD_UNDELIVERED */
     console.error('LEAD_UNDELIVERED ' + JSON.stringify(lead));
-    return reply(req, res, 502, { ok: false, error: 'Could not deliver lead' }, '');
+    /* The provider's status code, and nothing else from its response. A number
+       is enough to say what is wrong - 401 a bad key, 403 an unverified sender,
+       422 a malformed from/to - and unlike the body it cannot carry an address
+       or a key out of the account. The body stays in the log above. */
+    const why = failed
+      .map(f => `${f.reason && f.reason.channel ? f.reason.channel : 'channel'}:${f.reason && f.reason.status ? f.reason.status : 'error'}`)
+      .join(' ');
+    return reply(req, res, 502, { ok: false, error: 'Could not deliver lead', provider: why }, '');
   }
   return reply(req, res, 200, { ok: true }, '?sent=1');
 }
