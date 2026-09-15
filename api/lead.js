@@ -33,6 +33,18 @@ function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+/* The form posts through fetch and renders its own confirmation. Without
+   JavaScript it posts normally, and a browser asking for HTML should not be
+   shown a JSON object: send it back to the page with a state in the hash. */
+function wantsHtml(req) {
+  return String(req.headers.accept || '').includes('text/html');
+}
+
+function reply(req, res, status, payload, hash) {
+  if (wantsHtml(req)) return res.redirect(303, '/' + hash + '#quote');
+  return res.status(status).json(payload);
+}
+
 export default async function handler(req, res) {
   cors(req, res);
   if (req.method === 'OPTIONS') return res.status(204).end();
@@ -51,7 +63,7 @@ export default async function handler(req, res) {
   body = body || {};
 
   // Honeypot: real people never fill the hidden "website" field
-  if (clean(body.website)) return res.status(200).json({ ok: true });
+  if (clean(body.website)) return reply(req, res, 200, { ok: true }, '');
 
   const lead = {
     name: clean(body.name, 120),
@@ -72,10 +84,10 @@ export default async function handler(req, res) {
   };
 
   if (!lead.name || !lead.email || !lead.buyer_type || !lead.quantity) {
-    return res.status(400).json({ ok: false, error: 'Missing required fields' });
+    return reply(req, res, 400, { ok: false, error: 'Missing required fields' }, '');
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email)) {
-    return res.status(400).json({ ok: false, error: 'Invalid email' });
+    return reply(req, res, 400, { ok: false, error: 'Invalid email' }, '');
   }
 
   const tasks = [];
@@ -117,7 +129,7 @@ export default async function handler(req, res) {
 
   if (tasks.length === 0) {
     console.error('Lead received but no delivery configured (set RESEND_API_KEY + LEAD_TO_EMAIL):', lead);
-    return res.status(500).json({ ok: false, error: 'Lead delivery is not configured' });
+    return reply(req, res, 500, { ok: false, error: 'Lead delivery is not configured' }, '');
   }
 
   const results = await Promise.allSettled(tasks);
@@ -126,7 +138,7 @@ export default async function handler(req, res) {
 
   // Success if at least one channel delivered
   if (failed.length === results.length) {
-    return res.status(502).json({ ok: false, error: 'Could not deliver lead' });
+    return reply(req, res, 502, { ok: false, error: 'Could not deliver lead' }, '');
   }
-  return res.status(200).json({ ok: true });
+  return reply(req, res, 200, { ok: true }, '?sent=1');
 }

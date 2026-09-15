@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://aragonitesand.com/sitemap.xml
+Sitemap: https://www.aragonitesand.com/sitemap.xml
