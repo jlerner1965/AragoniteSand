@@ -67,10 +67,10 @@
       "detail": "TODO: issue an SDS for the product line. Required by most distributors before a first order."
     },
     {
-      "name": "OMRI Listed®, organic production",
+      "name": "OMRI Listed®",
       "status": "held",
-      "detail": "Product listing avw-23215. OMRI listing reviews the input, not the buyer's operation: confirm acceptance with your own certifier before use.",
-      "verify": "Confirm against OMRI's own lists that avw-23215 is the crop/organic-production listing for this product and not a livestock listing (a neighbouring avw-23214 appears in OMRI's crop materials), then state the listed product name, category and scope exactly as OMRI has them, and confirm permitted use of the OMRI Listed mark on the 50 lb bag artwork."
+      "detail": "Crop fertilizer listing avw-23214; livestock feed-material listing avw-23215. OMRI reviews the input, not the buyer's operation, and an OMRI listing is not a certification: confirm acceptance with your own certifier before use.",
+      "verify": "Confirm permitted use of the OMRI Listed mark on the 50 lb bag artwork. The listing numbers and the \"Listed, not certified\" wording follow AragoCor's content verification register of 2026-09-07."
     },
     {
       "name": "Feed-grade qualification",

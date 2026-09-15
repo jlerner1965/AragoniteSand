@@ -124,7 +124,7 @@ def grade_cards(grades):
             f'        <div class="grade-card__use">{esc(g["card_use"])}</div>\n'
             f'        <table class="spec" aria-label="{esc(g["name"])} grade typical values">\n'
             f'          <tbody>\n'
-            f'            <tr><th scope="row">CaCO₃, typical</th><td class="num">{esc(g["caco3_pct"])}%</td></tr>\n'
+            f'            <tr><th scope="row">CaCO₃, representative</th><td class="num">{esc(g["caco3_pct"])}%</td></tr>\n'
             f'            <tr><th scope="row">Bulk density</th><td class="num">{esc(g["bulk_density_lb_ft3"])} lb/ft³</td></tr>\n'
             f'            <tr><th scope="row">Moisture at packaging</th><td class="num">≤ {esc(g["moisture_max_pct"])}%</td></tr>\n'
             f'          </tbody>\n'
@@ -915,7 +915,7 @@ def gradation_rows(grades_doc):
 def spec_rows(grades):
     rows = [
         ("Grain size", "grain_mm"), ("Mesh, U.S. sieve", "mesh"),
-        ("Bulk density", None), ("Calcium carbonate, typical", None),
+        ("Bulk density", None), ("Calcium carbonate, representative", None),
         ("Moisture at packaging", None), ("Primary use", "primary_use"),
     ]
     out = []

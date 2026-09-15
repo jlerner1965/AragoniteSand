@@ -40,7 +40,7 @@
       "primary_use": "Reef, sand beds",
       "card_use": "Aquarium sand beds, soil amendment, feed and mineral blending, rootzone amendment.",
       "other_blurb": "0.5–1.0 mm. The finest grade. Highest surface area, lowest drift resistance.",
-      "caco3_pct": "97.8",
+      "caco3_pct": "96.17",
       "moisture_max_pct": 10,
       "fines_max_pct": "2",
       "acid_insoluble_max_pct": "1.5",
@@ -117,7 +117,7 @@
       "primary_use": "General marine, mixed reef",
       "card_use": "General marine and mixed reef substrate, soil and rootzone amendment, water treatment contact media.",
       "other_blurb": "1.0–2.0 mm. The middle grade. Holds position under higher flow than fine.",
-      "caco3_pct": "97.8",
+      "caco3_pct": "96.17",
       "moisture_max_pct": 10,
       "fines_max_pct": "1",
       "acid_insoluble_max_pct": "1.5",
@@ -193,7 +193,7 @@
       "primary_use": "Cichlid, hard water, high flow",
       "card_use": "Cichlid and hard-water aquarium substrate, high-flow marine, water treatment contact media.",
       "other_blurb": "2.0–5.0 mm. The coarsest grade. Highest flow resistance, lowest surface area.",
-      "caco3_pct": "97.8",
+      "caco3_pct": "96.17",
       "moisture_max_pct": 10,
       "fines_max_pct": "0.5",
       "acid_insoluble_max_pct": "2.0",
@@ -341,7 +341,7 @@
       }
     ]
   },
-  "representative_caco3_pct": "97.8",
+  "representative_caco3_pct": "96.17",
   "crystal_structure": "Orthorhombic",
   "processing_line": "No kiln. No calcination. Less processing than conventional calcined lime."
 }

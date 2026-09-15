@@ -468,7 +468,7 @@ called out in a `_todo` or `_readme` block; in the templates there is a
 | What | Where | Status |
 |---|---|---|
 | Testing lab name and methods | `about.html` testing section | TODO |
-| CaCO₃ percentages per grade | `data/grades.json` `caco3_pct` | invented |
+| CaCO₃ percentages per grade | `data/grades.json` `caco3_pct` | set to AragoCor's approved 96.17% representative analysis (Bowser-Morner 124914A, ASTM C 25), per their content verification register of 2026-09-07 |
 | Moisture, fines and acid-insoluble limits | `data/grades.json` | invented |
 | Sieve distributions on the grade pages | `data/grades.json` `sieve` | invented |
 | Pallet configuration (60 bags / 1,200 lb, trade 40 bags) | `data/packaging.json` | a guess from the brief |
