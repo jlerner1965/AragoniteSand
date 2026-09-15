@@ -18,9 +18,12 @@
 <meta property="og:image" content="https://aragonitesand.com/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AragoCor 50 lb bag of Bahamian oolitic aragonite aquarium sand">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Bahamian Oolitic Aragonite Sand for Reef &amp; Marine Tanks">
 <meta name="twitter:description" content="96% calcium carbonate, under 0.01% silica, naturally rounded ooids. 50 lb bags, super sacks and bulk from Stockton, CA.">
+<meta name="twitter:image" content="https://aragonitesand.com/og.jpg">
+<meta name="twitter:image:alt" content="AragoCor 50 lb bag of Bahamian oolitic aragonite aquarium sand">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E4A4F'/%3E%3Ccircle cx='22' cy='38' r='9' fill='%23D9C7A3'/%3E%3Ccircle cx='41' cy='30' r='6' fill='%23D9C7A3'/%3E%3Ccircle cx='38' cy='45' r='4' fill='%23B89A63'/%3E%3Ccircle cx='27' cy='22' r='3.5' fill='%23B89A63'/%3E%3C/svg%3E">
 
@@ -37,7 +40,6 @@
       "@id": "https://aragocorminerals.com/#organization",
       "name": "AragoCor Minerals LLC",
       "url": "https://aragocorminerals.com/",
-      "sameAs": ["https://aragonitesand.com/", "https://aragonitesoil.com/", "https://aragonitewater.com/"],
       "telephone": "+1-209-487-0110",
       "email": "info@aragocorminerals.com",
       "address": { "@type": "PostalAddress", "streetAddress": "2453 Grand Canal Blvd, Suite 200", "addressLocality": "Stockton", "addressRegion": "CA", "postalCode": "95207", "addressCountry": "US" }
@@ -77,13 +79,13 @@
         { "@type": "Question", "name": "What is in AragoCor aragonite sand?",
           "acceptedAnswer": { "@type": "Answer", "text": "A representative analysis by an ISO 17025 accredited lab shows 96.17% calcium carbonate, 38.51% elemental calcium, 1.43% strontium carbonate, 0.24% magnesium carbonate and under 0.01% silica. The material is collected, washed, screened and dried mechanically with no chemical treatment or additives. A certificate of analysis ships with every lot." } },
         { "@type": "Question", "name": "Is aragonite better than silica sand for a saltwater tank?",
-          "acceptedAnswer": { "@type": "Answer", "text": "For reef and marine tanks, yes. Silica sand is chemically inert and does nothing for pH or alkalinity. Aragonite is calcium carbonate, so it dissolves slowly as pH drops, releasing calcium, carbonate and strontium and helping the system resist acidification. AragoCor aragonite contains under 0.01% silica." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "For reef and marine tanks, yes. Silica sand is chemically inert and contributes nothing to water chemistry. Aragonite is calcium carbonate, so it can dissolve slowly and contribute some buffering as pH falls. How much depends on water chemistry, grain size and system conditions, and it is not a substitute for alkalinity or calcium dosing. AragoCor aragonite contains under 0.01% silica." } },
         { "@type": "Question", "name": "How much aragonite sand do I need?",
           "acceptedAnswer": { "@type": "Answer", "text": "Multiply the tank's length by its width by the sand depth you want, all in inches, then divide by 1728 to get cubic feet. Dry aragonite sand weighs roughly 90 lb per cubic foot. A 48 by 18 inch tank at a 2 inch depth needs about 90 lb, or two 50 lb bags." } },
         { "@type": "Question", "name": "Do I need to rinse aragonite sand before adding it to my tank?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. Natural sand carries fine dust from handling. Rinse it in small batches with clean water until the water runs mostly clear, then add it to the tank. Some cloudiness on the first day is normal and settles out." } },
         { "@type": "Question", "name": "Can I use aragonite sand in a freshwater aquarium?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Only for fish that want hard, alkaline water, such as African Rift Lake cichlids, livebearers and brackish species. Aragonite raises pH and hardness, so it is the wrong choice for soft-water fish like tetras, discus or most South American species." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "Only for fish that want hard, alkaline water, such as African Rift Lake cichlids, livebearers and brackish species. Aragonite tends to raise pH and hardness, so it is the wrong choice for soft-water fish like tetras, discus or most South American species." } },
         { "@type": "Question", "name": "Do you sell aragonite sand wholesale?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. We supply retailers, distributors, public aquariums and aquaculture operations in pallet, super sack and truckload quantities from our facility in Stockton, California. Call +1 (209) 487-0110 or use the quote form." } }
       ]
@@ -140,8 +142,11 @@ button,input,select,textarea{font:inherit; color:inherit}
 .band{background:var(--band-bg); color:var(--band-fg)}
 .band .lede{color:var(--band-muted)}
 .sandband{background:var(--sandband-bg); color:var(--sandband-fg)}
-section{padding:clamp(3.5rem,8vw,6.5rem) 0; scroll-margin-top:4.5rem}
+section{padding:clamp(3rem,6.5vw,5.25rem) 0; scroll-margin-top:4.5rem}
 .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.skip{position:absolute; left:1rem; top:-100%; z-index:40; background:var(--teal-900); color:var(--paper); padding:.65rem 1rem; border-radius:0 0 10px 10px; text-decoration:none; font-weight:500}
+.skip:focus{top:0}
+main:focus{outline:none}
 
 /* buttons */
 .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.35rem; border-radius:999px; border:2px solid transparent;
@@ -231,7 +236,8 @@ footer .brand small{color:#C7DAD8}
 .analysis b{display:block; font-family:var(--mono); font-size:1.45rem; font-weight:500; letter-spacing:-.01em; line-height:1.1; color:var(--teal-700)}
 .analysis div:nth-child(3) b{color:#8A6E3A}
 .analysis span{color:var(--muted); font-size:.9rem}
-@media (max-width:820px){ .analysis .wrap{grid-template-columns:1fr 1fr; width:min(1120px,100% - 2.5rem)} .analysis div{border-left:0; border-top:1px solid var(--line)} .analysis div:nth-child(-n+2){border-top:0} .analysis div:nth-child(2n){border-left:1px solid var(--line)} .analysis div:last-child{grid-column:1 / -1} }
+.analysis .cap{grid-column:1 / -1; margin:0; padding:.7rem 1.1rem; border-top:1px solid var(--line); font-size:.85rem; color:var(--muted); background:var(--sand-100)}
+@media (max-width:820px){ .analysis .wrap{grid-template-columns:1fr 1fr; width:min(1120px,100% - 2.5rem)} .analysis div{border-left:0; border-top:1px solid var(--line)} .analysis div:nth-child(-n+2){border-top:0} .analysis div:nth-child(2n){border-left:1px solid var(--line)} .analysis div:nth-child(5){grid-column:1 / -1} }
 
 /* origin */
 .origin{padding:0; position:relative; color:#fff}
@@ -250,10 +256,9 @@ footer .brand small{color:#C7DAD8}
 .contact-lines{list-style:none; padding:0; margin:1.25rem 0 0}
 .contact-lines li{margin-bottom:.35rem}
 .contact-lines a{text-decoration:none; font-weight:500}
-.ship img{width:min(60%,220px); margin:0 auto 1rem; border-radius:10px}
 
 /* why */
-.why h2{max-width:22ch; margin-bottom:2.5rem}
+.why h2{max-width:22ch; margin-bottom:2rem}
 .why dl{display:grid; grid-template-columns:repeat(3,1fr); gap:2.5rem; margin:0}
 .why dt{font-family:var(--serif); font-size:1.35rem; font-weight:500; padding-top:1rem; border-top:3px solid var(--sand-500); margin-bottom:.6rem}
 .why dd{margin:0; color:var(--muted)}
@@ -261,7 +266,7 @@ footer .brand small{color:#C7DAD8}
 
 /* grades */
 .grades h2{margin-bottom:.75rem}
-.grades .lede{margin-bottom:2.5rem}
+.grades .lede{margin-bottom:2rem}
 .spec{width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden}
 .spec th,.spec td{padding:1.25rem 1.1rem; text-align:left; vertical-align:top; border-top:1px solid var(--line)}
 .spec thead th{border-top:0; font-weight:400; color:var(--muted); font-family:var(--mono); font-size:.8rem; padding-block:.9rem}
@@ -309,7 +314,7 @@ footer .brand small{color:#C7DAD8}
 @media (max-width:820px){ .calc .grid{grid-template-columns:1fr; gap:2rem} .result{position:static} }
 
 /* uses */
-.uses h2{margin-bottom:2rem}
+.uses h2{margin-bottom:1.5rem}
 .uses ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:0 3rem}
 .uses li{display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:1.25rem 0; border-top:1px solid var(--line)}
 .uses li svg{width:44px; height:44px; flex:none; color:var(--sand-600)}
@@ -326,7 +331,12 @@ footer .brand small{color:#C7DAD8}
 .ship{border:1px solid var(--line); border-radius:18px; padding:1.75rem; background:var(--surface)}
 .ship h3{margin-bottom:.75rem}
 .ship p{color:var(--muted); margin:0}
-.ship svg{width:100%; height:auto; margin-bottom:1rem}
+.formats{list-style:none; margin:0 0 1.5rem; padding:0}
+.formats li{display:grid; grid-template-columns:44px 1fr; gap:.1rem 1rem; align-items:center; padding:.8rem 0; border-top:1px solid var(--line)}
+.formats li:first-child{border-top:0; padding-top:0}
+.formats svg{width:44px; height:44px; color:var(--sand-600); grid-row:span 2}
+.formats b{font-family:var(--serif); font-weight:500; font-size:1.15rem}
+.formats span{color:var(--muted); font-size:.95rem}
 @media (max-width:820px){ .wholesale .grid{grid-template-columns:1fr} }
 
 /* faq */
@@ -370,6 +380,7 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
 </head>
 <body>
 
+<a class="skip" href="#top">Skip to content</a>
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="AragoCor aragonite sand, home">
@@ -392,7 +403,7 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 <section class="band hero">
   <div class="wrap grid">
@@ -417,13 +428,14 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
   </div>
 </section>
 
-<section class="analysis" aria-label="Typical analysis">
+<section class="analysis" aria-label="Representative analysis">
   <div class="wrap">
     <div><b>96.17%</b><span>calcium carbonate</span></div>
     <div><b>38.51%</b><span>elemental calcium</span></div>
     <div><b>1.43%</b><span>strontium carbonate</span></div>
     <div><b>&lt;0.01%</b><span>silica</span></div>
     <div><b>2.93</b><span>specific gravity</span></div>
+    <p class="cap">Representative analysis of an identified sample by an ISO 17025 accredited lab (ASTM C 25). Not a guaranteed specification; guaranteed limits are set per contract and confirmed per lot.</p>
   </div>
 </section>
 
@@ -433,11 +445,11 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
     <dl>
       <div>
         <dt>Round grains, not crushed shards</dt>
-        <dd>Ooids form as spheres in moving seawater, so the sand is naturally rounded (average sphericity 0.82, roundness 0.87). It is gentle on sand-sifting gobies, wrasses and cucumbers, and it settles into a bed instead of packing like crushed coral.</dd>
+        <dd>Ooids form as spheres in moving seawater, so the sand is naturally rounded (average sphericity 0.82, roundness 0.87). It is gentle on sand-sifting gobies, wrasses and cucumbers, and it settles into an even bed.</dd>
       </div>
       <div>
-        <dt>More reactive than calcite or crushed coral</dt>
-        <dd>Aragonite is the more soluble form of calcium carbonate, and ooids carry over 1.7 m²/g of surface area. As pH drops the sand dissolves slowly, releasing calcium, carbonate and strontium and helping the system resist acidification. Silica sand does nothing.</dd>
+        <dt>More soluble than calcite</dt>
+        <dd>Aragonite is the more soluble form of calcium carbonate, and ooids carry over 1.7 m²/g of surface area. As pH falls, a carbonate substrate can contribute some buffering. How much depends on water chemistry, grain size and system conditions, and it does not replace alkalinity or calcium dosing. Silica sand is inert.</dd>
       </div>
       <div>
         <dt>Nothing but the mineral</dt>
@@ -449,7 +461,7 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
 
 <section class="grades" id="grades">
   <div class="wrap">
-    <h2>Two standard grades, or cut to your spec.</h2>
+    <h2>Two standard grades, or a custom classification.</h2>
     <p class="lede measure">Every grade is screened from the same natural oolitic gradation. Choose by what lives in the tank and how much flow it gets.</p>
     <div class="spec-scroll">
     <table class="spec">
@@ -470,18 +482,18 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
           <td data-label="Packaging" class="bag">50 lb bag, super sack</td>
         </tr>
         <tr>
-          <th scope="row">Custom <span>classified to specification</span></th>
-          <td data-label="Grain size"><div class="dots"><i style="width:4px;height:4px"></i><i style="width:8px;height:8px"></i><i style="width:12px;height:12px"></i><i style="width:16px;height:16px"></i><i style="width:20px;height:20px"></i></div>Any cut, 20–325 mesh</td>
-          <td data-label="Best for"><ul><li>Public aquariums and aquaculture</li><li>Retail private label and blends</li><li>Anything with a written spec</li></ul></td>
-          <td data-label="Packaging" class="bag">Bags from 1 lb, super sacks to 3,000 lb, dry bulk</td>
+          <th scope="row">Custom <span>within the natural gradation</span></th>
+          <td data-label="Grain size"><div class="dots"><i style="width:4px;height:4px"></i><i style="width:8px;height:8px"></i><i style="width:12px;height:12px"></i><i style="width:16px;height:16px"></i><i style="width:20px;height:20px"></i></div>Custom classification, 20–325 mesh range, subject to feasibility and minimum volume</td>
+          <td data-label="Best for"><ul><li>Public aquariums and aquaculture</li><li>Retail private label and blends</li><li>Custom aquarium, aquaculture and private-label requirements</li></ul></td>
+          <td data-label="Packaging" class="bag">Bags from 1 lb, super sacks up to 3,000 lb, dry bulk</td>
         </tr>
       </tbody>
     </table>
     </div>
     <p class="note">Grain sizes are published ranges; guaranteed limits are set per contract and confirmed per lot by certificate of analysis. Rinse before use; some cloudiness on the first day is normal and settles out.</p>
     <div class="docs">
-      <a href="https://www.aragocorminerals.com/resources/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 2h5l3 3v9H4z"/><path d="M9 2v3h3"/></svg>Technical data sheet (PDF)</a>
-      <a href="https://www.aragocorminerals.com/resources/tds-ag-001-ag-cal-agricultural-calcium.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 2h5l3 3v9H4z"/><path d="M9 2v3h3"/></svg>Grade specification, 0.2–0.5 mm (PDF)</a>
+      <a href="docs/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 2h5l3 3v9H4z"/><path d="M9 2v3h3"/></svg>Technical data sheet TDS-OA-001 (PDF<span class="sr">, opens in a new tab</span>)</a>
+      <a href="docs/tb-oa-002-aragonite-vs-limestone.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 2h5l3 3v9H4z"/><path d="M9 2v3h3"/></svg>Aragonite vs. limestone brief (PDF<span class="sr">, opens in a new tab</span>)</a>
     </div>
   </div>
 </section>
@@ -551,19 +563,19 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
     <ol>
       <li>
         <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 34c4-8 6-16 14-16s10 8 14 16"/><path d="M22 18V8M16 12l6-4 6 4"/><path d="M6 34h32"/></svg>
-        <div><h3>Reef aquariums</h3><p>Supplies calcium, carbonate and strontium to a coral system and gives sand-dwelling invertebrates something natural to live in. <em>Oolitic fine.</em></p></div>
+        <div><h3>Reef aquariums</h3><p>The same carbonate mineral corals build their skeletons from, in a bed that gives sand-dwelling invertebrates something natural to live in. <em>Oolitic fine.</em></p></div>
       </li>
       <li>
         <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 22c6-8 12-8 16 0s10 8 16 0"/><path d="M6 30c6-8 12-8 16 0s10 8 16 0"/><circle cx="14" cy="12" r="2"/></svg>
-        <div><h3>Fish-only marine tanks</h3><p>A bright, easy-to-clean bed that helps hold pH where marine fish need it. <em>Oolitic fine.</em></p></div>
+        <div><h3>Fish-only marine tanks</h3><p>A bright, easy-to-clean carbonate bed that may contribute some buffering as pH declines. <em>Oolitic fine.</em></p></div>
       </li>
       <li>
         <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 36l8-14 6 8 5-6 9 12z"/><path d="M6 36h32"/><circle cx="32" cy="12" r="4"/></svg>
-        <div><h3>African cichlid tanks</h3><p>Rift Lake fish want hard, alkaline water. Aragonite raises and holds pH and hardness without dosing. <em>Medium.</em></p></div>
+        <div><h3>African cichlid tanks</h3><p>Rift Lake fish want hard, alkaline water, and a carbonate substrate suits that chemistry better than inert gravel. <em>Medium.</em></p></div>
       </li>
       <li>
         <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 28c4 0 4 4 8 4s4-4 8-4 4 4 8 4 4-4 6-4"/><path d="M12 20c4 0 4-4 8-4s4 4 8 4"/><path d="M6 36h32"/></svg>
-        <div><h3>Brackish and livebearer setups</h3><p>Mollies, guppies, monos and scats all do better over a carbonate substrate than over inert gravel. <em>Oolitic fine or medium.</em></p></div>
+        <div><h3>Brackish and livebearer setups</h3><p>Mollies, guppies, monos and scats want hard, alkaline water, and a carbonate substrate suits them. <em>Oolitic fine or medium.</em></p></div>
       </li>
       <li>
         <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="8" y="10" width="28" height="24" rx="2"/><path d="M8 26c4-4 8-4 12 0s8 4 16 0"/><path d="M14 18h6"/></svg>
@@ -571,7 +583,7 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
       </li>
       <li>
         <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 32h32"/><path d="M10 32V16h24v16"/><path d="M16 16V10h12v6"/><path d="M14 22h16M14 27h16"/></svg>
-        <div><h3>Public aquariums and aquaculture</h3><p>Consistent grade, consistent supply, super sacks and truckloads on a schedule. <em>Custom, cut to spec.</em></p></div>
+        <div><h3>Public aquariums and aquaculture</h3><p>Consistent grade, consistent supply, super sacks and truckloads on a schedule. <em>Custom classification.</em></p></div>
       </li>
     </ol>
   </div>
@@ -585,15 +597,19 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
       <ul>
         <li>Retailers and fish stores: case, pallet and mixed-grade pallet orders in 50 lb bags</li>
         <li>Distributors: standing monthly volume with a single point of contact</li>
-        <li>Public aquariums and aquaculture: custom grades in super sacks to 3,000 lb or dry bulk by trailer</li>
+        <li>Public aquariums and aquaculture: custom classifications in super sacks up to 3,000 lb or dry bulk by trailer</li>
         <li>Hobbyists: a few bags shipped direct, or ask which store near you carries it</li>
       </ul>
       <a class="btn" href="#quote">Request wholesale pricing</a>
     </div>
     <div class="ship">
-      <img src="img/sack-2t.jpg" width="507" height="815" alt="AragoCor Minerals 2 metric ton super sack of aragonite" loading="lazy" decoding="async">
+      <ul class="formats" aria-label="Packaging formats">
+        <li><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M13 12h18v24H13z"/><path d="M13 17h18"/><path d="M17 12V9h10v3"/></svg><b>50 lb bags</b><span>Palletized and shrink-wrapped</span></li>
+        <li><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M10 15h24v21H10z"/><path d="M13 15c0-5 1-7 3-7s3 2 3 7"/><path d="M25 15c0-5 1-7 3-7s3 2 3 7"/><path d="M10 22h24"/></svg><b>Super sacks</b><span>Up to 3,000 lb</span></li>
+        <li><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4 16h24v15H4z"/><path d="M28 21h6l5 6v4H28z"/><circle cx="11" cy="33" r="3"/><circle cx="33" cy="33" r="3"/></svg><b>Dry bulk</b><span>By trailer</span></li>
+      </ul>
       <h3>Shipped from Stockton, CA</h3>
-      <p>Bags palletized and shrink-wrapped; super sacks to 3,000 lb; dry bulk by trailer. Freight quoted to your named destination, or FOB Stockton.</p>
+      <p>Freight quoted to your named destination, or FOB Stockton.</p>
     </div>
   </div>
 </section>
@@ -602,11 +618,11 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
   <div class="wrap">
     <h2>Questions people ask before they buy.</h2>
     <details><summary>What is oolitic aragonite sand?</summary><p>Calcium carbonate that precipitates naturally in warm, shallow Bahamian seawater as small rounded grains called ooids. Each ooid is built from concentric layers of aragonite crystals, which gives the sand a high surface area and makes it more soluble than calcite or crushed coral at the same grain size. It is the classic reef aquarium sand bed.</p></details>
-    <details><summary>What is in it?</summary><p>A representative analysis by an ISO 17025 accredited lab shows 96.17% calcium carbonate, 38.51% elemental calcium, 1.43% strontium carbonate, 0.24% magnesium carbonate and under 0.01% silica. The material is collected, washed, screened and dried mechanically with no chemical treatment or additives. Full numbers are in the <a href="https://www.aragocorminerals.com/resources/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener">technical data sheet</a>, and a certificate of analysis ships with every lot.</p></details>
-    <details><summary>Is aragonite better than silica sand for a saltwater tank?</summary><p>For reef and marine tanks, yes. Silica sand is chemically inert and does nothing for pH or alkalinity. Aragonite is calcium carbonate, so it dissolves slowly as pH drops, releasing calcium, carbonate and strontium and helping the system resist acidification. Ours contains under 0.01% silica.</p></details>
+    <details><summary>What is in it?</summary><p>A representative analysis by an ISO 17025 accredited lab shows 96.17% calcium carbonate, 38.51% elemental calcium, 1.43% strontium carbonate, 0.24% magnesium carbonate and under 0.01% silica. The material is collected, washed, screened and dried mechanically with no chemical treatment or additives. Full numbers are in the <a href="docs/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener">technical data sheet<span class="sr"> (PDF, opens in a new tab)</span></a>, and a certificate of analysis ships with every lot.</p></details>
+    <details><summary>Is aragonite better than silica sand for a saltwater tank?</summary><p>For reef and marine tanks, yes. Silica sand is chemically inert and contributes nothing to water chemistry. Aragonite is calcium carbonate, so it can dissolve slowly and contribute some buffering as pH falls. How much depends on water chemistry, grain size and system conditions, and it is not a substitute for alkalinity or calcium dosing. Ours contains under 0.01% silica.</p></details>
     <details><summary>How much do I need?</summary><p>Multiply the tank's length by its width by the sand depth you want, all in inches, then divide by 1728 to get cubic feet. Dry aragonite settles at roughly 90 lb per cubic foot. A 48 by 18 inch tank at 2 inches needs about 90 lb, or two 50 lb bags. The <a href="#calculator">calculator above</a> does the math.</p></details>
     <details><summary>Do I need to rinse it first?</summary><p>Yes. Natural sand carries fine dust from handling. Rinse it in small batches with clean water until it runs mostly clear, then add it to the tank. Some cloudiness on the first day is normal and settles out.</p></details>
-    <details><summary>Can I use it in a freshwater tank?</summary><p>Only for fish that want hard, alkaline water: African Rift Lake cichlids, livebearers and brackish species. Aragonite raises pH and hardness, so it is the wrong choice for soft-water fish like tetras, discus or most South American species.</p></details>
+    <details><summary>Can I use it in a freshwater tank?</summary><p>Only for fish that want hard, alkaline water: African Rift Lake cichlids, livebearers and brackish species. Aragonite tends to raise pH and hardness, so it is the wrong choice for soft-water fish like tetras, discus or most South American species.</p></details>
     <details><summary>Do you sell wholesale?</summary><p>Yes. We supply retailers, distributors, public aquariums and aquaculture operations in pallet, super sack and truckload quantities from Stockton, California. Call <a href="tel:+12094870110">+1 (209) 487-0110</a> or use the quote form.</p></details>
   </div>
 </section>
@@ -713,7 +729,8 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
           <li><a href="#wholesale">Wholesale</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#quote">Get a quote</a></li>
-          <li><a href="https://www.aragocorminerals.com/resources/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener">Technical data sheet</a></li>
+          <li><a href="docs/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener">Technical data sheet<span class="sr"> (PDF, opens in a new tab)</span></a></li>
+          <li><a href="docs/tb-oa-002-aragonite-vs-limestone.pdf" target="_blank" rel="noopener">Aragonite vs. limestone brief<span class="sr"> (PDF, opens in a new tab)</span></a></li>
           <li><a href="privacy">Privacy</a></li>
         </ul>
       </div>
@@ -759,11 +776,14 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
   // Mobile menu
   var mb = document.querySelector('.menu-btn'), menu = document.getElementById('menu');
   if (mb && menu) {
-    mb.addEventListener('click', function(){
-      var open = menu.classList.toggle('open');
+    function setMenu(open){
+      menu.classList.toggle('open', open);
       mb.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    menu.addEventListener('click', function(e){ if (e.target.tagName==='A'){ menu.classList.remove('open'); mb.setAttribute('aria-expanded','false'); } });
+      mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    mb.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function(e){ if (e.target.tagName==='A') setMenu(false); });
+    document.addEventListener('keydown', function(e){ if (e.key==='Escape' && menu.classList.contains('open')) { setMenu(false); mb.focus(); } });
   }
 
   // Sand calculator

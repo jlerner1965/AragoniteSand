@@ -14,7 +14,8 @@ Start with **LAUNCH.md** — it is the step-by-step runbook, including a ready-t
    - 2-ton sack back: `print/sack-back-contact-mockup.png` (contact block only; sack stays general-purpose).
    - Point the bag QR code at https://aragonitesand.com for reef bags.
    - "Reply within one business day" promise in the form confirmation
-   - Photos in use: 50 lb bag render (hero), 2-ton sack render (wholesale), Stockton stockpile (origin band). Add the super-sack-on-pallet and yard photos to the wholesale section if wanted
+   - Photos in use: 50 lb bag render (hero and social image), Stockton stockpile (origin band). The 2-ton sack render is not used: its printed soil claims and 2 t rating contradict the aquarium page and the data sheet's 3,000 lb super sack. Add palletized-bag, grain close-up and installed-tank photos when available
+   - Confirm operationally before launch: mixed-grade pallets, direct shipping of a few bags to hobbyists, 1 lb bags on request. Remove any line the operation cannot deliver
 2. **Lead delivery** — Vercel > Project > Settings > Environment Variables
    - `RESEND_API_KEY` — from resend.com (free tier is fine to start)
    - `LEAD_TO_EMAIL` — `Jameslerner7@gmail.com` (add more inboxes comma-separated)
@@ -31,8 +32,9 @@ Start with **LAUNCH.md** — it is the step-by-step runbook, including a ready-t
 
 - `index.html` — the whole site (inline CSS/JS, JSON-LD for Organization, Product and FAQ)
 - `api/lead.js` — form endpoint: validation, honeypot, rate limit, Resend email, optional webhook
-- `vercel.json` — clean URLs and security headers
-- `img/` — bag, sack and stockpile photos; `og.jpg` — social preview
+- `vercel.json` — clean URLs, security headers (HSTS, Content Security Policy) and cache rules for `docs/` and `img/`
+- `img/` — bag and stockpile photos; `og.jpg` — social preview (bag on brand colours, 1200×630)
+- `docs/` — TDS-OA-001 master technical data sheet and TB-OA-002 aragonite vs. limestone brief, linked from the grades table and footer
 - `privacy.html` — privacy notice (linked from the form and footer)
 - `robots.txt`, `sitemap.xml`
 
