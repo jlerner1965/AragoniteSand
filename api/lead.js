@@ -138,6 +138,14 @@ export default async function handler(req, res) {
 
   // Success if at least one channel delivered
   if (failed.length === results.length) {
+    /* Every channel refused it. The reasons above say why, but they do not
+       carry the enquiry, and a lead that reached the server and then vanished
+       is worse than one that never arrived: the buyer believes they have been
+       in touch. Write the whole thing to the log, on one greppable line, so it
+       can be recovered and answered by hand.
+
+         Vercel → Project → Logs → filter: LEAD_UNDELIVERED */
+    console.error('LEAD_UNDELIVERED ' + JSON.stringify(lead));
     return reply(req, res, 502, { ok: false, error: 'Could not deliver lead' }, '');
   }
   return reply(req, res, 200, { ok: true }, '?sent=1');
