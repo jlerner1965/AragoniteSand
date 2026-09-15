@@ -11,14 +11,14 @@
 > Help me finish launching aragonitesand.com. Stop and ask me before any payment or before deleting anything.
 > 1. Vercel, team ARProject, project "aragonitesand": Settings → Environment Variables. Add for Production and Preview:
 >    RESEND_API_KEY = (I will paste it myself when you reach this field)
->    LEAD_TO_EMAIL = Jameslerner7@gmail.com
+>    LEAD_TO_EMAIL = (optional; leads already default to the owner's inbox in api/lead.js. Set it only to add or change inboxes)
 >    LEAD_FROM_EMAIL = AragoCor Leads <leads@aragonitesand.com>
 > 2. Vercel project → Settings → Domains: add aragonitesand.com and www.aragonitesand.com. Note the DNS records Vercel asks for.
 > 3. Resend → Domains → Add domain aragonitesand.com. Note the DNS records it gives (SPF, DKIM, MX for bounces).
 > 4. Cloudflare → aragonitesand.com: delete the existing redirect rule (Rules → Redirect Rules / Page Rules). In DNS, add the Vercel records and the Resend records exactly as shown, with Proxy status set to DNS only (grey cloud) on the Vercel records.
 > 5. Back in Resend, click Verify. Back in Vercel, wait for both domains to show Valid Configuration.
 > 6. Vercel → Deployments → latest → Redeploy.
-> 7. Open https://aragonitesand.com, fill the quote form with test details, submit, and confirm "Request sent." appears. Then check the Jameslerner7@gmail.com inbox for the lead email and confirm Reply goes to the test email address.
+> 7. Open https://aragonitesand.com, fill the quote form with test details, submit, and confirm "Request sent." appears. Then check the lead inbox for the lead email and confirm Reply goes to the test email address.
 
 ## Step 3. Google (you must be signed in)
 - Search Console → Add property → Domain → aragonitesand.com → add the TXT record in Cloudflare → Verify → Sitemaps → submit `sitemap.xml` → URL inspection on the home page → Request indexing.

@@ -25,8 +25,10 @@
 <meta name="twitter:image" content="https://aragonitesand.com/og.jpg">
 <meta name="twitter:image:alt" content="AragoCor 50 lb bag of Bahamian oolitic aragonite aquarium sand">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E4A4F'/%3E%3Ccircle cx='22' cy='38' r='9' fill='%23D9C7A3'/%3E%3Ccircle cx='41' cy='30' r='6' fill='%23D9C7A3'/%3E%3Ccircle cx='38' cy='45' r='4' fill='%23B89A63'/%3E%3Ccircle cx='27' cy='22' r='3.5' fill='%23B89A63'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
 
+<link rel="preload" as="image" href="img/bag-50lb.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -40,6 +42,7 @@
       "@id": "https://aragocorminerals.com/#organization",
       "name": "AragoCor Minerals LLC",
       "url": "https://aragocorminerals.com/",
+      "logo": "https://aragonitesand.com/img/aragocor-logo.png",
       "telephone": "+1-209-487-0110",
       "email": "info@aragocorminerals.com",
       "address": { "@type": "PostalAddress", "streetAddress": "2453 Grand Canal Blvd, Suite 200", "addressLocality": "Stockton", "addressRegion": "CA", "postalCode": "95207", "addressCountry": "US" }
@@ -161,10 +164,14 @@ main:focus{outline:none}
 /* header */
 header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 92%, transparent); color:var(--fg); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
 .nav{display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:4rem}
-.brand{display:flex; align-items:center; gap:.65rem; text-decoration:none; font-family:var(--serif); font-weight:500; font-size:1.2rem}
-.brand small{font-family:var(--sans); font-weight:400; font-size:.85rem; color:var(--muted)}
-footer .brand small{color:#C7DAD8}
-.brand svg{width:34px; height:34px; flex:none}
+.brand{display:flex; align-items:center; gap:.75rem; text-decoration:none; font-family:var(--serif); font-weight:500; font-size:1.1rem; color:var(--fg)}
+.brand .logo{width:128px; height:auto; flex:none}
+.brand .rule{width:1px; height:26px; background:var(--line-strong); flex:none}
+.brand .plate{display:inline-flex; padding:6px 10px; border-radius:8px; background:#F6F3EC}
+footer .brand{color:#EEE8DA}
+footer .brand .rule{background:rgba(255,255,255,.28)}
+@media (max-width:520px){ .brand .logo{width:104px} .brand{gap:.55rem; font-size:1rem} }
+@media (max-width:380px){ header .brand .rule, header .brand .name{display:none} }
 .nav ul{list-style:none; margin:0; padding:0; display:flex; gap:1.4rem; align-items:center}
 .nav ul a{text-decoration:none; font-weight:500; color:var(--muted)}
 .nav ul a:hover{color:var(--fg)}
@@ -383,9 +390,10 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
 <a class="skip" href="#top">Skip to content</a>
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top" aria-label="AragoCor aragonite sand, home">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F4249"/><circle cx="22" cy="38" r="9" fill="#D9C7A3"/><circle cx="41" cy="30" r="6" fill="#D9C7A3"/><circle cx="38" cy="45" r="4" fill="#B8934F"/><circle cx="27" cy="22" r="3.5" fill="#B8934F"/></svg>
-      <span>AragoCor <small>aragonite sand</small></span>
+    <a class="brand" href="#top" aria-label="AragoCor Minerals aragonite sand, home">
+      <img class="logo" src="img/aragocor-logo.png" width="398" height="94" alt="AragoCor Minerals" decoding="async">
+      <span class="rule" aria-hidden="true"></span>
+      <span class="name">Aragonite sand</span>
     </a>
     <a class="call" href="tel:+12094870110" aria-label="Call AragoCor at +1 (209) 487-0110"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
@@ -710,9 +718,10 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
   <div class="wrap">
     <div class="grid">
       <div>
-        <a class="brand" href="#top" aria-label="AragoCor home">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#F4F1E8"/><circle cx="22" cy="38" r="9" fill="#0E4A4F"/><circle cx="41" cy="30" r="6" fill="#0E4A4F"/><circle cx="38" cy="45" r="4" fill="#B89A63"/><circle cx="27" cy="22" r="3.5" fill="#B89A63"/></svg>
-          <span>AragoCor <small>aragonite sand</small></span>
+        <a class="brand" href="#top" aria-label="AragoCor Minerals home">
+          <span class="plate"><img class="logo" src="img/aragocor-logo.png" width="398" height="94" alt="AragoCor Minerals" loading="lazy" decoding="async"></span>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="name">Aragonite sand</span>
         </a>
         <p>Bahamian oolitic aragonite, processed and bagged by AragoCor Minerals LLC.</p>
         <ul>

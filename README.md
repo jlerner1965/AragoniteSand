@@ -18,7 +18,7 @@ Start with **LAUNCH.md** — it is the step-by-step runbook, including a ready-t
    - Confirm operationally before launch: mixed-grade pallets, direct shipping of a few bags to hobbyists, 1 lb bags on request. Remove any line the operation cannot deliver
 2. **Lead delivery** — Vercel > Project > Settings > Environment Variables
    - `RESEND_API_KEY` — from resend.com (free tier is fine to start)
-   - `LEAD_TO_EMAIL` — `Jameslerner7@gmail.com` (add more inboxes comma-separated)
+   - `LEAD_TO_EMAIL` — optional. Leads default to the owner's inbox set as `DEFAULT_TO` in `api/lead.js`; set this to override or add inboxes, comma-separated. The address is never rendered on the site
    - `LEAD_FROM_EMAIL` — after verifying aragonitesand.com in Resend, e.g. `AragoCor Leads <leads@aragonitesand.com>`
    - `LEAD_WEBHOOK_URL` — optional: Zapier/Make/Sheets/CRM endpoint to log every lead
    - `ALLOWED_ORIGINS` — optional: lets the other AragoCor sites post to this same endpoint
@@ -30,7 +30,7 @@ Start with **LAUNCH.md** — it is the step-by-step runbook, including a ready-t
 
 ## Files
 
-- `index.html` — the whole site (inline CSS/JS, JSON-LD for Organization, Product and FAQ)
+- `index.html` — the whole site (inline CSS/JS, JSON-LD for Organization, Product and FAQ). Header and footer use the AragoCor Minerals wordmark, `img/aragocor-logo.png`
 - `api/lead.js` — form endpoint: validation, honeypot, rate limit, Resend email, optional webhook
 - `vercel.json` — clean URLs, security headers (HSTS, Content Security Policy) and cache rules for `docs/` and `img/`
 - `img/` — bag and stockpile photos; `og.jpg` — social preview (bag on brand colours, 1200×630)

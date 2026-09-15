@@ -4,11 +4,14 @@
 //
 // Environment variables (set in Vercel > Project > Settings > Environment Variables):
 //   RESEND_API_KEY     required for email delivery
-//   LEAD_TO_EMAIL      where leads go, comma-separated for several inboxes
+//   LEAD_TO_EMAIL      where leads go, comma-separated for several inboxes (defaults to DEFAULT_TO below)
 //   LEAD_FROM_EMAIL    a sender on a domain verified in Resend, e.g. "AragoCor Leads <leads@aragonitesand.com>"
 //   LEAD_WEBHOOK_URL   optional, receives the lead as JSON
 //   ALLOWED_ORIGINS    optional, comma-separated origins allowed to post here from other sites
 //                      e.g. "https://aragocorminerals.com,https://aragonitesoil.com"
+
+// Lead inbox. Server-side only; never rendered on the site. Override or extend with LEAD_TO_EMAIL.
+const DEFAULT_TO = 'Jameslerner7@gmail.com';
 
 const ALLOWED = (process.env.ALLOWED_ORIGINS || '')
   .split(',').map(s => s.trim()).filter(Boolean);
@@ -82,8 +85,8 @@ export default async function handler(req, res) {
   const tasks = [];
 
   // 1) Email via Resend
-  if (process.env.RESEND_API_KEY && process.env.LEAD_TO_EMAIL) {
-    const to = process.env.LEAD_TO_EMAIL.split(',').map(s => s.trim()).filter(Boolean);
+  if (process.env.RESEND_API_KEY) {
+    const to = (process.env.LEAD_TO_EMAIL || DEFAULT_TO).split(',').map(s => s.trim()).filter(Boolean);
     const from = process.env.LEAD_FROM_EMAIL || 'AragoCor Leads <onboarding@resend.dev>';
     const subject = `New quote request: ${lead.buyer_type} · ${lead.bags ? lead.bags + ' bags' : lead.quantity} · ${lead.source}`;
     const rows = [
@@ -117,7 +120,7 @@ export default async function handler(req, res) {
   }
 
   if (tasks.length === 0) {
-    console.error('Lead received but no delivery configured (set RESEND_API_KEY + LEAD_TO_EMAIL):', lead);
+    console.error('Lead received but no delivery configured (set RESEND_API_KEY):', lead);
     return res.status(500).json({ ok: false, error: 'Lead delivery is not configured' });
   }
 
