@@ -34,6 +34,7 @@ Start with **LAUNCH.md** — it is the step-by-step runbook, including a ready-t
 - `vercel.json` — clean URLs and security headers
 - `img/` — bag, sack and stockpile photos; `og.jpg` — social preview
 - `privacy.html` — privacy notice (linked from the form and footer)
+- `docs/omri-certificate-avw-23214.pdf` — OMRI Listed certificate (expires 1 Sep 2027; replace the file when OMRI renews it)
 - `robots.txt`, `sitemap.xml`
 
 ## Local preview

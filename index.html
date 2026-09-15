@@ -113,6 +113,19 @@
       },
       "category": "Aquarium substrate",
       "material": "Oolitic aragonite (calcium carbonate)",
+      "hasCertification": {
+        "@type": "Certification",
+        "name": "OMRI Listed",
+        "certificationIdentification": "avw-23214",
+        "issuedBy": {
+          "@type": "Organization",
+          "name": "Organic Materials Review Institute",
+          "url": "https://www.omri.org/"
+        },
+        "validFrom": "2026-06-26",
+        "expires": "2027-09-01",
+        "url": "https://aragonitesand.com/docs/omri-certificate-avw-23214.pdf"
+      },
       "image": "https://aragonitesand.com/og.jpg",
       "url": "https://aragonitesand.com/"
     },
@@ -317,6 +330,8 @@ footer .brand small{color:#C7DAD8}
 /* trust chips */
 .trust{display:flex; flex-wrap:wrap; gap:.5rem; margin:1.25rem 0 0; padding:0; list-style:none}
 .trust li{font-size:.85rem; padding:.4rem .7rem; border-radius:999px; background:var(--surface); border:1px solid var(--line); color:var(--muted)}
+.trust li a{color:inherit; text-decoration:underline; text-underline-offset:2px}
+.trust li a:hover{color:var(--fg)}
 
 /* analysis strip */
 .analysis{padding:0}
@@ -615,7 +630,9 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
     <p class="note">Grain sizes are published ranges; guaranteed limits are set per contract and confirmed per lot by certificate of analysis. Rinse before use; some cloudiness on the first day is normal and settles out.</p>
     <div class="docs">
       <a href="https://www.aragocorminerals.com/resources/tds-oa-001-master-technical-data-sheet.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 2h5l3 3v9H4z"/><path d="M9 2v3h3"/></svg>Technical data sheet (PDF)</a>
+      <a href="docs/omri-certificate-avw-23214.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 2h5l3 3v9H4z"/><path d="M9 2v3h3"/></svg>OMRI Listed certificate, avw-23214 (PDF)</a>
     </div>
+    <p class="note">The OMRI listing covers this same oolitic aragonite as a calcium carbonate soil amendment for certified organic crop production. It is quoted here as independent confirmation that nothing is added to the mineral, not as an aquarium certification. Verify product code avw-23214 at OMRI.org.</p>
   </div>
 </section>
 
@@ -809,7 +826,7 @@ footer .legal{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid rgba(
       <ul class="trust">
         <li>Certificate of analysis with every lot</li>
         <li>ISO 17025 lab tested</li>
-        <li>OMRI Listed</li>
+        <li><a href="docs/omri-certificate-avw-23214.pdf" target="_blank" rel="noopener">OMRI Listed, avw-23214</a></li>
         <li>Ships from Stockton, CA</li>
       </ul>
     </form>
