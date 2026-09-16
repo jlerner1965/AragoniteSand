@@ -2,28 +2,120 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/products", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/products.html", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/grade-fine", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/grade-fine.html", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/grade-medium", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/grade-medium.html", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/grade-coarse", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/grade-coarse.html", "destination": "/grades-and-specifications", "permanent": true },
-    { "source": "/wholesale", "destination": "/packaging-and-delivery", "permanent": true },
-    { "source": "/wholesale.html", "destination": "/packaging-and-delivery", "permanent": true },
-    { "source": "/markets", "destination": "/commercial-applications", "permanent": true },
-    { "source": "/markets.html", "destination": "/commercial-applications", "permanent": true },
-    { "source": "/dealers", "destination": "/commercial-applications", "permanent": true },
-    { "source": "/dealers.html", "destination": "/commercial-applications", "permanent": true },
-    { "source": "/about", "destination": "/", "permanent": true },
-    { "source": "/about.html", "destination": "/", "permanent": true },
-    { "source": "/quote", "destination": "/request-quote", "permanent": true },
-    { "source": "/contact", "destination": "/request-quote", "permanent": true },
-    { "source": "/og.jpg", "destination": "/og-aragonite-sand.jpg", "permanent": true },
+    {
+      "source": "/products",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/products.html",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/grade-fine",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/grade-fine.html",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/grade-medium",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/grade-medium.html",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/grade-coarse",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/grade-coarse.html",
+      "destination": "/grades-and-specifications",
+      "permanent": true
+    },
+    {
+      "source": "/wholesale",
+      "destination": "/packaging-and-delivery",
+      "permanent": true
+    },
+    {
+      "source": "/wholesale.html",
+      "destination": "/packaging-and-delivery",
+      "permanent": true
+    },
+    {
+      "source": "/markets",
+      "destination": "/commercial-applications",
+      "permanent": true
+    },
+    {
+      "source": "/markets.html",
+      "destination": "/commercial-applications",
+      "permanent": true
+    },
+    {
+      "source": "/dealers",
+      "destination": "/commercial-applications",
+      "permanent": true
+    },
+    {
+      "source": "/dealers.html",
+      "destination": "/commercial-applications",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/quote",
+      "destination": "/request-quote",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/request-quote",
+      "permanent": true
+    },
+    {
+      "source": "/og.jpg",
+      "destination": "/og-aragonite-sand.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "aragonite-sand-uok7.vercel.app"
+        }
+      ],
+      "destination": "https://aragonitesand.com/",
+      "permanent": true
+    },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "aragonite-sand-uok7.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "aragonite-sand-uok7.vercel.app"
+        }
+      ],
       "destination": "https://aragonitesand.com/:path*",
       "permanent": true
     }
@@ -32,33 +124,78 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains"
+        }
       ]
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(.*)\\.vercel\\.app" }],
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+      "has": [
+        {
+          "type": "host",
+          "value": "(.*)\\.vercel\\.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/img/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
     },
     {
       "source": "/thank-you",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     },
     {
       "source": "/api/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }
