@@ -10,17 +10,17 @@ Internal document, not deployed. Nothing below that touches the production domai
 | 2 | Canonical domain confirmed: apex `https://aragonitesand.com`, `www` → apex 308 | Verified live | Done |
 | 3 | Final approved technical data: TDS-OA-001 Rev A, TDS-AG-001, TDS-WT-001 | Used as source of truth | Done |
 | 4 | Conflicting specifications reconciled (see `audit.md`) | Done | Done |
-| 5 | Grade names and particle ranges: AG-CAL 0.2–0.5 mm, WT-CAL 1–3 mm, Custom 20–325 mesh | Owner to approve that these codes are used on the sand site (instead of "Oolitic fine"/"Medium") | Open |
-| 6 | Authentic full-resolution images: grain macro, tank on sand missing; yard / bulk-bag / 50 lb bag authenticity to confirm | Owner | Open |
-| 7 | Packaging terminology approved ("bagged", "super sack", "dry bulk") | Owner | Open |
-| 8 | Bag and pallet information: intentionally omitted ("confirmed on quotation") | Owner to accept or supply approved figures | Open |
-| 9 | MOQ and lead-time language: intentionally omitted | Owner to accept or supply | Open |
+| 5 | Grade names and particle ranges: AG-CAL 0.2–0.5 mm, WT-CAL 1–3 mm, Custom 20–325 mesh | Approved by owner 16 Sep 2026 | Done |
+| 6 | Authentic images: grain macro restored and approved; yard, bulk-bag and 50 lb bag approved. Tank-on-sand photo still absent (not required for launch) | Approved by owner 16 Sep 2026 | Done |
+| 7 | Packaging terminology approved ("bagged", "super sack", "dry bulk") | Approved by owner 16 Sep 2026 | Done |
+| 8 | Bag and pallet information: intentionally omitted ("confirmed on quotation") | Approved by owner 16 Sep 2026 | Done |
+| 9 | MOQ and lead-time language: intentionally omitted | Approved by owner 16 Sep 2026 | Done |
 | 10 | Form backend connected: `api/lead.js` deployed; env vars to verify | Owner / Vercel | Open |
 | 11 | Lead recipient confirmed | Owner (runbook says Jameslerner7@gmail.com) | Open |
 | 12 | Successful test lead received | Submit from the preview once env vars are confirmed; confirm inbox receipt | Open |
 | 13 | GA4 measurement ID confirmed: `G-LKWW9913VR` | Owner to confirm it is the intended property | Open |
 | 14 | Analytics events tested: verified locally (console); verify in GA4 DebugView on the preview | Owner / QA | Partly |
-| 15 | Privacy and terms reviewed by the owner | Owner | Open |
+| 15 | Privacy and terms reviewed by the owner | Approved by owner 16 Sep 2026 | Done |
 | 16 | Domain access available (Cloudflare) | Owner | Open |
 | 17 | Production DNS change approved (none required for the domain itself; Resend records are new) | Owner | Open |
 | 18 | No unresolved critical accessibility, security or SEO defects | See `qa-results.md` | See QA |

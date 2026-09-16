@@ -105,6 +105,13 @@ Status values: **Approved** (verbatim or directly derived from a controlled docu
 | "OMRI Certified" / "Certified organic" | — | — | **Prohibited** (OMRI lists inputs; it does not certify) |
 | Earlier data file code avw-23215 | — | Superseded | **Prohibited** — wrong code |
 
+## Imagery
+
+| Image | Status |
+|---|---|
+| Grain macro (`aragonite-grains-macro`), yard bulk bags, palletized bulk bag, printed 50 lb bag, stockpile | Approved as authentic by the owner, 16 Sep 2026 |
+| Reef bag mockup, rendered reef tank, design-system stock (ocean, lab, macro render) | Prohibited |
+
 ## Company facts
 
 | Claim | Source | Status |

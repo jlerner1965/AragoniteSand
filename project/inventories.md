@@ -69,7 +69,8 @@ Headers: `X-Robots-Tag: noindex, nofollow` on any `*.vercel.app` host and on `/t
 |---|---|---|---|
 | `img/aragonite-stockpile-{640,1024,1600}.{avif,webp,jpg}` | `src/images/stockpile-original.jpg` (repo, launch build) | Home hero (decorative, `alt=""`, preloaded) | — |
 | `og-aragonite-sand.jpg` (1200×630) | crop of the stockpile | Open Graph / Twitter on every page | "Stockpile of white oolitic aragonite sand under a clear sky" |
-| `img/aragocor-bulk-bag-pallet-{480,760}.{avif,webp,jpg}` | `src/images/super-sack-pallet-original.jpg` (owner commit `7790c45`) | Home "What is aragonite sand", Packaging | "AragoCor Minerals branded bulk bag with blue lift loops standing on a wooden pallet" |
+| `img/aragonite-grains-macro-{640,1200}.{avif,webp,jpg}` | `src/images/aragonite-grains-macro-original.jpg` (owner commit `7790c45`; authenticity approved by owner 16 Sep 2026) | Home "What is aragonite sand", Grades | "Close-up of rounded, off-white oolitic aragonite sand grains" |
+| `img/aragocor-bulk-bag-pallet-{480,760}.{avif,webp,jpg}` | `src/images/super-sack-pallet-original.jpg` (owner commit `7790c45`) | Packaging | "AragoCor Minerals branded bulk bag with blue lift loops standing on a wooden pallet" |
 | `img/bulk-bags-stockton-yard-{640,1024,1500}.{avif,webp,jpg}` | `src/images/bulk-inventory-yard-original.jpg` (owner commit `7790c45`) | Home supply section, Packaging | "Rows of filled white bulk bags of aragonite staged in an outdoor yard" |
 | `img/aragocor-50lb-bag-430.{avif,webp,jpg}` | `src/images/aragocor-50lb-bag-original.webp` (branch `claude/new-session-l39yb9`, `assets/photos/pack-50lb-front.webp`, AragoCor-supplied) | Packaging | "AragoCor Minerals 50 pound bag of aragonite calcium carbonate, front of bag" |
 | `img/aragocor-minerals-logo.png` | repo | Footer, Home | "AragoCor Minerals" |
@@ -81,11 +82,11 @@ All raster images carry `width`/`height`, `loading="lazy"` below the fold, `deco
 
 | Asset | Why | Interim handling |
 |---|---|---|
-| Genuine macro photograph of the grains (ideally each grade with a millimetre scale) | Brief requires a real grain close-up; the earlier one was captioned as illustrative and removed | Not shown. `img/grains-closeup.jpg` in commit `7790c45` can be restored if the owner confirms it is a photograph. |
+| Per-grade macro photographs with a millimetre scale (AG-CAL and WT-CAL) | Would let buyers compare the two grades visually | The natural-gradation macro is used; per-grade shots remain a nice-to-have. |
 | Genuine aquarium or aquaculture tank on the material | Earlier image was a render | Not shown. |
-| Confirmation that `bulk-inventory-yard` and `super-sack-pallet` are photographs of AragoCor operations/packaging | Same commit contained two illustrations | Used with neutral captions; flagged. |
-| Confirmation of which printed 50 lb bag ships for sand orders | The reef-claims bag is an unprinted mockup; the agricultural bag is the printed one | Printed bag shown once on the packaging page. |
 | Stockpile location (Bahamas vs. Stockton) | Caption accuracy | Captions do not name a location. |
+
+Owner approval on 16 Sep 2026 covered: the grain macro, yard and bulk-bag images as photographs; the printed 50 lb bag as the current bag; grade codes; packaging terminology; omission of MOQ, lead time and pallet figures; privacy and terms wording.
 
 ## 6. Form field map (`/request-quote` → `POST /api/lead`)
 
