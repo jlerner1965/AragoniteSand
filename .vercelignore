@@ -1,0 +1,8 @@
+# Source, tooling and internal documentation are not deployed.
+src/
+tools/
+project/
+print/
+README.md
+LAUNCH.md
+.gitignore

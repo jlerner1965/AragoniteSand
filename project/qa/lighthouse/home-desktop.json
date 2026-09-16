@@ -1,0 +1,17 @@
+{
+ "url": "http://localhost:8080/",
+ "fetchTime": "2026-09-16T04:34:56.151Z",
+ "formFactor": "desktop",
+ "categories": {
+  "performance": 100,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 100
+ },
+ "metrics": {
+  "lcp": "0.6 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "fcp": "0.3 s"
+ }
+}

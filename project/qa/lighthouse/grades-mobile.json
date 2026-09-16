@@ -1,0 +1,17 @@
+{
+ "url": "http://localhost:8080/grades-and-specifications",
+ "fetchTime": "2026-09-16T04:34:31.482Z",
+ "formFactor": "mobile",
+ "categories": {
+  "performance": 98,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 100
+ },
+ "metrics": {
+  "lcp": "2.4 s",
+  "cls": "0",
+  "tbt": "20 ms",
+  "fcp": "1.4 s"
+ }
+}
