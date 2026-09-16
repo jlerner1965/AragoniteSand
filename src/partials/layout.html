@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta name="robots" content="{{robots}}">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#0E3540">
+<meta property="og:type" content="{{og_type}}">
+<meta property="og:site_name" content="{{site.brand}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{og_image}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Stockpile of white oolitic aragonite sand under a clear sky">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="twitter:image" content="{{og_image}}">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/source-serif-4-normal-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/source-sans-3-normal-latin.woff2" crossorigin>
+<link rel="stylesheet" href="{{css}}">
+{{#if preload_image}}<link rel="preload" as="image" href="{{preload_image}}" imagesrcset="{{preload_srcset}}" imagesizes="100vw" type="image/avif">{{/if}}
+{{#if schema}}<script type="application/ld+json">{{{schema}}}</script>{{/if}}
+{{#if breadcrumb}}<script type="application/ld+json">{{{breadcrumb.ld}}}</script>{{/if}}
+</head>
+<body data-form-version="{{site.form_version}}">
+<a class="skip" href="#main">Skip to content</a>
+{{> header}}
+<main id="main">
+{{#if breadcrumb}}<div class="wrap">{{{breadcrumb.html}}}</div>{{/if}}
+{{{body}}}
+</main>
+{{> footer}}
+<script>window.AS={ga:'{{site.ga_id}}',host:location.hostname,v:'{{site.form_version}}'};</script>
+<script src="{{js}}" defer></script>
+</body>
+</html>

@@ -1,0 +1,1079 @@
+{
+ "report": [
+  {
+   "width": 320,
+   "path": "/",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand | Commercial Grades and Bulk Supply",
+   "canonical": "https://aragonitesand.com/",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 176,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-bulk-bag-pallet-760.jpg",
+    "http://localhost:8080/img/bulk-bags-stockton-yard-1024.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": true
+  },
+  {
+   "width": 320,
+   "path": "/grades-and-specifications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Grades & Specifications | Particle Size, Chemistry, Documents",
+   "canonical": "https://aragonitesand.com/grades-and-specifications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 185,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/aquarium-and-aquaculture",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand for Aquarium & Aquaculture Supply | AragoCor",
+   "canonical": "https://aragonitesand.com/aquarium-and-aquaculture",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 184,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/commercial-applications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Commercial Applications for Aragonite Sand | Media, Blending, Turf, Manufacturing",
+   "canonical": "https://aragonitesand.com/commercial-applications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 237,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/packaging-and-delivery",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Packaging & Delivery | Bags, Super Sacks, Bulk from Stockton, CA",
+   "canonical": "https://aragonitesand.com/packaging-and-delivery",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 228,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-50lb-bag-430.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/request-quote",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request a Quote | Aragonite Sand Commercial Supply",
+   "canonical": "https://aragonitesand.com/request-quote",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 175,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/thank-you",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request Received | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/thank-you",
+   "robots": "noindex, nofollow",
+   "desc": 52,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/privacy",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Privacy Notice | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/privacy",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 113,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/terms",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Terms of Use | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/terms",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 98,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 320,
+   "path": "/does-not-exist",
+   "status": 404,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Page Not Found | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/404",
+   "robots": "noindex, follow",
+   "desc": 59,
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand | Commercial Grades and Bulk Supply",
+   "canonical": "https://aragonitesand.com/",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 176,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/bulk-bags-stockton-yard-1024.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": true
+  },
+  {
+   "width": 375,
+   "path": "/grades-and-specifications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Grades & Specifications | Particle Size, Chemistry, Documents",
+   "canonical": "https://aragonitesand.com/grades-and-specifications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 185,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/aquarium-and-aquaculture",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand for Aquarium & Aquaculture Supply | AragoCor",
+   "canonical": "https://aragonitesand.com/aquarium-and-aquaculture",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 184,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/commercial-applications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Commercial Applications for Aragonite Sand | Media, Blending, Turf, Manufacturing",
+   "canonical": "https://aragonitesand.com/commercial-applications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 237,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/packaging-and-delivery",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Packaging & Delivery | Bags, Super Sacks, Bulk from Stockton, CA",
+   "canonical": "https://aragonitesand.com/packaging-and-delivery",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 228,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/request-quote",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request a Quote | Aragonite Sand Commercial Supply",
+   "canonical": "https://aragonitesand.com/request-quote",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 175,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/thank-you",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request Received | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/thank-you",
+   "robots": "noindex, nofollow",
+   "desc": 52,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/privacy",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Privacy Notice | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/privacy",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 113,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/terms",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Terms of Use | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/terms",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 98,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 375,
+   "path": "/does-not-exist",
+   "status": 404,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Page Not Found | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/404",
+   "robots": "noindex, follow",
+   "desc": 59,
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand | Commercial Grades and Bulk Supply",
+   "canonical": "https://aragonitesand.com/",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 176,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/bulk-bags-stockton-yard-1024.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": true
+  },
+  {
+   "width": 768,
+   "path": "/grades-and-specifications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Grades & Specifications | Particle Size, Chemistry, Documents",
+   "canonical": "https://aragonitesand.com/grades-and-specifications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 185,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/aquarium-and-aquaculture",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand for Aquarium & Aquaculture Supply | AragoCor",
+   "canonical": "https://aragonitesand.com/aquarium-and-aquaculture",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 184,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/commercial-applications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Commercial Applications for Aragonite Sand | Media, Blending, Turf, Manufacturing",
+   "canonical": "https://aragonitesand.com/commercial-applications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 237,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/packaging-and-delivery",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Packaging & Delivery | Bags, Super Sacks, Bulk from Stockton, CA",
+   "canonical": "https://aragonitesand.com/packaging-and-delivery",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 228,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/request-quote",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request a Quote | Aragonite Sand Commercial Supply",
+   "canonical": "https://aragonitesand.com/request-quote",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 175,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/thank-you",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request Received | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/thank-you",
+   "robots": "noindex, nofollow",
+   "desc": 52,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/privacy",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Privacy Notice | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/privacy",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 113,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/terms",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Terms of Use | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/terms",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 98,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 768,
+   "path": "/does-not-exist",
+   "status": 404,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Page Not Found | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/404",
+   "robots": "noindex, follow",
+   "desc": 59,
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand | Commercial Grades and Bulk Supply",
+   "canonical": "https://aragonitesand.com/",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 176,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/bulk-bags-stockton-yard-1024.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/grades-and-specifications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Grades & Specifications | Particle Size, Chemistry, Documents",
+   "canonical": "https://aragonitesand.com/grades-and-specifications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 185,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/aquarium-and-aquaculture",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand for Aquarium & Aquaculture Supply | AragoCor",
+   "canonical": "https://aragonitesand.com/aquarium-and-aquaculture",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 184,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/commercial-applications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Commercial Applications for Aragonite Sand | Media, Blending, Turf, Manufacturing",
+   "canonical": "https://aragonitesand.com/commercial-applications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 237,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/packaging-and-delivery",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Packaging & Delivery | Bags, Super Sacks, Bulk from Stockton, CA",
+   "canonical": "https://aragonitesand.com/packaging-and-delivery",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 228,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/request-quote",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request a Quote | Aragonite Sand Commercial Supply",
+   "canonical": "https://aragonitesand.com/request-quote",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 175,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/thank-you",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request Received | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/thank-you",
+   "robots": "noindex, nofollow",
+   "desc": 52,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/privacy",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Privacy Notice | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/privacy",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 113,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/terms",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Terms of Use | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/terms",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 98,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1024,
+   "path": "/does-not-exist",
+   "status": 404,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Page Not Found | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/404",
+   "robots": "noindex, follow",
+   "desc": 59,
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand | Commercial Grades and Bulk Supply",
+   "canonical": "https://aragonitesand.com/",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 176,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/bulk-bags-stockton-yard-1024.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/grades-and-specifications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Grades & Specifications | Particle Size, Chemistry, Documents",
+   "canonical": "https://aragonitesand.com/grades-and-specifications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 185,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/aquarium-and-aquaculture",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand for Aquarium & Aquaculture Supply | AragoCor",
+   "canonical": "https://aragonitesand.com/aquarium-and-aquaculture",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 184,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/commercial-applications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Commercial Applications for Aragonite Sand | Media, Blending, Turf, Manufacturing",
+   "canonical": "https://aragonitesand.com/commercial-applications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 237,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/packaging-and-delivery",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Packaging & Delivery | Bags, Super Sacks, Bulk from Stockton, CA",
+   "canonical": "https://aragonitesand.com/packaging-and-delivery",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 228,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/request-quote",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request a Quote | Aragonite Sand Commercial Supply",
+   "canonical": "https://aragonitesand.com/request-quote",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 175,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/thank-you",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request Received | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/thank-you",
+   "robots": "noindex, nofollow",
+   "desc": 52,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/privacy",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Privacy Notice | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/privacy",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 113,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/terms",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Terms of Use | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/terms",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 98,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1440,
+   "path": "/does-not-exist",
+   "status": 404,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Page Not Found | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/404",
+   "robots": "noindex, follow",
+   "desc": 59,
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand | Commercial Grades and Bulk Supply",
+   "canonical": "https://aragonitesand.com/",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 176,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/bulk-bags-stockton-yard-1024.jpg",
+    "http://localhost:8080/img/aragocor-minerals-logo.png",
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/grades-and-specifications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Grades & Specifications | Particle Size, Chemistry, Documents",
+   "canonical": "https://aragonitesand.com/grades-and-specifications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 185,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/aquarium-and-aquaculture",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand for Aquarium & Aquaculture Supply | AragoCor",
+   "canonical": "https://aragonitesand.com/aquarium-and-aquaculture",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 184,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/commercial-applications",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Commercial Applications for Aragonite Sand | Media, Blending, Turf, Manufacturing",
+   "canonical": "https://aragonitesand.com/commercial-applications",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 237,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/packaging-and-delivery",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Aragonite Sand Packaging & Delivery | Bags, Super Sacks, Bulk from Stockton, CA",
+   "canonical": "https://aragonitesand.com/packaging-and-delivery",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 228,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/request-quote",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request a Quote | Aragonite Sand Commercial Supply",
+   "canonical": "https://aragonitesand.com/request-quote",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 175,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/thank-you",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Request Received | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/thank-you",
+   "robots": "noindex, nofollow",
+   "desc": 52,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/privacy",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Privacy Notice | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/privacy",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 113,
+   "errors": [],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/terms",
+   "status": 200,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Terms of Use | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/terms",
+   "robots": "index, follow, max-image-preview:large",
+   "desc": 98,
+   "errors": [],
+   "badImgs": [
+    "http://localhost:8080/img/aragocor-minerals-logo.png"
+   ],
+   "menuOk": null
+  },
+  {
+   "width": 1920,
+   "path": "/does-not-exist",
+   "status": 404,
+   "overflow": 0,
+   "h1": 1,
+   "title": "Page Not Found | Aragonite Sand",
+   "canonical": "https://aragonitesand.com/404",
+   "robots": "noindex, follow",
+   "desc": 59,
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "badImgs": [],
+   "menuOk": null
+  },
+  {
+   "keyboard": [
+    "A.skip Skip to content | outline:solid 3px",
+    "A.brand AragoCorAragonite Sand | outline:solid 3px",
+    "A Grades & Specifications | outline:solid 3px",
+    "A Aquarium & Aquaculture | outline:solid 3px",
+    "A Commercial Applications | outline:solid 3px",
+    "A Packaging & Delivery | outline:solid 3px",
+    "A.btn Request a Quote | outline:solid 3px",
+    "A.btn Request a Quote | outline:solid 3px",
+    "A.btn View Grades & Specifications | outline:solid 3px",
+    "A.link-arrow Grades, chemistry and physical | outline:solid 3px",
+    "A.card Substrate and mediaAquarium &  | outline:solid 3px",
+    "A.card Other commercial usesCommercia | outline:solid 3px"
+   ]
+  },
+  {
+   "formTest": {
+    "pre": {
+     "grade": "WT-CAL",
+     "sample": "Yes",
+     "utm": "test",
+     "landing": true
+    },
+    "invalidCount": 12,
+    "statusText": "Please check the highlighted fields.First name is required.Last name is required",
+    "focusedAfterError": "form-status",
+    "stillInvalidBeforeResubmit": 0,
+    "afterUrl": "http://localhost:8080/thank-you",
+    "statusAfter": "",
+    "fallbackShown": 0,
+    "events": [
+     "[event] quote_start {site_hostname: localhost, site_environment: preview, page_path: /request-quote, placement: form}",
+     "[event] quote_error {site_hostname: localhost, site_environment: preview, page_path: /request-quote, error_type: validation, field: first_name}",
+     "[event] quote_submit {site_hostname: localhost, site_environment: preview, page_path: /request-quote, buyer_type: Aquarium-product distributor or brand, application: Aquarium substrate or media}",
+     "[event] quote_success {site_hostname: localhost, site_environment: preview, page_path: /request-quote, buyer_type: Aquarium-product distributor or brand, application: Aquarium substrate or media}",
+     "[event] sample_request {site_hostname: localhost, site_environment: preview, page_path: /request-quote, application: Aquarium substrate or media}"
+    ]
+   }
+  }
+ ],
+ "brokenLinks": [
+  "http://localhost:8080/does-not-exist -> 404"
+ ],
+ "checked": [
+  [
+   "http://localhost:8080/",
+   200
+  ],
+  [
+   "http://localhost:8080/grades-and-specifications",
+   200
+  ],
+  [
+   "http://localhost:8080/aquarium-and-aquaculture",
+   200
+  ],
+  [
+   "http://localhost:8080/commercial-applications",
+   200
+  ],
+  [
+   "http://localhost:8080/packaging-and-delivery",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?intent=details",
+   200
+  ],
+  [
+   "http://localhost:8080/privacy",
+   200
+  ],
+  [
+   "http://localhost:8080/terms",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?grade=AG-CAL",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?grade=WT-CAL",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?grade=Custom",
+   200
+  ],
+  [
+   "http://localhost:8080/docs/omri-certificate-avw-23214.pdf",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?intent=sample",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?intent=sample&application=Aquarium%20substrate%20or%20media",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?intent=details&application=Aquarium%20substrate%20or%20media",
+   200
+  ],
+  [
+   "http://localhost:8080/request-quote?application=Aquarium%20substrate%20or%20media",
+   200
+  ],
+  [
+   "http://localhost:8080/thank-you",
+   200
+  ],
+  [
+   "http://localhost:8080/does-not-exist",
+   404
+  ]
+ ]
+}

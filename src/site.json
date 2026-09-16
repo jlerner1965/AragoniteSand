@@ -1,0 +1,27 @@
+{
+  "url": "https://aragonitesand.com",
+  "name": "Aragonite Sand",
+  "brand": "AragoCor Aragonite Sand",
+  "company": "AragoCor Minerals LLC",
+  "parent_url": "https://www.aragocorminerals.com",
+  "address": "2453 Grand Canal Blvd, Suite 200, Stockton, CA 95207",
+  "phone_display": "+1 (209) 487-0110",
+  "phone_tel": "+12094870110",
+  "email": "info@aragocorminerals.com",
+  "ga_id": "G-LKWW9913VR",
+  "og_image": "/og-aragonite-sand.jpg",
+  "lastmod": "2026-09-16",
+  "form_version": "2026-09-16.1",
+  "tds_url": "https://www.aragocorminerals.com/resources/tds-oa-001-master-technical-data-sheet.pdf",
+  "tds_ag_url": "https://www.aragocorminerals.com/resources/tds-ag-001-ag-cal-agricultural-calcium.pdf",
+  "tds_wt_url": "https://www.aragocorminerals.com/resources/tds-wt-001-wt-cal-water-treatment-and-alkalinity-media.pdf",
+  "brief_url": "https://www.aragocorminerals.com/resources/aragonite-vs-limestone-technical-brief.pdf",
+  "resources_url": "https://www.aragocorminerals.com/resources",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "Grades & Specifications", "href": "/grades-and-specifications" },
+    { "label": "Aquarium & Aquaculture", "href": "/aquarium-and-aquaculture" },
+    { "label": "Commercial Applications", "href": "/commercial-applications" },
+    { "label": "Packaging & Delivery", "href": "/packaging-and-delivery" }
+  ]
+}
